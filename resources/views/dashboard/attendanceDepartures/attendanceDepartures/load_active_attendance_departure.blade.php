@@ -76,6 +76,7 @@
         <i class="fas fa-print fa-lg ml-1"></i> طباعه
     </a>
 @endcan
+
 @if (isset($other['data']) && $other['data']->isNotEmpty())
     <div class="table-container">
         <table class="table table-bordered table-striped table-hover">

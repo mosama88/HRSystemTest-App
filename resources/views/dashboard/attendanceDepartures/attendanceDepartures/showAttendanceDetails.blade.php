@@ -80,10 +80,19 @@
                                 </button>
                             @endcan
 
+
+
+
                         </div>
 
                     </div>
                 </div>
+                <div class="col-4">
+                    <a class="modal-effect btn btn-primary" data-effect="effect-super-scaled" data-toggle="modal"
+                        href="#modaldemo8"> <i class="fas fa-info-circle fa-lg ml-1"></i> تفاصيل الموظف</a>
+                    @include('dashboard.attendanceDepartures.attendanceDepartures.employeeDetails')
+                </div>
+
                 <div class="card-body">
                     <input type="hidden" id="the_finance_cln_periods_id" value="{{ $finance_cln_periods_data['id'] }}">
                     <input type="hidden" id="the_employee_code" value="{{ $employee_data['employee_code'] }}">
@@ -383,6 +392,12 @@
         });
 
         $('.load_my_actionsStatic').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: false // عدم فتح المودال تلقائيًا
+        });
+
+        $('.EmployeeDetails').modal({
             backdrop: 'static',
             keyboard: false,
             show: false // عدم فتح المودال تلقائيًا
