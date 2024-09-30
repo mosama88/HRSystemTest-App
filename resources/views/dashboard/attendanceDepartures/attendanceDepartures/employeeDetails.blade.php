@@ -51,38 +51,40 @@
                             </td>
                             <td>
 
+                                @if (!empty($employee_data->shiftTypes->type) && isset($employee_data->shiftTypes->type))
+                                    @if ($employee_data->shiftTypes->type == 1)
+                                        صباحى
+                                    @elseif ($employee_data->shiftTypes->type == 2)
+                                        مسائى
+                                    @elseif($employee_data->shiftTypes->type == 3)
+                                        يوم كامل
+                                    @else
+                                        لا يوجد له شفت ثابت
+                                    @endif
 
-                                @if ($employee_data->shiftTypes->type == 1)
-                                    صباحى
-                                @elseif ($employee_data->shiftTypes->type == 2)
-                                    مسائى
-                                @elseif($employee_data->shiftTypes->type == 3)
-                                    يوم كامل
+                                    @php
+                                        // تحويل from_time و to_time إلى كائنات Carbon
+                                        $fromTime = \Carbon\Carbon::parse($employee_data->shiftTypes->from_time);
+                                        $toTime = \Carbon\Carbon::parse($employee_data->shiftTypes->to_time);
+
+                                        // تنسيق الوقت بنظام 12 ساعة مع AM/PM
+                                        $formattedFromTime = $fromTime->format('g:i A'); // تنسيق 12 ساعة
+                                        $formattedToTime = $toTime->format('g:i A');
+
+                                        // تحويل AM/PM إلى النص العربي (صباحًا/مساءً)
+                                        $formattedFromTimeArabic = $fromTime->format('A') == 'AM' ? 'صباحًا' : 'مساءً';
+                                        $formattedToTimeArabic = $toTime->format('A') == 'AM' ? 'صباحًا' : 'مساءً';
+                                    @endphp
+
+                                    <!-- عرض التوقيت بنظام 12 ساعة مع النص العربي -->
+                                    {{ $fromTime->format('g:i') }}
+                                    {{ $formattedFromTimeArabic }} إلى
+                                    {{ $toTime->format('g:i') }}
+                                    {{ $formattedToTimeArabic }} عدد ساعات العمل
+                                    {{ $employee_data->shiftTypes->total_hours }} ساعة
                                 @else
                                     لا يوجد له شفت ثابت
                                 @endif
-
-                                @php
-                                    // تحويل from_time و to_time إلى كائنات Carbon
-                                    $fromTime = \Carbon\Carbon::parse($employee_data->shiftTypes->from_time);
-                                    $toTime = \Carbon\Carbon::parse($employee_data->shiftTypes->to_time);
-
-                                    // تنسيق الوقت بنظام 12 ساعة مع AM/PM
-                                    $formattedFromTime = $fromTime->format('g:i A'); // تنسيق 12 ساعة
-                                    $formattedToTime = $toTime->format('g:i A');
-
-                                    // تحويل AM/PM إلى النص العربي (صباحًا/مساءً)
-                                    $formattedFromTimeArabic = $fromTime->format('A') == 'AM' ? 'صباحًا' : 'مساءً';
-                                    $formattedToTimeArabic = $toTime->format('A') == 'AM' ? 'صباحًا' : 'مساءً';
-                                @endphp
-
-                                <!-- عرض التوقيت بنظام 12 ساعة مع النص العربي -->
-                                {{ $fromTime->format('g:i') }}
-                                {{ $formattedFromTimeArabic }} إلى
-                                {{ $toTime->format('g:i') }}
-                                {{ $formattedToTimeArabic }} عدد ساعات العمل
-                                {{ $employee_data->shiftTypes->total_hours }} ساعة
-
                             </td>
                             <td>{{ $employee_data['daily_work_hour'] }}</td>
                             <td>{{ $employee_data['num_vacation_days'] }}</td>
