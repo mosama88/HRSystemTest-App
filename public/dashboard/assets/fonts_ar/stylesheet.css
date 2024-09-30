@@ -1,0 +1,51 @@
+
+/*@font-face {
+font-family: 'BKoodakBold';
+src: url('../../assets/fonts_ar/BKoodakBold.eot') format('eot'),
+url('../../assets/fonts_ar/BKoodakBold.ttf') format('truetype'),
+url('../../assets/fonts_ar/BKoodakBold.woff') format('woff');
+}*/
+/*@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);*/
+/*.droid-arabic-kufi{font-family: 'Droid Arabic Kufi', serif;}*/
+
+
+
+@font-face {
+    font-family: 'diavlo_mediumregular';
+    src: url('diavlo_medium_ii_37_1-webfont.eot');
+    src: url('diavlo_medium_ii_37_1-webfont.eot?#iefix') format('embedded-opentype'),
+         url('diavlo_medium_ii_37_1-webfont.woff') format('woff'),
+         url('diavlo_medium_ii_37_1-webfont.ttf') format('truetype'),
+         url('diavlo_medium_ii_37_1-webfont.svg#diavlo_mediumregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+  @font-face
+{
+    font-family: NeoSansArabic;
+    src: url('../../assets/fonts_ar/NeoSansArabic.eot');
+    src: url('../../assets/fonts_ar/NeoSansArabic.eot?#iefix') format('embedded-opentype'), url('../../assets/fonts_ar/NeoSansArabic.woff') format('woff'), url('../../assets/fonts_ar/NeoSansArabic.ttf') format('truetype'), url('../../assets/fonts_ar/NeoSansArabic.svg#NeoSansArabic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face
+{
+    font-family: DroidKufi-Regular;
+    src: url('../../assets/fonts_ar/DroidKufi-Regular.eot');
+    src: url('../../assets/fonts_ar/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'), url('../../assets/fonts_ar/DroidKufi-Regular.woff') format('woff'), url('../../assets/fonts_ar/DroidKufi-Regular.ttf') format('truetype'), url('../../assets/fonts_ar/DroidKufi-Regular.svg#diavlo_medium_ii_37_1-webfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: ge-ss-med;
+    src: url('../../assets/fonts_ar/ge-ss-med.eot');
+    src: url('../../assets/fonts_ar/ge-ss-med.eot?#iefix') format('embedded-opentype'), url('../../assets/fonts_ar/ge-ss-med.woff') format('woff'), url('../../assets/fonts_ar/ge-ss-med.ttf') format('truetype'), url('../../assets/fonts_ar/ge-ss-med.svg#ge-ss-med') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+

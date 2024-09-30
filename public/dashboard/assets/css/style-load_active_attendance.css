@@ -1,0 +1,78 @@
+.table-hover tbody tr:hover {
+    background-color: #3d7fc5;
+    /* لون primary */
+    color: white;
+    /* لون النص عند hover */
+}
+
+.notes {
+    width: 50%;
+    padding: 15px;
+    background-color: #173e68;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    /* Shadow added */
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.notes {
+    width: 50%;
+    padding: 15px;
+    background-color: #173e68;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* شاشات الهواتف المحمولة */
+@media (max-width: 600px) {
+    .notes {
+        width: 90%;
+        /* تقليل العرض على الهواتف المحمولة */
+        font-size: 14px;
+        /* تصغير حجم الخط */
+    }
+}
+
+/* شاشات الأجهزة اللوحية */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .notes {
+        width: 70%;
+        /* عرض مناسب للأجهزة اللوحية */
+    }
+}
+
+/* شاشات أجهزة الكمبيوتر المكتبية */
+@media (min-width: 1025px) {
+    .notes {
+        width: 50%;
+        /* العرض على شاشات الكمبيوتر المكتبية */
+    }
+}
+
+
+
+.notes strong {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+
+
+.table-hover tbody tr:hover {
+    background-color: #3d7fc5;
+    /* لون primary */
+    color: white;
+    /* لون النص عند hover */
+}
