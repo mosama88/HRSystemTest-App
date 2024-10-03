@@ -72,6 +72,8 @@ class EmployeeSalaryPermanentLoansController extends Controller
                         'total' => $request->total,    //أجمالى القرض أو السلفه
                         'month_number_installment' => $request->month_number_installment,   //	عدد الشهور للأقساط
                         'month_installment_value' => $request->month_installment_value,   //قيمة القسط الشهرى
+                        'installment_paid' => 0,   //قيمة القسط المدفوع
+                        'installment_remain' => $request->total,   //قيمة القسط المتبقى
                         'year_month_start_date' => $request->year_month_start_date,  //يبدأ سداد أول قسط بتاريخ
                         'year_month_start' => date('Y-m', strtotime($request->year_month_start_date)),  //	يبدأ السداد من الشهر المالى
                         'notes' => $request->notes,
