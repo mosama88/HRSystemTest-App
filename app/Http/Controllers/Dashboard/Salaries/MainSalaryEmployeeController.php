@@ -123,7 +123,7 @@ class MainSalaryEmployeeController extends Controller
         $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
 
-        $employees = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price","fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
+        $employees = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price", "fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
         $other['not_have'] = 0;
 
         if ($finance_cln_periods_data['is_open'] == 1 && !empty($employees)) {
@@ -355,7 +355,7 @@ class MainSalaryEmployeeController extends Controller
 
     public function print_search(Request $request)
     {
-        try{
+        try {
             DB::beginTransaction();
             $com_code = auth()->user()->com_code;
 
@@ -454,7 +454,7 @@ class MainSalaryEmployeeController extends Controller
                 ->where($field6, $operator6, $value6)
                 ->where($field7, $operator7, $value7)
                 ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
-                if($request->submit_button!="in_details" and $request->submit_button!="in_total"){
+            if ($request->submit_button != "in_details" and $request->submit_button != "in_total") {
 
                 $total['salary_employee'] = 0;
                 $total['day_price'] = 0;
@@ -477,47 +477,45 @@ class MainSalaryEmployeeController extends Controller
                 $total['total_deductions'] = 0;
                 $total['last_salary_remain_balance'] = 0;
                 $total['net_salary'] = 0;
+            }
 
+
+
+            if (!empty($data)) {
+                foreach ($data as $mainSalaryEmployee_data) {
+                    $mainSalaryEmployee_data->employee_name = Employee::where("com_code", $com_code)
+                        ->where("employee_code", $mainSalaryEmployee_data['employee_code'])
+                        ->value('name');
+                    $mainSalaryEmployee_data->gender = Employee::select("gender")->where("com_code", $com_code)->where("gender", $mainSalaryEmployee_data['gender']);
+                    $mainSalaryEmployee_data->employee_department_code = Employee::select("department_id")->where("com_code", $com_code)->where("department_id", $mainSalaryEmployee_data['employee_department_code']);
+                    $mainSalaryEmployee_data->job_categories_id = Employee::select("job_categories_id")->where("com_code", $com_code)->where("job_categories_id", $mainSalaryEmployee_data['employee_jobs_id']);
+                    $mainSalaryEmployee_data->branch_id = Employee::select("branch_id")->where("com_code", $com_code)->where("branch_id", $mainSalaryEmployee_data['branch_id']);
+
+                    if ($request->submit_button != "in_details" and $request->submit_button != "in_total") {
+                        $total['salary_employee'] += $mainSalaryEmployee_data->salary_employee;
+                        $total['day_price'] += $mainSalaryEmployee_data->day_price;
+                        $total['total_rewards_salary'] += $mainSalaryEmployee_data->total_rewards_salary;
+                        $total['motivation'] += $mainSalaryEmployee_data->motivation;
+                        $total['additional_days_counter'] += $mainSalaryEmployee_data->additional_days_counter;
+                        $total['additional_days_total'] += $mainSalaryEmployee_data->additional_days_total;
+                        $total['fixed_allowances'] += $mainSalaryEmployee_data->fixed_allowances;
+                        $total['changeable_allowance'] += $mainSalaryEmployee_data->changeable_allowance;
+                        $total['total_benefits'] += $mainSalaryEmployee_data->total_benefits;
+                        $total['absence_days_counter'] += $mainSalaryEmployee_data->absence_days_counter;
+                        $total['absence_days_total'] += $mainSalaryEmployee_data->absence_days_total;
+                        $total['sanctions_days_counter'] += $mainSalaryEmployee_data->sanctions_days_counter;
+                        $total['sanctions_days_total'] += $mainSalaryEmployee_data->sanctions_days_total;
+                        $total['monthly_loan'] += $mainSalaryEmployee_data->monthly_loan;
+                        $total['permanent_loan'] += $mainSalaryEmployee_data->permanent_loan;
+                        $total['discount'] += $mainSalaryEmployee_data->discount;
+                        $total['medical_insurance_monthly'] += $mainSalaryEmployee_data->medical_insurance_monthly;
+                        $total['medical_social_monthly'] += $mainSalaryEmployee_data->medical_social_monthly;
+                        $total['total_deductions'] += $mainSalaryEmployee_data->total_deductions;
+                        $total['last_salary_remain_balance'] += $mainSalaryEmployee_data->last_salary_remain_balance;
+                        $total['net_salary'] += $mainSalaryEmployee_data->net_salary;
+                    }
                 }
-
-
-
-if(!empty($data)){
-    foreach($data as $mainSalaryEmployee_data){
-        $mainSalaryEmployee_data->employee_name = Employee::where("com_code", $com_code)
-        ->where("employee_code", $mainSalaryEmployee_data['employee_code'])
-        ->value('name');
-            $mainSalaryEmployee_data->gender = Employee::select("gender")->where("com_code", $com_code)->where("gender", $mainSalaryEmployee_data['gender']);
-        $mainSalaryEmployee_data->employee_department_code = Employee::select("department_id")->where("com_code", $com_code)->where("department_id", $mainSalaryEmployee_data['employee_department_code']);
-        $mainSalaryEmployee_data->job_categories_id = Employee::select("job_categories_id")->where("com_code", $com_code)->where("job_categories_id", $mainSalaryEmployee_data['employee_jobs_id']);
-        $mainSalaryEmployee_data->branch_id = Employee::select("branch_id")->where("com_code", $com_code)->where("branch_id", $mainSalaryEmployee_data['branch_id']);
-
-        if($request->submit_button!="in_details" and $request->submit_button!="in_total"){
-            $total['salary_employee'] += $mainSalaryEmployee_data->salary_employee;
-            $total['day_price'] += $mainSalaryEmployee_data->day_price;
-            $total['total_rewards_salary'] += $mainSalaryEmployee_data->total_rewards_salary;
-            $total['motivation'] += $mainSalaryEmployee_data->motivation;
-            $total['additional_days_counter'] += $mainSalaryEmployee_data->additional_days_counter;
-            $total['additional_days_total'] += $mainSalaryEmployee_data->additional_days_total;
-            $total['fixed_allowances'] += $mainSalaryEmployee_data->fixed_allowances;
-            $total['changeable_allowance'] += $mainSalaryEmployee_data->changeable_allowance;
-            $total['total_benefits'] += $mainSalaryEmployee_data->total_benefits;
-            $total['absence_days_counter'] += $mainSalaryEmployee_data->absence_days_counter;
-            $total['absence_days_total'] += $mainSalaryEmployee_data->absence_days_total;
-            $total['sanctions_days_counter'] += $mainSalaryEmployee_data->sanctions_days_counter;
-            $total['sanctions_days_total'] += $mainSalaryEmployee_data->sanctions_days_total;
-            $total['monthly_loan'] += $mainSalaryEmployee_data->monthly_loan;
-            $total['permanent_loan'] += $mainSalaryEmployee_data->permanent_loan;
-            $total['discount'] += $mainSalaryEmployee_data->discount;
-            $total['medical_insurance_monthly'] += $mainSalaryEmployee_data->medical_insurance_monthly;
-            $total['medical_social_monthly'] += $mainSalaryEmployee_data->medical_social_monthly;
-            $total['total_deductions'] += $mainSalaryEmployee_data->total_deductions;
-            $total['last_salary_remain_balance'] += $mainSalaryEmployee_data->last_salary_remain_balance;
-            $total['net_salary'] += $mainSalaryEmployee_data->net_salary;
-        }
-
-    }
-}
+            }
 
 
             $systemData = get_Columns_where_row(new AdminPanelSetting(), array('phons', 'address', 'image', 'company_name'), array("com_code" => $com_code));
@@ -525,7 +523,7 @@ if(!empty($data)){
 
             if ($request->submit_button == "in_details") {
                 return view('dashboard.salaries.mainSalaryEmployees.print.print_search_in_details', ['data' => $data, 'systemData' => $systemData, 'mainSalaryEmployee_data' => $mainSalaryEmployee_data, 'finance_cln_periods_data' => $finance_cln_periods_data]);
-            } elseif($request->submit_button == "in_total") {
+            } elseif ($request->submit_button == "in_total") {
 
                 $other['total_benefits'] = MainSalaryEmployee::select("*")
                     ->where($field1, $operator1, $value1)
@@ -576,21 +574,17 @@ if(!empty($data)){
                     ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->sum('salary_employee');
 
                 return view('dashboard.salaries.mainSalaryEmployees.print.print_search_in_total', ['data' => $data, 'systemData' => $systemData, 'mainSalaryEmployee_data' => $mainSalaryEmployee_data, 'finance_cln_periods_data' => $finance_cln_periods_data, 'other' => $other]);
-
-            }else{
+            } else {
 
 
                 DB::commit();
 
                 return view('dashboard.salaries.mainSalaryEmployees.print.total_in_details', ['data' => $data, 'systemData' => $systemData, 'mainSalaryEmployee_data' => $mainSalaryEmployee_data, 'finance_cln_periods_data' => $finance_cln_periods_data, 'total' => $total]);
-
             }
-        }catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with('error','عفوآ حدث خطأ ما' . $ex->getMessage());
+            return redirect()->back()->with('error', 'عفوآ حدث خطأ ما' . $ex->getMessage());
         }
-
-
     }
 
 
@@ -836,7 +830,7 @@ if(!empty($data)){
 
 
 
-             //إذا كان مرتب الموظف بالموجب يبقى مستحق للموظف وبعد الارشفه  بيتم حفظ راتب الموظف داخل ظرف الراتب للشهر
+            //إذا كان مرتب الموظف بالموجب يبقى مستحق للموظف وبعد الارشفه  بيتم حفظ راتب الموظف داخل ظرف الراتب للشهر
             //إذا كان المرتب بالسالب يتم ترحيل السالب الى الشهر القادم
 
             if ($mainSalaryEmployee_data['net_salary'] < 0) {
@@ -850,16 +844,16 @@ if(!empty($data)){
             $DataUpdate_variables['is_archived'] = 1;
             $DataUpdate_variables['archived_at'] = now();
             $DataUpdate_variables['archived_by'] = auth()->user()->id;
-update(new EmployeeSalarySanctions(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-update(new EmployeeSalaryAbsenceDay(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-update(new EmployeeSalaryDiscount(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-update(new EmployeeSalaryLoan(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-PermanentLoansInstallment::where('com_code','=',$com_code)->where('year_month',"=",$finance_cln_periods_data['year_and_month'])
-->where('is_archived',"=",0)->where('status',"!=",2)->where('employee_code',"=",$mainSalaryEmployee_data['employee_code'])
-->where('main_salary_employees_id',"=",$mainSalaryEmployee_id)->update($DataUpdate_variables);
-update(new EmployeeSalaryAdditional(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-update(new EmployeeSalaryAllowance(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
-update(new EmployeeSalaryRewards(),$DataUpdate_variables,array('com_code'=>$com_code,'main_salary_employees_id'=>$mainSalaryEmployee_id,'finance_cln_periods_id'=>$finance_cln_periods_data['id']));
+            update(new EmployeeSalarySanctions(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            update(new EmployeeSalaryAbsenceDay(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            update(new EmployeeSalaryDiscount(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            update(new EmployeeSalaryLoan(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            PermanentLoansInstallment::where('com_code', '=', $com_code)->where('year_month', "=", $finance_cln_periods_data['year_and_month'])
+                ->where('is_archived', "=", 0)->where('status', "!=", 2)->where('employee_code', "=", $mainSalaryEmployee_data['employee_code'])
+                ->where('main_salary_employees_id', "=", $mainSalaryEmployee_id)->update($DataUpdate_variables);
+            update(new EmployeeSalaryAdditional(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            update(new EmployeeSalaryAllowance(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
+            update(new EmployeeSalaryRewards(), $DataUpdate_variables, array('com_code' => $com_code, 'main_salary_employees_id' => $mainSalaryEmployee_id, 'finance_cln_periods_id' => $finance_cln_periods_data['id']));
             DB::commit();
             return redirect()->back()->with(['success' => 'تم أرشفة المرتب بنجاح']);
         } catch (\Exception $ex) {
