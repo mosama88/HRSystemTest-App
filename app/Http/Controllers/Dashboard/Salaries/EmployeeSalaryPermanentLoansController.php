@@ -73,7 +73,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
                         'month_number_installment' => $request->month_number_installment,   //	عدد الشهور للأقساط
                         'month_installment_value' => $request->month_installment_value,   //قيمة القسط الشهرى
                         'installment_paid' => 0,   //قيمة القسط المدفوع
-                        'installment_remain' => $request->total,   //قيمة القسط المتبقى
+                        'installment_remain' => 0,   //قيمة القسط المتبقى
                         'year_month_start_date' => $request->year_month_start_date,  //يبدأ سداد أول قسط بتاريخ
                         'year_month_start' => date('Y-m', strtotime($request->year_month_start_date)),  //	يبدأ السداد من الشهر المالى
                         'notes' => $request->notes,
@@ -489,6 +489,56 @@ class EmployeeSalaryPermanentLoansController extends Controller
 
 
 
+    // public function doSingleCachPayNow(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $com_code = auth()->user()->com_code;
+    //         $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $request->idparent, 'is_archived' => 0, 'has_disbursed_done' => 1]);
+
+    //         if (!empty($dataParentLoan)) {
+    //             $dataInstallment = get_Columns_where_row(new PermanentLoansInstallment(), ["*"], ["com_code" => $com_code, "id" => $request->id, 'is_archived' => 0, 'status' => 0]);
+
+    //             if (!empty($dataInstallment)) {
+    //                 // التحقق من وجود أي أقساط غير مدفوعة قبل القسط الحالي
+    //                 $counterBeforeNotPaid = PermanentLoansInstallment::where('com_code', $com_code)
+    //                     ->where('employee_permanent_loans_id', $request->idparent)
+    //                     ->where('status', 0)
+    //                     ->where('id', '<', $request->id)
+    //                     ->count();
+
+    //                 if ($counterBeforeNotPaid == 0) {
+    //                     // تحديث القسط الحالي إلى مدفوع نقدًا
+    //                     $dataToUpdateInstallmentPayCach['status'] = 2; // الدفع كاش
+    //                     $dataToUpdateInstallmentPayCach['archived_by'] = auth()->user()->id;
+    //                     $dataToUpdateInstallmentPayCach['is_archived'] = 1;
+    //                     $dataToUpdateInstallmentPayCach['archived_at'] = date("Y-m-d H:i:s");
+    //                     $dataToUpdateInstallmentPayCach['updated_by'] = auth()->user()->id;
+
+    //                     $flag = update(new PermanentLoansInstallment(), $dataToUpdateInstallmentPayCach, ["com_code" => $com_code, "id" => $request->id, 'is_archived' => 0, 'status' => 0]);
+
+    //                     if ($flag) {
+    //                         // التحقق مما إذا كانت جميع الأقساط مدفوعة
+    //                         $remainingInstallments = PermanentLoansInstallment::where('com_code', $com_code)
+    //                             ->where('employee_permanent_loans_id', $request->idparent)
+    //                             ->where('status', 0)
+    //                             ->count();
+
+    //                         // إذا تم دفع جميع الأقساط
+    //                         if ($remainingInstallments == 0) {
+    //                             $dataToUpdateLoanStatus['is_archived'] = 1; // تم دفع جميع الأقساط
+    //                             update(new EmployeeSalaryPermanentLoans(), $dataToUpdateLoanStatus, ["com_code" => $com_code, "id" => $request->idparent]);
+    //                         }
+
+    //                         return json_encode("Done Insert Cash");
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
     public function doSingleCachPayNow(Request $request)
     {
         if ($request->ajax()) {
@@ -517,6 +567,16 @@ class EmployeeSalaryPermanentLoansController extends Controller
                         $flag = update(new PermanentLoansInstallment(), $dataToUpdateInstallmentPayCach, ["com_code" => $com_code, "id" => $request->id, 'is_archived' => 0, 'status' => 0]);
 
                         if ($flag) {
+                            // حساب قيمة الأقساط المتبقية بعد تحديث القسط
+                            $totalLoan = $dataParentLoan['total']; // إجمالي القرض
+                            $installmentPaid = $dataParentLoan['installment_paid'] + $dataInstallment['month_installment_value']; // إضافة قيمة القسط المدفوع
+                            $installmentRemain = $totalLoan - $installmentPaid; // حساب القيمة المتبقية
+
+                            // تحديث الحقل installment_remain في جدول EmployeeSalaryPermanentLoans
+                            EmployeeSalaryPermanentLoans::where('com_code', $com_code)
+                                ->where('id', $request->idparent)
+                                ->update(['installment_remain' => $installmentRemain, 'installment_paid' => $installmentPaid]);
+
                             // التحقق مما إذا كانت جميع الأقساط مدفوعة
                             $remainingInstallments = PermanentLoansInstallment::where('com_code', $com_code)
                                 ->where('employee_permanent_loans_id', $request->idparent)
