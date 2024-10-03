@@ -454,37 +454,50 @@ class EmployeeSalaryPermanentLoansController extends Controller
 
 
 
-    public function disbursed_done_now($id)
-    {
-        try {
-            $com_code = auth()->user()->com_code;
-            $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $id]);
-            if (empty($dataParentLoan)) {
-                return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة!']);
-            }
+public function disbursed_done_now($id)
+{
+    try {
+        $com_code = auth()->user()->com_code;
 
-            DB::beginTransaction();
-            $dataToUpdate['has_disbursed_done'] = 1;
-            $dataToUpdate['disbursed_by'] = auth()->user()->id;
-            $dataToUpdate['disbursed_at'] = date("Y-m-d H:i:s");
-            $dataToUpdate['com_code'] = $com_code;
-            $flagParent = update(new EmployeeSalaryPermanentLoans(), $dataToUpdate, array("com_code" => $com_code, 'id' => $id, 'has_disbursed_done' => 0));
-
-            if ($flagParent) {
-                $dataToUpdateInstallment['has_parent_disbursed_done'] = 1;
-                update(new PermanentLoansInstallment(), $dataToUpdateInstallment, array("com_code" => $com_code, 'employee_permanent_loans_id' => $id));
-                $mainSalaryEmployeeOpen = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, 'employee_code' => $dataParentLoan['employee_code'], 'is_archived' => 0));
-                if (!empty($mainSalaryEmployeeOpen)) {
-                    $this->recalculateMainSalaryEmployee($mainSalaryEmployeeOpen['id']);
-                }
-            }
-            DB::commit();
-            return redirect()->back()->with(['success' => 'تم صرف السلفه بنجاح']);
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
+        // الحصول على بيانات القرض الرئيسي باستخدام معرف القرض المحدد
+        $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $id]);
+        if (empty($dataParentLoan)) {
+            return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة!']);
         }
+
+        DB::beginTransaction();
+
+        // تحديث حالة القرض الرئيسي ليصبح "تم صرفه"
+        $dataToUpdate['has_disbursed_done'] = 1;
+        $dataToUpdate['disbursed_by'] = auth()->user()->id;
+        $dataToUpdate['disbursed_at'] = date("Y-m-d H:i:s");
+        $dataToUpdate['com_code'] = $com_code;
+
+        // تحديث القرض المحدد فقط وليس كل القروض
+        $flagParent = update(new EmployeeSalaryPermanentLoans(), $dataToUpdate, array("com_code" => $com_code, 'id' => $id, 'has_disbursed_done' => 0));
+
+        if ($flagParent) {
+            // تحديث الأقساط الخاصة بالقرض المحدد فقط باستخدام 'employee_permanent_loans_id'
+            $dataToUpdateInstallment['has_parent_disbursed_done'] = 1;
+
+            // هنا نستخدم employee_permanent_loans_id للتحديث
+            update(new PermanentLoansInstallment(), $dataToUpdateInstallment, array("com_code" => $com_code, 'employee_permanent_loans_id' => $id));
+
+            // إعادة حساب راتب الموظف إذا كان لديه راتب مفتوح
+            $mainSalaryEmployeeOpen = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, 'employee_code' => $dataParentLoan['employee_code'], 'is_archived' => 0));
+            if (!empty($mainSalaryEmployeeOpen)) {
+                $this->recalculateMainSalaryEmployee($mainSalaryEmployeeOpen['id']);
+            }
+        }
+
+        DB::commit();
+        return redirect()->back()->with(['success' => 'تم صرف السلفه بنجاح']);
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
     }
+}
+
 
 
 

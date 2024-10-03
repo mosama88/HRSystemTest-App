@@ -81,73 +81,75 @@ trait GeneralTrait
                     ->where("status", "!=", 2)
                     ->update($dataToUpdateInstallment);
 
-                // استرجاع القسط المستديم
-                $installment = PermanentLoansInstallment::where("com_code", "=", $com_code)
-                    ->where("year_month", "=", $finance_cln_periods_data['year_and_month'])
-                    ->where("is_archived", "=", 0)
-                    ->where("employee_code", "=", $mainSalaryEmployeeData['employee_code'])
-                    ->where("status", "!=", 2)
-                    ->first();
+                // استرجاع القسط المستديم بناءً على employee_permanent_loans_id
+$installment = PermanentLoansInstallment::where("com_code", "=", $com_code)
+    ->where("year_month", "=", $finance_cln_periods_data['year_and_month'])
+    ->where("is_archived", "=", 0)
+    ->where("employee_code", "=", $mainSalaryEmployeeData['employee_code'])
+    ->where("status", "!=", 2)
+    ->first();
 
-                if ($installment) {
-                    // التحقق مما إذا كانت جميع الأقساط مدفوعة
-                    $remainingInstallments = PermanentLoansInstallment::where('com_code', $com_code)
-                        ->where('employee_permanent_loans_id', $installment->employee_permanent_loans_id)
-                        ->where('status', 0)
-                        ->count();
+if ($installment) {
+    // التحقق مما إذا كانت جميع الأقساط مدفوعة بناءً على employee_permanent_loans_id
+    $remainingInstallments = PermanentLoansInstallment::where('com_code', $com_code)
+        ->where('employee_permanent_loans_id', $installment->employee_permanent_loans_id) // استخدام employee_permanent_loans_id
+        ->where('status', 0)
+        ->count();
 
-                    if ($remainingInstallments == 0) {
-                        // إذا تم دفع جميع الأقساط، يتم أرشفة القرض
-                        $dataToUpdateLoanStatus = [
-                            'is_archived' => 1
-                        ];
-                        EmployeeSalaryPermanentLoans::where('com_code', $com_code)
-                            ->where('id', $installment->employee_permanent_loans_id)
-                            ->update($dataToUpdateLoanStatus);
-                    }
+    if ($remainingInstallments == 0) {
+        // إذا تم دفع جميع الأقساط، يتم أرشفة القرض
+        $dataToUpdateLoanStatus = [
+            'is_archived' => 1
+        ];
+        EmployeeSalaryPermanentLoans::where('com_code', $com_code)
+            ->where('id', $installment->employee_permanent_loans_id) // استخدام employee_permanent_loans_id
+            ->update($dataToUpdateLoanStatus);
+    }
 
-                    // التحقق من الأقساط غير المدفوعة قبل القسط الحالي
-                    $counterBeforeNotPaid = PermanentLoansInstallment::where('com_code', $com_code)
-                        ->where('employee_permanent_loans_id', $installment->employee_permanent_loans_id)
-                        ->where('status', 0)
-                        ->where('id', '<', $installment->id)
-                        ->count();
+    // التحقق من الأقساط غير المدفوعة قبل القسط الحالي باستخدام employee_permanent_loans_id
+    $counterBeforeNotPaid = PermanentLoansInstallment::where('com_code', $com_code)
+        ->where('employee_permanent_loans_id', $installment->employee_permanent_loans_id) // استخدام employee_permanent_loans_id
+        ->where('main_salary_employees_id', $mainSalaryEmployeeData['employee_code'])
+        ->where('status', 0)
+        ->where('id', '<', $installment->id)
+        ->count();
 
-                    if ($counterBeforeNotPaid == 0) {
-                        // تحديث القسط الحالي إلى مدفوع نقدًا
-                        $dataToUpdateInstallmentPayCash = [
-                            'status' => 2,  // الدفع كاش
-                            'archived_by' => auth()->user()->id,
-                            'is_archived' => 1,
-                            'archived_at' => now(),
-                            'updated_by' => auth()->user()->id
-                        ];
+    if ($counterBeforeNotPaid == 0) {
+        // تحديث القسط الحالي إلى مدفوع نقدًا
+        $dataToUpdateInstallmentPayCash = [
+            'status' => 2,  // الدفع كاش
+            'archived_by' => auth()->user()->id,
+            'is_archived' => 1,
+            'archived_at' => now(),
+            'updated_by' => auth()->user()->id
+        ];
 
-                        PermanentLoansInstallment::where('com_code', $com_code)
-                            ->where('id', $installment->id)
-                            ->where('is_archived', 0)
-                            ->where('status', 0)
-                            ->update($dataToUpdateInstallmentPayCash);
+        PermanentLoansInstallment::where('com_code', $com_code)
+            ->where('id', $installment->id)
+            ->where('is_archived', 0)
+            ->where('status', 0)
+            ->update($dataToUpdateInstallmentPayCash);
 
-                        // حساب قيمة الأقساط المتبقية بعد تحديث القسط
-                        $dataParentLoan = EmployeeSalaryPermanentLoans::where('com_code', $com_code)
-                            ->where('id', $installment->employee_permanent_loans_id)
-                            ->first();
+        // حساب قيمة الأقساط المتبقية بعد تحديث القسط
+        $dataParentLoan = EmployeeSalaryPermanentLoans::where('com_code', $com_code)
+            ->where('id', $installment->employee_permanent_loans_id) // استخدام employee_permanent_loans_id
+            ->first();
 
-                        if ($dataParentLoan) {
-                            $installmentPaid = $dataParentLoan->installment_paid + $installment->month_installment_value;
-                            $installmentRemain = $dataParentLoan->total - $installmentPaid;
+        if ($dataParentLoan) {
+            $installmentPaid = $dataParentLoan->installment_paid + $installment->month_installment_value;
+            $installmentRemain = $dataParentLoan->total - $installmentPaid;
 
-                            // تحديث الحقول installment_remain و installment_paid في جدول القروض
-                            EmployeeSalaryPermanentLoans::where('com_code', $com_code)
-                                ->where('id', $installment->employee_permanent_loans_id)
-                                ->update([
-                                    'installment_remain' => $installmentRemain,
-                                    'installment_paid' => $installmentPaid
-                                ]);
-                        }
-                    }
-                }
+            // تحديث الحقول installment_remain و installment_paid في جدول القروض باستخدام employee_permanent_loans_id
+            EmployeeSalaryPermanentLoans::where('com_code', $com_code)
+                ->where('id', $installment->employee_permanent_loans_id) // استخدام employee_permanent_loans_id
+                ->update([
+                    'installment_remain' => $installmentRemain,
+                    'installment_paid' => $installmentPaid
+                ]);
+        }
+    }
+}
+
                 // ################################################################################
 
 

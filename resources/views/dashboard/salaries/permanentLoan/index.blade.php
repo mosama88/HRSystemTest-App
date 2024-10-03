@@ -88,9 +88,9 @@
                                         <option value="all">بحث بالكل</option>
                                         @if (@isset($other['employees']) && !@empty($other['employees']))
                                             @foreach ($other['employees'] as $emp)
-                                            <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
-                                                ({{ $emp->fp_code }})
-                                            </option>
+                                                <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
+                                                    ({{ $emp->fp_code }})
+                                                </option>
                                             @endforeach
                                         @else
                                             <div class="alert alert-warning" role="alert" dir="rtl">
@@ -137,7 +137,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         @if (isset($data) && $data->isNotEmpty())
-                        <div id="ajax_responce_serachDiv" class="table-responsive mt-3">
+                            <div id="ajax_responce_serachDiv" class="table-responsive mt-3">
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead class="thead-light">
                                         <tr>
@@ -149,24 +149,24 @@
                                             <th>قيمة القسط </th>
                                             <th>يبدأ سداد أول قسط فى تاريخ</th>
                                             <th>هل صرفت</th>
+                                            <th>المتبقى</th>
+                                            <th>المدفوع</th>
                                             <th> هل الأقساط أنتهت</th>
                                             <th>الملاحظات</th>
                                             <th>العمليات</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         <?php $i = 0; ?>
                                         @foreach ($data as $info)
                                             <?php $i++; ?>
-
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $info->employee_code }}</td>
                                                 <td>{{ $info->employee->name }}</td>
                                                 <td>{{ $info->total * 1 }}</td>
                                                 <td>{{ $info->month_number_installment }}</td>
-                                                <td>{{ $info->month_installment_value *1}}</td>
+                                                <td>{{ $info->month_installment_value * 1 }}</td>
                                                 <td>{{ $info->year_month_start_date }}</td>
                                                 <td>
                                                     <div>
@@ -192,6 +192,9 @@
                                                         @endif
                                                     </div>
                                                 </td>
+                                                <td>{{ $info->installment_remain * 1 }}</td>
+                                                <td>{{ $info->installment_paid * 1 }}</td>
+
                                                 <td>
                                                     @if ($info->is_archived == 1)
                                                         <span class="badge badge-primary">نعم</span>
