@@ -256,8 +256,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path fill="none" d="M0 0h24v24H0V0z" />
                             <path
-                                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-9-3.5l-2.5-2.5-1.41 1.41L10 18.99l7-7-1.41-1.41z" />
-                        </svg><span class="side-menu__label">سجلات بصمة الموظفين</span><i
+                                d="M12 1C6.48 1 2 5.48 2 11s4.48 10 10 10 10-4.48 10-10S17.52 1 12 1zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V6z" />
+                            <path d="M18.65 13.35l-1.41 1.41-2.79-2.79 1.41-1.41 2.79 2.79z" />
+                        </svg>
+                        <span class="side-menu__label">سجلات بصمة الموظفين</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
                         @can('سجلات بصمة الموظفين')
@@ -269,6 +271,31 @@
                     </ul>
                 </li>
             @endcan
+
+
+
+            <li class="side-item side-item-category">قائمة رصيد السنوى</li>
+            <li class="slide {{ request()->is('vacationsBalance*') ? 'menu-open' : '' }}">
+                <a class="side-menu__item {{ request()->is('vacationsBalance*') ? 'active' : '' }}"
+                    data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                        <path fill="none" d="M0 0h24v24H0V0z" />
+                        <path
+                            d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-9-3.5l-2.5-2.5-1.41 1.41L10 18.99l7-7-1.41-1.41z" />
+                    </svg>
+                    <span class="side-menu__label"> رصيد الأجازات السنوى</span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    @can('سجلات بصمة الموظفين')
+                        <li><a class="slide-item {{ request()->is('vacationsBalance*') ? 'active' : '' }}"
+                                href="{{ route('dashboard.vacationsBalance.index') }}">
+                                رصيد الأجازات</a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+
+
             @can('المستخدمين')
                 <li class="side-item side-item-category">المستخدمين</li>
                 <li
@@ -297,6 +324,9 @@
                     </ul>
                 </li>
             @endcan
+
+
+
 
 
             <li class="side-item side-item-category">General</li>

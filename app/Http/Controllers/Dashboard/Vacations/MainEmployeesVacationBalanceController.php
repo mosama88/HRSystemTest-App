@@ -28,7 +28,7 @@ class MainEmployeesVacationBalanceController extends Controller
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new MainEmployeesVacationBalance(), array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(10);
+        $data = getColumnsIndex(new Employee(), array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(10);
         $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
