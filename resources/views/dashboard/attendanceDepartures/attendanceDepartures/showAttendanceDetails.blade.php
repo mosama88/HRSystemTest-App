@@ -63,22 +63,28 @@
                             المالى(<span class="text-danger ">{{ $finance_cln_periods_data['month']->name }}</span> لسنه
                             {{ $finance_cln_periods_data['finance_yr'] }})
                         </h4>
-                        <div class="col-4">
-                            @can('تحميل بصمات الموظفين')
-                                <button class="btn" style="background-color:#10467d;color:white"
-                                    data-empcode="{{ $employee_data['employee_code'] }}"
-                                    data-finclnid="{{ $finance_cln_periods_data['id'] }}"
-                                    id="load_active_attendance_departure">
-                                    <i class="far fa-arrow-alt-circle-down fa-lg ml-1"></i> تحميل البصمه
-                                </button>
-                            @endcan
-                            @can('عرض سجل أرشيف بصمات الموظفين')
-                                <button class="btn" id="show_archive_attendance" style="background-color:#3A6D8C;color:white"
-                                    data-empcode="{{ $employee_data['employee_code'] }}"
-                                    data-finclnid="{{ $finance_cln_periods_data['id'] }}">
-                                    <i class="fas fa-fingerprint fa-lg ml-1"></i> عرض سجل أرشيف البصمة
-                                </button>
-                            @endcan
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+
+
+                            <button style="background-color:#10467d;color:white" data-toggle="dropdown"
+                                class="btn btn-primary btn-block">تحميل وعرض أرشيف <i
+                                    class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
+                            <div class="dropdown-menu">
+                                @can('تحميل بصمات الموظفين')
+                                    <button data-empcode="{{ $employee_data['employee_code'] }}"
+                                        data-finclnid="{{ $finance_cln_periods_data['id'] }}"
+                                        id="load_active_attendance_departure" class="dropdown-item"><i
+                                            class="far fa-arrow-alt-circle-down fa-lg ml-1"></i> تحميل البصمه</button>
+                                @endcan
+                                @can('عرض سجل أرشيف بصمات الموظفين')
+                                    <button id="show_archive_attendance" data-empcode="{{ $employee_data['employee_code'] }}"
+                                        data-finclnid="{{ $finance_cln_periods_data['id'] }}" class="dropdown-item"><i
+                                            class="fas fa-fingerprint fa-lg ml-1"></i> عرض سجل أرشيف البصمة</button>
+                                @endcan
+
+                            </div><!-- dropdown-menu -->
+
+
 
 
 
