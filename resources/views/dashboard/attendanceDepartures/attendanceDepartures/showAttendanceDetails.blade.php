@@ -67,7 +67,7 @@
 
 
                             <button style="background-color:#10467d;color:white" data-toggle="dropdown"
-                                class="btn btn-primary btn-block">تحميل وعرض أرشيف <i
+                                class="btn btn-primary">تحميل وعرض أرشيف <i
                                     class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                             <div class="dropdown-menu">
                                 @can('تحميل بصمات الموظفين')
