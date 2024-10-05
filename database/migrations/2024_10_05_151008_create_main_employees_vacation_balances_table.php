@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('main_employees_vacations', function (Blueprint $table) {
+        Schema::create('main_employees_vacation_balances', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('main_employees_vacations');
+        Schema::dropIfExists('main_employees_vacation_balances');
     }
 };
