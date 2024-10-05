@@ -13,10 +13,10 @@ use App\Http\Controllers\Dashboard\Settings\BranchController;
 use App\Http\Controllers\Dashboard\Settings\CountryController;
 use App\Http\Controllers\Dashboard\Settings\HolidayController;
 use App\Http\Controllers\Dashboard\AdminPanelSettingController;
+use App\Http\Controllers\Dashboard\Settings\JobGradeController;
+use App\Http\Controllers\Dashboard\Settings\VacationController;
 use App\Http\Controllers\Dashboard\Settings\BloodTypeController;
 use App\Http\Controllers\Dashboard\Settings\DepartmentController;
-use App\Http\Controllers\Dashboard\Settings\VacationController;
-use App\Http\Controllers\Dashboard\Settings\JobGradeController;
 use App\Http\Controllers\Dashboard\Settings\ShiftsTypeController;
 use App\Http\Controllers\Dashboard\Settings\NationalityController;
 use App\Http\Controllers\Dashboard\Settings\ResignationController;
@@ -30,6 +30,7 @@ use App\Http\Controllers\Dashboard\AffairsEmployees\AllowanceController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryLoanController;
 use App\Http\Controllers\Dashboard\Salaries\MainSalaryEmployeeController;
 use App\Http\Controllers\Dashboard\AffairsEmployees\DiscountTypeController;
+use App\Http\Controllers\Dashboard\Attendance\AttendanceDepartureController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryRewardsController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryDiscountController;
 use App\Http\Controllers\Dashboard\AffairsEmployees\AdditionalTypesController;
@@ -37,7 +38,7 @@ use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAllowanceController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAbsenceDayController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAdditionalController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryPermanentLoansController;
-use App\Http\Controllers\Dashboard\Attendance\AttendanceDepartureController;
+use App\Http\Controllers\Dashboard\Vacations\MainEmployeesVacationBalanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -290,6 +291,10 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::get('/print_one_fp_details/{employee_code}/{finance_cln_periods_id}',  'print_one_fp_details')->name('print_one_fp_details');
         Route::post('/ajax_search/{employee_code}/{finance_cln_periods_id}', 'ajax_search')->name('ajax_search');
     });
+
+
+    // بداية الأجازات
+    Route::resource('/vacationsBalance', MainEmployeesVacationBalanceController::class);
 });
 
 // بداية صلاحيات المستخدمين
