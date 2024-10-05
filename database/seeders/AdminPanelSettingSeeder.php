@@ -28,7 +28,7 @@ class AdminPanelSettingSeeder extends Seeder
                 'after_time_half_daycut' => '2.00',
                 'after_time_allday_daycut' => '4.00',
                 'monthly_vacation_balance' => '6.00',
-                'after_days_begin_vacation' => '7.00',
+                'after_days_begin_vacation' => '180',
                 'first_balance_begin_vacation' => '8.00',
                 'sanctions_value_first_absence' => '8.00',
                 'sanctions_value_second_absence' => '9.00',
