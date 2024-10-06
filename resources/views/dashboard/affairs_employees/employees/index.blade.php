@@ -257,7 +257,7 @@
                                 </tbody>
                             </table>
                             <div class="col-md-12 text-center" id="ajax-pagination_in_search">
-                                {{ $data->links('pagination::bootstrap-5') }}
+                                {{-- {{ $data->links('pagination::bootstrap-5') }} --}}
                             </div>
                         @else
                             <div class="alert alert-warning" role="alert" dir="rtl">

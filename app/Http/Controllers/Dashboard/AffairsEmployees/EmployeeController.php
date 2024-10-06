@@ -40,7 +40,13 @@ class EmployeeController extends Controller
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new Employee, array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(10);
+        $data = getColumnsIndex(
+            new Employee,
+            array("id", "employee_code", "fp_code", "name", "branch_id", "job_grade_id", "job_categories_id", "work_start_date", "functional_status", "gender", "created_by", "updated_by"),
+            array("com_code" => $com_code),
+            "id",
+            "DESC"
+        )->get();
         $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
