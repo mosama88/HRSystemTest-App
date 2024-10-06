@@ -454,6 +454,13 @@ class MainSalaryEmployeeController extends Controller
                 ->where($field6, $operator6, $value6)
                 ->where($field7, $operator7, $value7)
                 ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
+
+
+  if (!empty($data)) {
+      foreach ($data as $info) {
+        $info->department_name = get_field_value(new Employee(), "department_id", array("com_code" => $com_code, "department_id" => $info->employee_department_code));
+      }
+    }
             if ($request->submit_button != "in_details" and $request->submit_button != "in_total") {
 
                 $total['salary_employee'] = 0;

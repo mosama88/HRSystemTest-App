@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             AdditionaTtypeSeeder::class,
             DiscountTypeSeeder::class,
             AllowancesSeeder::class,
-            Employee::class,
+            EmployeeSeeder::class,
         ]);
     }
 }

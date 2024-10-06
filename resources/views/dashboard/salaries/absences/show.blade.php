@@ -141,8 +141,7 @@
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $info->employee_code }}</td>
-                                                <td>{{ $info->employee->name }}</td>
-
+                                                <td>{{$info->emp_name}}</td>
                                                 <td>{{ $info->value * 1 }}</td>
                                                 <td>{{ $info->total * 1 }}</td>
                                                 <td>{{ Str::limit($info->notes, 20) }}</td>

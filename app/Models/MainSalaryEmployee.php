@@ -42,10 +42,12 @@ class MainSalaryEmployee extends Model
         return $this->belongsTo(Branch::class);
     }
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class, "employee_department_code");
-    }
+ // في نموذج MainSalaryEmployee
+public function department()
+{
+    return $this->belongsTo(Department::class, 'employee_department_code');
+}
+
 
 
     public function FinanceClnPeriod()
