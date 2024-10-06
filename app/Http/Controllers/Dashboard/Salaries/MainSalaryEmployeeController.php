@@ -608,7 +608,7 @@ class MainSalaryEmployeeController extends Controller
             $mainSalaryEmployee_data = get_Columns_where_row(new MainSalaryEmployee(), array("*"), array("com_code" => $com_code, 'id' => $mainSalaryEmployee_id));
         }
 
-        $mainSalaryEmployee_data->employee_name = Employee::select("name")->where("com_code", $com_code)->where("employee_code", $mainSalaryEmployee_data['employee_code']);
+        // $mainSalaryEmployee_data->employee_name = Employee::select("name")->where("com_code", $com_code)->where("employee_code", $mainSalaryEmployee_data['employee_code']);
         $mainSalaryEmployee_data->gender = Employee::select("gender")->where("com_code", $com_code)->where("gender", $mainSalaryEmployee_data['gender']);
         $mainSalaryEmployee_data->employee_department_code = Employee::select("department_id")->where("com_code", $com_code)->where("department_id", $mainSalaryEmployee_data['employee_department_code']);
         $mainSalaryEmployee_data->job_categories_id = Employee::select("job_categories_id")->where("com_code", $com_code)->where("job_categories_id", $mainSalaryEmployee_data['employee_jobs_id']);

@@ -8,7 +8,7 @@
                         aria-hidden="true">&times;</span></button> <i
                     class="icon icon ion-ios-close-circle-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
                 <h4 class="tx-danger mg-b-20">إحذر: ستقوم بحذف العملية !</h4>
-                <h5 class="col-12"> <span style="color: blue">أسم الموظف: </span> {{ $info->employee?->name }}
+                <h5 class="col-12"> <span style="color: blue">أسم الموظف: </span> {{ $info->employee_name }}
                 </h5>
                 <div class="table-responsive">
                     <table class="table table-bordered mg-b-0 text-md-nowrap">
@@ -20,6 +20,7 @@
                                 <th>الوظيفه</th>
                                 <th>صافى الراتب</th>
                             </tr>
+
                         </thead>
                         <tbody>
                             <tr>

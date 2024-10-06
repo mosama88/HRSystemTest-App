@@ -11,8 +11,8 @@
         }
 
         /* .my-2.mx-1 {
-                                                                                                                    display: none;
-                                                                                                                } */
+                                                                                                                                display: none;
+                                                                                                                            } */
     </style>
 
     <!-- Internal Data table css -->
@@ -65,9 +65,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">
-
-
-                            بيانات راتب <span class="text-danger">{{ $mainSalaryEmployee_data->employee->name }}</span>
+                            بيانات راتب <span class="text-danger">{{ $mainSalaryEmployee_data->employee_name}}</span>
                             المفصله للشهر المالى (<span
                                 class="text-danger">{{ $finance_cln_periods_data['month']->name }}</span> لسنه
                             {{ $finance_cln_periods_data['finance_yr'] }})
@@ -115,8 +113,9 @@
                     <table class="employee-info">
                         <tr>
                             <th>اسم الموظف</th>
-                            <td>{{ $mainSalaryEmployee_data->employee->name }}
-                                ({{ $mainSalaryEmployee_data->employee->employee_code }})</td>
+                            <td>{{ $mainSalaryEmployee_data->employee_name }}
+
+                                ({{ $mainSalaryEmployee_data->employee_code }})</td>
                         </tr>
                         <tr>
                             <th>الوظيفة</th>
@@ -152,11 +151,11 @@
                             <tr>
                                 <td rowspan="15" class="category-header vertical-text">الاستحقاقات</td>
                                 <td>الراتب الأساسي</td>
-                                <td>{{ $mainSalaryEmployee_data->employee->salary * 1 }}</td>
+                                <td>{{ $mainSalaryEmployee_data->salary_employee * 1 }}</td>
                             </tr>
                             <tr>
                                 <td>حافز ثابت</td>
-                                <td>{{ $mainSalaryEmployee_data->employee->motivation * 1 }}</td>
+                                <td>{{ $mainSalaryEmployee_data->motivation * 1 }}</td>
                             </tr>
                             <tr>
                                 <td>بدلات ثابتة</td>
@@ -317,8 +316,8 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">{{ $mainSalaryEmployee_data->employee->employee_code }}</th>
-                                        <td>{{ $mainSalaryEmployee_data->employee->name }}</td>
+                                        <th scope="row">{{ $mainSalaryEmployee_data->employee_code }}</th>
+                                        <td>{{ $mainSalaryEmployee_data->employee_name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -373,8 +372,8 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">{{ $mainSalaryEmployee_data->employee->employee_code }}</th>
-                                        <td>{{ $mainSalaryEmployee_data->employee->name }}</td>
+                                        <th scope="row">{{ $mainSalaryEmployee_data->employee_code }}</th>
+                                        <td>{{ $mainSalaryEmployee_data->employee_name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -429,8 +428,8 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">{{ $mainSalaryEmployee_data->employee->employee_code }}</th>
-                                        <td>{{ $mainSalaryEmployee_data->employee->name }}</td>
+                                        <th scope="row">{{ $mainSalaryEmployee_data->employee_code }}</th>
+                                        <td>{{ $mainSalaryEmployee_data->employee_name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -467,7 +466,7 @@
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
                     <h6 class="modal-title">أرشفة راتب
-                        <strong class="text-danger">{{ $mainSalaryEmployee_data->employee->name }}</strong>
+                        <strong class="text-danger">{{ $mainSalaryEmployee_data->employee_name }}</strong>
                         <span class="text-danger">(
                             {{ $finance_cln_periods_data->year_and_month }} )</span>
                     </h6>

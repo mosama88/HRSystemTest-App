@@ -19,11 +19,11 @@
         }
 
         /*    .tdheader{
-                                                         top: 0;
-                                                         position: sticky;
-                                                         background: yellow;
-                                                         color: black;
-                                                         }*/
+                                                top: 0;
+                                                position: sticky;
+                                                background: yellow;
+                                                color: black;
+                                                }*/
         td,
         th {
             text-align: center;
@@ -225,7 +225,13 @@
                         <td style="background-color: linen !important">{{ $info->salary_employee }}</td>
                         <td>{{ $info->day_price }}</td>
                         <td>{{ $info->total_rewards_salary * 1 }}</td>
-                        <td>{{ $info->employee->motivation * 1 }}</td>
+                        <td>
+                            @if (optional($info->employee)->motivation !== null)
+                                {{ optional($info->employee)->motivation * 1 }}
+                            @else
+                                0
+                            @endif
+                        </td>
                         <td>{{ $info->additional_days_counter * 1 }}</td>
                         <td>{{ $info->additional_days_total * 1 }}</td>
                         <td>{{ $info->fixed_allowances * 1 }}</td>
@@ -268,7 +274,8 @@
                     <td>{{ $total['medical_insurance_monthly'] * 1 }}</td>
                     <td>{{ $total['medical_social_monthly'] * 1 }}</td>
                     <td style="background-color: lightsalmon !important">{{ $total['total_deductions'] * 1 }}</td>
-                    <td style="background-color: greenyellow !important">{{ $total['last_salary_remain_balance'] * 1 }}</td>
+                    <td style="background-color: greenyellow !important">{{ $total['last_salary_remain_balance'] * 1 }}
+                    </td>
                     <td style="background-color: lightsalmon !important">{{ $total['net_salary'] * 1 }}</td>
                 </tr>
         </table>

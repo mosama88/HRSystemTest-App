@@ -15,9 +15,9 @@
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">طباعه </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     <a style="font-weight:bold;color:#117ea1;"
-                    href="{{ route('dashboard.mainSalaryEmployees.show', $finance_cln_periods_data->id) }}">
-                    <i class="fas fa-arrow-circle-left fa-lg ml-1"></i> جدول بيانات رواتب الموظفين
-                </a></span>
+                        href="{{ route('dashboard.mainSalaryEmployees.show', $finance_cln_periods_data->id) }}">
+                        <i class="fas fa-arrow-circle-left fa-lg ml-1"></i> جدول بيانات رواتب الموظفين
+                    </a></span>
             </div>
         </div>
 
@@ -113,7 +113,7 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td class="text-right">{{ $info->employee_code }}</td>
-                                            <td class="text-right">{{ $info->employee->name }}</td>
+                                            <td class="text-right">{{ $info->employee_name }}</td>
                                             <td class="text-right">{{ $info->branch->name }}</td>
                                             <td class="text-right">{{ $info->department->name }}</td>
                                             <td class="text-right">{{ $info->job->name }}</td>

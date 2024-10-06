@@ -70,7 +70,7 @@
                         <table class="employee-info">
                             <tr>
                                 <th>اسم الموظف</th>
-                                <td>{{ $info->employee->name }}
+                                <td>{{ $info->employee_name }}
                                     ({{ $info->employee->employee_code }})
                                 </td>
                             </tr>
