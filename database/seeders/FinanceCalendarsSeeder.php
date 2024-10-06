@@ -13,10 +13,10 @@ class FinanceCalendarsSeeder extends Seeder
         DB::table('finance_calendars')->insert([
             [
                 'id' => 1,
-                'finance_yr' => '2025',
-                'finance_yr_desc' => 'السنه المالية لسنه 2025',
-                'start_date' => '2025-01-01',
-                'end_date' => '2025-12-31',
+                'finance_yr' => '2024',
+                'finance_yr_desc' => 'السنه المالية لسنه 2024',
+                'start_date' => '2024-01-01',
+                'end_date' => '2024-12-31',
                 'is_open' => 0,
                 'com_code' => 1,
                 'created_by' => 1,
