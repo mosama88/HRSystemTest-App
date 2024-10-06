@@ -103,7 +103,7 @@ class MainSalaryEmployeeController extends Controller
             "main_salary_employees.branch_id",
             "main_salary_employees.employee_jobs_id",
             "employees.name as employee_name",  // جلب اسم الموظف
-            "employees.gender",                 // جلب الجنس
+            "employees.gender",               // جلب الجنس
             "images.filename as employee_photo" // جلب الصورة من جدول Images
         )
             ->join('employees', 'main_salary_employees.employee_code', '=', 'employees.employee_code')
@@ -123,7 +123,7 @@ class MainSalaryEmployeeController extends Controller
         $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
 
-        $employees = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price", "fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
+        $employees = get_cols_where(new Employee(), array("id", "employee_code", "name", "salary", "day_price", "fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
         $other['not_have'] = 0;
 
         if ($finance_cln_periods_data['is_open'] == 1 && !empty($employees)) {

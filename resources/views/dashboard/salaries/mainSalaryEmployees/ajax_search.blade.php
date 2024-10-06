@@ -24,9 +24,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center ajax_pagination_in_search">
-                            {{ $data->links('pagination::bootstrap-5') }}
-                        </div>
+
                     </div>
                 @else
                     <div class="alert alert-warning" role="alert" dir="rtl">
@@ -66,7 +64,7 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $info->employee_code }}</td>
-                    <td>{{ $info->employee->name }}</td>
+                    <td>{{ $info->employee_name }}</td>
                     <td>{{ $info->branch->name }}</td>
                     <td>{{ $info->department->name }}</td>
                     <td>{{ $info->employee_jobs_id }}</td>

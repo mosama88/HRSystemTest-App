@@ -69,16 +69,16 @@
                     <div class="col-10 mx-auto mt-4">
 
                         <div class="row">
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بالموظفين </label>
                                     <select name="employee_code" id="employee_code_search" class="form-control select2">
                                         <option value="all">بحث بالكل</option>
                                         @if (@isset($employees) && !@empty($employees))
                                             @foreach ($employees as $emp)
-                                            <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
-                                                ({{ $emp->fp_code }})
-                                            </option>
+                                                <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود الموظف
+                                                    ({{ $emp->employee_code }})
+                                                </option>
                                             @endforeach
                                         @else
                                             <div class="alert alert-warning" role="alert" dir="rtl">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث الفرع </label>
                                     <select name="branch_id" id="branch_id_search" class="form-control select2">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بالاداره </label>
                                     <select name="employee_department_code" id="employee_department_code_search"
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بالوظيفه </label>
                                     <select name="employee_jobs_id" id="employee_jobs_id_search"
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بنوع صرف الراتب </label>
                                     <select name="cash_visa" id="cash_visa_search" class="form-control">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بحالة المرتب </label>
                                     <select name="is_stopped" id="is_stopped_search" class="form-control">
@@ -157,7 +157,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label> بحث بحالة الأرشفه </label>
                                     <select name="is_archived" id="is_archived_search" class="form-control">
@@ -229,9 +229,7 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <div class="col-md-12 text-center ajax_pagination_in_search">
-                                                        {{ $data->links('pagination::bootstrap-5') }}
-                                                    </div>
+
                                                 </div>
                                             @else
                                                 <div class="alert alert-warning" role="alert" dir="rtl">
@@ -285,7 +283,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $info->employee_code }}</td>
-                                                <td>{{ $info->employee->name }}</td>
+                                                <td>{{ $info->employee_name }}</td>
                                                 <td>{{ $info->branch->name }}</td>
                                                 <td>{{ $info->department->name }}</td>
                                                 <td>{{ $info->job->name }}</td>
