@@ -1,3 +1,4 @@
+
 @if (@isset($dataParent) and !@empty($dataParent))
     @if (@isset($dataParent['installmentDetails']) and !@empty($dataParent['installmentDetails']))
         @if ($dataParent['has_disbursed_done'] == 1)
@@ -10,12 +11,14 @@
                             <table class="table table-bordered ">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th class="text-center">أسم الموظف</th>
                                         <th class="text-center">فتح الصرف بواسطة </th>
                                         <th class="text-center">تاريخ فتح الصرف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td class="text-center">{{ $dataParent->emp_name }}</td>
                                         <td class="text-center">{{ $dataParent->disbursedBy->name }}</td>
                                         <td class="text-center">
                                             @php

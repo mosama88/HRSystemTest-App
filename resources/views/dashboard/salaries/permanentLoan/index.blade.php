@@ -451,8 +451,7 @@
         <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
             <div class="modal-content text-center">
                 <div class="modal-header">
-                    <h6 class="modal-title">عرض تفاصيل أقساط سلفه مستديمة لـ
-                        <span class="text-danger">{{ $info->emp_name }}</span>
+                    <h6 class="modal-title">عرض تفاصيل أقساط سلفه مستديمة 
                     </h6>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
