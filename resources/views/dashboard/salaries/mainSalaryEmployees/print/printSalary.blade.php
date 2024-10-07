@@ -62,8 +62,8 @@
             <table class="employee-info">
                 <tr>
                     <th>اسم الموظف</th>
-                    <td>{{ $mainSalaryEmployee_data->employee_name }}
-                        ({{ $mainSalaryEmployee_data->employee->employee_code }})</td>
+                    <td>{{ $mainSalaryEmployee_data->emp_name }}
+                        ({{ $mainSalaryEmployee_data->employee_code }})</td>
                 </tr>
                 <tr>
                     <th>الوظيفة</th>
@@ -102,11 +102,11 @@
                     <tr>
                         <td rowspan="15" class="category-header vertical-text">الاستحقاقات</td>
                         <td>الراتب الأساسي</td>
-                        <td>{{ $mainSalaryEmployee_data->employee->salary * 1 }}</td>
+                        <td>{{ $mainSalaryEmployee_data->salary_employee * 1 }}</td>
                     </tr>
                     <tr>
                         <td>حافز ثابت</td>
-                        <td>{{ $mainSalaryEmployee_data->employee->motivation * 1 }}</td>
+                        <td>{{ $mainSalaryEmployee_data->motivation * 1 }}</td>
                     </tr>
                     <tr>
                         <td>بدلات ثابتة</td>
