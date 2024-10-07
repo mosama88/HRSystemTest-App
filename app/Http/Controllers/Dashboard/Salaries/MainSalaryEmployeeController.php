@@ -889,8 +889,8 @@ class MainSalaryEmployeeController extends Controller
 
 
             DB::beginTransaction();
+            $mainSalaryEmployee_data->employee_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $mainSalaryEmployee_data->employee_code));
 
-            $mainSalaryEmployee_data->employee_name = Employee::select("name")->where("com_code", $com_code)->where("employee_code", $mainSalaryEmployee_data['employee_code']);
             $mainSalaryEmployee_data->gender = Employee::select("gender")->where("com_code", $com_code)->where("gender", $mainSalaryEmployee_data['gender']);
             $mainSalaryEmployee_data->employee_department_code = Employee::select("department_id")->where("com_code", $com_code)->where("department_id", $mainSalaryEmployee_data['employee_department_code']);
             $mainSalaryEmployee_data->job_categories_id = Employee::select("job_categories_id")->where("com_code", $com_code)->where("job_categories_id", $mainSalaryEmployee_data['employee_jobs_id']);

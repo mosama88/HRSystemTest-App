@@ -62,7 +62,7 @@
             <table class="employee-info">
                 <tr>
                     <th>اسم الموظف</th>
-                    <td>{{ $mainSalaryEmployee_data->emp_name }}
+                    <td>{{ $mainSalaryEmployee_data->employee_name }}
                         ({{ $mainSalaryEmployee_data->employee_code }})</td>
                 </tr>
                 <tr>
