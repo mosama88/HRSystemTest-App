@@ -451,7 +451,7 @@
         <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
             <div class="modal-content text-center">
                 <div class="modal-header">
-                    <h6 class="modal-title">عرض تفاصيل أقساط سلفه مستديمة 
+                    <h6 class="modal-title">عرض تفاصيل أقساط سلفه مستديمة
                     </h6>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
@@ -605,6 +605,7 @@
                 }
             }
 
+
             // Trigger the recalculation on input changes
             $(document).on('input', '#total_add', function(e) {
                 recalculate_add_permanent_installment();
@@ -651,6 +652,27 @@
                         $('#modaldemo8').modal('show'); // إظهار الـ modal مرة أخرى
                     });
                     $("#total_add").focus();
+                    return false;
+                }
+
+
+                month_number_installment_add
+
+
+                var month_number_installment_add = $("#month_number_installment_add").val();
+                if (month_number_installment_add > 18) {
+                    $('#modaldemo8').modal('hide'); // إخفاء الـ modal
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'تحذير',
+                        text: 'عدد شهور الأقساط لا تتجاوز 18 شهرآ',
+                        customClass: {
+                            container: 'swal2-override'
+                        }
+                    }).then((result) => {
+                        $('#modaldemo8').modal('show'); // إظهار الـ modal مرة أخرى
+                    });
+                    $("#month_number_installment_add").focus();
                     return false;
                 }
 

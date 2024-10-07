@@ -233,7 +233,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
                 ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
             if (!empty($data)) {
                 foreach ($data as $info) {
-                    $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
                 }
             }
             return view('dashboard.salaries.permanentLoan.ajax_search', ['data' => $data]);

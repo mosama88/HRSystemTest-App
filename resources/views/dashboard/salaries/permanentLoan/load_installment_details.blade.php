@@ -11,6 +11,7 @@
                             <table class="table table-bordered ">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th class="text-center">كود الموظف</th>
                                         <th class="text-center">أسم الموظف</th>
                                         <th class="text-center">فتح الصرف بواسطة </th>
                                         <th class="text-center">تاريخ فتح الصرف</th>
@@ -18,6 +19,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td class="text-center">{{ $dataParent->employee_code }}</td>
                                         <td class="text-center">{{ $dataParent->emp_name }}</td>
                                         <td class="text-center">{{ $dataParent->disbursedBy->name }}</td>
                                         <td class="text-center">

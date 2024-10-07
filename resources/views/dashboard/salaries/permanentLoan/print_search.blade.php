@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title','طباعة السلف المستديمة')
 @section('css')
     <style>
         @media print {
@@ -14,7 +15,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">طباعه </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    الجزاءات</span>
+                    طباعة السلف المستديمة</span>
             </div>
         </div>
 
@@ -94,9 +95,9 @@
                                             <td>{{ $i }}</td>
                                             <td class="text-right">{{ $info->employee_code }}</td>
                                             <td class="text-right">{{ $info->name }}</td>
-                                            <td class="text-right">{{ $info->total * 1 }}</td>
-                                            <td class="text-right">{{ $info->month_number_installment }}</td>
-                                            <td class="text-right">{{ $info->month_installment_value }}
+                                            <td class="text-right">{{ $info->total * 1 }} جنية</td>
+                                            <td class="text-right">{{ $info->month_number_installment }} شهرآ</td>
+                                            <td class="text-right">{{ $info->month_installment_value }} جنية
                                             </td>
                                             <td class="text-right">
                                                 @if ($info->has_disbursed_done == 1)
