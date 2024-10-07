@@ -114,8 +114,8 @@
                                             <td>{{ $i }}</td>
                                             <td class="text-right">{{ $info->employee_code }}</td>
                                             <td class="text-right">{{ $info->employee_name }}</td>
-                                            <td class="text-right">{{ $info->branche?->name }}</td>
-                                            <td class="text-right">{{ $info->department_name }}</td>
+                                            <td class="text-right"> {{ $info->branch_name }}</td>
+                                            <td class="text-right"> {{ $info->department_name }}</td>
                                             <td class="text-right">{{ $info->job->name }}</td>
                                             <td class="text-right">{{ $info->salary_employee * 1 }}</td>
                                             <td class="text-right">{{ $info->total_benefits * 1 }}</td>

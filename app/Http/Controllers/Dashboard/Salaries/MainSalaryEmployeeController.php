@@ -456,11 +456,12 @@ class MainSalaryEmployeeController extends Controller
                 ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
 
 
-  if (!empty($data)) {
-      foreach ($data as $info) {
-        $info->department_name = get_field_value(new Employee(), "department_id", array("com_code" => $com_code, "department_id" => $info->employee_department_code));
-      }
-    }
+            if (!empty($data)) {
+                foreach ($data as $info) {
+                    $info->department_name = get_field_value(new Department(), "name", ["com_code" => $com_code, "id" => $info->employee_department_code]);
+                    $info->branch_name = get_field_value(new Branch(), "name", ["com_code" => $com_code, "id" => $info->branch_id]);
+                }
+            }
             if ($request->submit_button != "in_details" and $request->submit_button != "in_total") {
 
                 $total['salary_employee'] = 0;

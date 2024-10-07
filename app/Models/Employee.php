@@ -26,17 +26,17 @@ class Employee extends Model
     protected $guarded = [];
 
 
-    
+
     public function createdByAdmin()
     {
         return $this->belongsTo(Admin::class, 'created_by');
     }
-    
+
     public function updatedByAdmin()
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-    
+
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -47,11 +47,12 @@ class Employee extends Model
         return $this->belongsTo(Branch::class);
     }
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
+ 
 
+    public function department()
+{
+    return $this->belongsTo(Department::class, 'department_id');
+}
 
     public function jobCategories()
     {
