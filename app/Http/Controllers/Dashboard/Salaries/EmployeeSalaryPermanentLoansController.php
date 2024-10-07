@@ -230,7 +230,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
             $data = EmployeeSalaryPermanentLoans::select("*")->where($field1, $operator1, $value1)
                 ->where($field3, $operator3, $value3)
                 ->where($field4, $operator4, $value4)
-                ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
+                ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
             if (!empty($data)) {
                 foreach ($data as $info) {
                     $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));

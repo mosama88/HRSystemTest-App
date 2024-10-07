@@ -288,7 +288,7 @@ class MainSalaryEmployeeController extends Controller
                 ->where($field5, $operator5, $value5)
                 ->where($field6, $operator6, $value6)
                 ->where($field7, $operator7, $value7)
-                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
+                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
 
 
 

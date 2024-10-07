@@ -343,7 +343,7 @@ class EmployeeSalaryAllowanceController extends Controller
             }
             $com_code = auth()->user()->com_code;
             $data = EmployeeSalaryAllowance::select("*")->where($field1, $operator1, $value1)->where($field2, $operator2, $value2)->where($field3, $operator3, $value3)
-                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
+                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
             if (!empty($data)) {
                 foreach ($data as $info) {
                     $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
