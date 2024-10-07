@@ -21,9 +21,9 @@
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">طباعه </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     <a style="font-weight:bold;color:#117ea1;"
-                    href="{{ route('dashboard.mainSalaryEmployees.show', $finance_cln_periods_data->id) }}">
-                    <i class="fas fa-arrow-circle-left fa-lg ml-1"></i> جدول بيانات رواتب الموظفين
-                </a></span>
+                        href="{{ route('dashboard.mainSalaryEmployees.show', $finance_cln_periods_data->id) }}">
+                        <i class="fas fa-arrow-circle-left fa-lg ml-1"></i> جدول بيانات رواتب الموظفين
+                    </a></span>
             </div>
         </div>
 
@@ -42,9 +42,18 @@
 
 
     @if (@isset($data) and !@empty($data))
-        <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2" id="print_Button" onclick="printDiv()">
-            <i class="mdi mdi-printer ml-1"></i>طباعة
-        </a>
+        @if ($mainSalaryEmployee_data['is_stopped'] == 'stopped')
+            <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2">
+                <i class="fas fa-hand-paper fa-lg"></i> المرتب موقوف
+            </a>
+        @else
+            <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2" id="print_Button" onclick="printDiv()">
+                <i class="mdi mdi-printer ml-1"></i>طباعة
+            </a>
+        @endif
+
+
+
         <div id="print">
             @foreach ($data as $info)
                 @php $count = 1;@endphp

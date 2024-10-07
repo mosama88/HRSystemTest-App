@@ -33,9 +33,17 @@
     
     $currentDate = Carbon::now()->format('d-m-Y');
     ?>
-    <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2" id="print_Button" onclick="printDiv()">
-        <i class="mdi mdi-printer ml-1"></i>طباعة
-    </a>
+
+    @if ($mainSalaryEmployee_data['is_stopped'] == 'stopped')
+        <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2">
+            <i class="fas fa-hand-paper fa-lg"></i> المرتب موقوف
+        </a>
+    @else
+        <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2" id="print_Button" onclick="printDiv()">
+            <i class="mdi mdi-printer ml-1"></i>طباعة
+        </a>
+    @endif
+
 
     <div class="billed-from" id="print">
 

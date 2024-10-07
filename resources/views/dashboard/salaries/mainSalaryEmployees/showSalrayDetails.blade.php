@@ -11,8 +11,8 @@
         }
 
         /* .my-2.mx-1 {
-                                                                                                                                display: none;
-                                                                                                                            } */
+                                                                                                                                        display: none;
+                                                                                                                                    } */
     </style>
 
     <!-- Internal Data table css -->
@@ -65,18 +65,24 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">
-                            بيانات راتب <span class="text-danger">{{ $mainSalaryEmployee_data->employee_name}}</span>
+                            بيانات راتب <span class="text-danger">{{ $mainSalaryEmployee_data->employee_name }}</span>
                             المفصله للشهر المالى (<span
                                 class="text-danger">{{ $finance_cln_periods_data['month']->name }}</span> لسنه
                             {{ $finance_cln_periods_data['finance_yr'] }})
                         </h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
+                    @if ($mainSalaryEmployee_data['is_stopped'] == 'stopped')
+                        <a href="#" class="btn btn-danger float-left ml-4 mt-3 mr-2">
+                            <i class="fas fa-hand-paper fa-lg"></i> المرتب موقوف
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard.mainSalaryEmployees.printSalary', $mainSalaryEmployee_data['id']) }}"
+                            class="btn btn-danger float-left mt-3 mr-2">
+                            <i class="mdi mdi-printer ml-1"></i>طباعة مفرادات المرتب
+                        </a>
+                    @endif
 
-                    <a href="{{ route('dashboard.mainSalaryEmployees.printSalary', $mainSalaryEmployee_data['id']) }}"
-                        class="btn btn-danger float-left mt-3 mr-2">
-                        <i class="mdi mdi-printer ml-1"></i>طباعة مفرادات المرتب
-                    </a>
                 </div>
 
 
