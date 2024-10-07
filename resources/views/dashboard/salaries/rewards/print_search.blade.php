@@ -67,9 +67,7 @@
                                 <p class="invoice-info-row"><span>اجمالى المكافئة بالجنية</span>
                                     <span> {{ $other['total_sum'] * 1 }} جنية </span>
                                 </p>
-                                <p class="invoice-info-row"><span>عدد الأيام</span>
-                                    <span>{{ $other['value_sum'] * 1 }} يوم</span>
-                                </p>
+                        
                                 <p class="invoice-info-row">
                                 </p>
 
@@ -94,7 +92,7 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td class="text-right">{{ $info->employee_code }}</td>
-                                            <td class="text-right">{{ $info->name }}</td>
+                                            <td class="text-right">{{ $info->emp_name }}</td>
                                             <td class="text-right">{{ $info->AdditionalType->name }}</td>
                                             <td class="text-right">{{ $info->total * 1 }}</td>
                                             <td class="text-right">
