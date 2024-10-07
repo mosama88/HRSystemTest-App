@@ -276,9 +276,9 @@
                                                         src="{{ asset('dashboard/assets/img/employees-female-default.png') }}">
                                                 @endif
                                             </td>
-                                            <td>{{ $info->employee->fp_code }}</td>
+                                            <td>{{ $info->fp_code }}</td>
                                             <td>{{ $info->employee_code }}</td>
-                                            <td>{{ $info->employee?->name }}</td>
+                                            <td>{{ $info->employee_name }}</td>
                                             <td>{{ $info->branch->name }}</td>
                                             <td>{{ $info->department->name }}</td>
                                             <td>{{ $info->job?->name }}</td>

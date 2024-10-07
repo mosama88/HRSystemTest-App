@@ -101,6 +101,7 @@ class AttendanceDepartureController extends Controller
             "main_salary_employees.employee_jobs_id",
             "employees.name as employee_name",  // جلب اسم الموظف
             "employees.gender",                 // جلب الجنس
+            "employees.fp_code",                 // جلب الجنس
             "images.filename as employee_photo" // جلب الصورة من جدول Images
         )
             ->join('employees', 'main_salary_employees.employee_code', '=', 'employees.employee_code')
