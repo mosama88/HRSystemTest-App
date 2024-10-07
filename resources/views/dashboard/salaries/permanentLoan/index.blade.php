@@ -88,8 +88,8 @@
                                         <option value="all">بحث بالكل</option>
                                         @if (@isset($other['employees']) && !@empty($other['employees']))
                                             @foreach ($other['employees'] as $emp)
-                                                <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
-                                                    ({{ $emp->fp_code }})
+                                                <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود الموظف
+                                                    ({{ $emp->employee_code }})
                                                 </option>
                                             @endforeach
                                         @else
@@ -163,7 +163,7 @@
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $info->employee_code }}</td>
-                                                <td>{{ $info->employee->name }}</td>
+                                                <td>{{ $info->emp_name }}</td>
                                                 <td>{{ $info->total * 1 }}</td>
                                                 <td>{{ $info->month_number_installment }}</td>
                                                 <td>{{ $info->month_installment_value * 1 }}</td>
@@ -452,7 +452,7 @@
             <div class="modal-content text-center">
                 <div class="modal-header">
                     <h6 class="modal-title">عرض تفاصيل أقساط سلفه مستديمة لـ
-                        <span class="text-danger">{{ $info->name }}</span>
+                        <span class="text-danger">{{ $info->emp_name }}</span>
                     </h6>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>

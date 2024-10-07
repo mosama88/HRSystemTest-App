@@ -398,7 +398,7 @@ class EmployeeSalaryRewardsController extends Controller
             ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->get();
         if (!empty($data)) {
             foreach ($data as $info) {
-                $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
                 $other['value_sum'] += $info->value;
                 $other['total_sum'] += $info->total;
             }

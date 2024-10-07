@@ -78,8 +78,8 @@
                                         <option value="all">بحث بالكل</option>
                                         @if (@isset($employees_for_search) && !@empty($employees_for_search))
                                             @foreach ($employees_for_search as $emp)
-                                            <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
-                                                ({{ $emp->fp_code }})
+                                            <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود الموظف
+                                                ({{ $emp->employee_code }})
                                             </option>
                                             @endforeach
                                         @else

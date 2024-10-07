@@ -16,7 +16,7 @@
                             <h2 class="text-dark">هل تريد فتح الصرف الأن</h2>
                         </div>
                         <h5 class="col-12"> <span style="color: blue">أسم الموظف: </span>
-                            {{ $info->employee->name }}
+                            {{ $info->emp_name }}
                         </h5>
                             <div class="table-responsive">
                                 <table class="table table-bordered mg-b-0 text-md-nowrap">

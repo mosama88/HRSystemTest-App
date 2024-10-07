@@ -345,7 +345,7 @@ class MainSalaryEmployeeController extends Controller
 
             if (!empty($data)) {
                 foreach ($data as $info) {
-                    $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
                 }
             }
 

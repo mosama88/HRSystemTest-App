@@ -79,9 +79,9 @@
                                         <option value="all">بحث بالكل</option>
                                         @if (@isset($employees_for_search) && !@empty($employees_for_search))
                                             @foreach ($employees_for_search as $emp)
-                                            <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود البصمه
-                                                ({{ $emp->fp_code }})
-                                            </option>
+                                                <option value="{{ $emp->employee_code }}">{{ $emp->name }} / كود الموظف
+                                                    ({{ $emp->employee_code }})
+                                                </option>
                                             @endforeach
                                         @else
                                             <div class="alert alert-warning" role="alert" dir="rtl">
@@ -157,7 +157,7 @@
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $info->employee_code }}</td>
-                                                <td>{{$info->emp_name}}</td>
+                                                <td>{{ $info->emp_name }}</td>
                                                 <td>
                                                     @if ($info->sanctions_type == 1)
                                                         جزاء أيام

@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $info->employee_code }}</td>
-                    <td>{{ $info->employee->name }}</td>
+                    <td>{{ $info->emp_name }}</td>
                     <td>
                         @if ($info->sanctions_type == 1)
                             جزاء أيام
