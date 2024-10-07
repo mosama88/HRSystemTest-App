@@ -113,6 +113,11 @@ class EmployeeSalaryDiscountController extends Controller
             ->where('finance_cln_periods_id', $finance_cln_periods_id)
             ->paginate(5);
 
+            if (!empty($data)) {
+                foreach ($data as $info) {
+                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                }
+            }
 
 
         $employees = MainSalaryEmployee::where("com_code", "=", $com_code)->where("finance_cln_periods_id", "=", $finance_cln_periods_id)->distinct()->get("employee_code");
@@ -335,7 +340,7 @@ class EmployeeSalaryDiscountController extends Controller
                 ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
             if (!empty($data)) {
                 foreach ($data as $info) {
-                    $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
                 }
             }
 

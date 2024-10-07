@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $info->employee_code }}</td>
-                    <td>{{ $info->employee->name }}</td>
+                    <td>{{ $info->emp_name }}</td>
                     <td>{{ $info->DiscountType->name }}</td>
                     <td>{{ $info->total * 1 }}</td>
                     <td>{{ Str::limit($info->notes, 20) }}</td>
@@ -35,10 +35,11 @@
 
                         </div>
                     </td>
-                    
+
                 </tr>
             @endforeach
-        </tbody>    </table>
+        </tbody>
+    </table>
     <div class="col-md-12 text-center" id="ajax_pagination_in_search">
         {{ $data->links('pagination::bootstrap-5') }}
     </div>

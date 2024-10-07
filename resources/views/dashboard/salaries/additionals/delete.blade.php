@@ -14,7 +14,7 @@
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <input type="hidden" name="id" value="{{ $info->id }}">
-                        <h5 class="col-12"> <span style="color: blue">أسم الموظف: </span> {{ $info->employee->name }}
+                        <h5 class="col-12"> <span style="color: blue">أسم الموظف: </span> {{ $info->emp_name }}
                         </h5>
                         <h5 class="col-12"> <span style="color: blue">قيمة الأضافى: </span>
                             {{ $info->total * 1 }}

@@ -32,8 +32,8 @@ class SalarySanctionsController extends Controller
     {
         $com_code = auth()->user()->com_code;
         $data = FinanceClnPeriod::select("*")->where("com_code", $com_code)
-        ->orderBy("finance_yr", "DESC")
-        ->orderBy("start_date_m", "ASC")->paginate(12);
+            ->orderBy("finance_yr", "DESC")
+            ->orderBy("start_date_m", "ASC")->paginate(12);
         if (!empty($data)) {
             foreach ($data as $info) {
                 $info->currentYear = get_Columns_where_row(new FinanceCalendar(), array("is_open"), array("com_code" => $com_code, "finance_yr" => $info->finance_yr));
@@ -111,11 +111,12 @@ class SalarySanctionsController extends Controller
             ->where('com_code', $com_code)
             ->where('finance_cln_periods_id', $finance_cln_periods_id)
             ->paginate(5);
-  if (!empty($data)) {
-      foreach ($data as $info) {
-        $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
-      }
-    }
+
+        if (!empty($data)) {
+            foreach ($data as $info) {
+                $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+            }
+        }
 
 
         $employees = MainSalaryEmployee::where("com_code", "=", $com_code)->where("finance_cln_periods_id", "=", $finance_cln_periods_id)->distinct()->get("employee_code");
@@ -124,7 +125,7 @@ class SalarySanctionsController extends Controller
                 $info->EmployeeData = get_Columns_where_row(new Employee(), array("name", "salary", "day_price"), array("com_code" => $com_code, "employee_code" => $info->employee_code));
             }
         }
-        $employees_for_search = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price","fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
+        $employees_for_search = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price", "fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
 
 
 
