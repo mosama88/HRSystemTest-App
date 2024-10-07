@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title', 'طباعة اضافى الرواتب الشهرية')
 @section('css')
     <style>
         @media print {
@@ -14,7 +15,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">طباعه </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    الجزاءات</span>
+                    اضافى الرواتب</span>
             </div>
         </div>
 

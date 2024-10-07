@@ -67,9 +67,7 @@
                                 <p class="invoice-info-row"><span>اجمالى البدلات بالجنية</span>
                                     <span> {{ $other['total_sum'] * 1 }} جنية </span>
                                 </p>
-                                <p class="invoice-info-row"><span>عدد الأيام</span>
-                                    <span>{{ $other['value_sum'] * 1 }} يوم</span>
-                                </p>
+                             
                                 <p class="invoice-info-row">
                                 </p>
 

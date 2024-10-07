@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title', 'طباعة السلف الشهرية')
 @section('css')
     <style>
         @media print {
@@ -13,8 +14,9 @@
     <div class="breadcrumb-header justify-content-between" id="breadcrumb-header">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">طباعه </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    الجزاءات</span>
+                <h4 class="content-title mb-0 my-auto">طباعة السلف الشهرية </h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                    السلف الشهرية</span>
             </div>
         </div>
 
@@ -29,7 +31,7 @@
                 <div class="card card-invoice">
                     <div class="card-body">
                         <div class="invoice-header">
-                            <h1 class="invoice-title">غيابات الموظفين بالشهر المالى
+                            <h1 class="invoice-title">السلف الشهرية للموظفين بالشهر المالى
                                 {{ $finance_cln_periods_data->month->name }}</h1>
 
 
@@ -63,13 +65,11 @@
                                 </div>
                             </div>
                             <div class="col-md">
-                                <label class="tx-gray-600">تفاصيل الغيابات</label>
-                                <p class="invoice-info-row"><span>اجمالى الغيابات بالجنية</span>
+                                <label class="tx-gray-600">تفاصيل السلف الشهرية</label>
+                                <p class="invoice-info-row"><span>اجمالى السلف الشهرية بالجنية</span>
                                     <span> {{ $other['total_sum'] * 1 }} جنية </span>
                                 </p>
-                                <p class="invoice-info-row"><span>عدد الأيام</span>
-                                    <span>{{ $other['value_sum'] * 1 }} يوم</span>
-                                </p>
+
                                 <p class="invoice-info-row">
                                 </p>
 
@@ -82,8 +82,7 @@
                                         <th style="width: 5%">#</th>
                                         <th style="width: 5%">كود الموظف</th>
                                         <th style="width: 20%">أسم الموظف</th>
-                                        <th style="width: 10%">عدد الأيام</th>
-                                        <th style="width: 10%">أجمالى</th>
+                                        <th style="width: 10%">أجمالى قيمة السلفه</th>
                                         <th style="width: 10%">الحالة</th>
                                     </tr>
                                 </thead>
@@ -95,7 +94,6 @@
                                             <td>{{ $i }}</td>
                                             <td class="text-right">{{ $info->employee_code }}</td>
                                             <td class="text-right">{{ $info->name }}</td>
-                                            <td class="text-right">{{ $info->value * 1 }}</td>
                                             <td class="text-right">{{ $info->total * 1 }}</td>
                                             <td class="text-right">
                                                 <div class="col-12">

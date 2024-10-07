@@ -1,4 +1,6 @@
 @extends('dashboard.layouts.master')
+@section('title', 'طباعة الجزاءات الشهرية')
+
 @section('css')
     <style>
         @media print {

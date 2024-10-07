@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title', 'طباعة المكافئات الشهرية')
 @section('css')
     <style>
         @media print {
@@ -67,7 +68,7 @@
                                 <p class="invoice-info-row"><span>اجمالى المكافئة بالجنية</span>
                                     <span> {{ $other['total_sum'] * 1 }} جنية </span>
                                 </p>
-                        
+                                
                                 <p class="invoice-info-row">
                                 </p>
 
