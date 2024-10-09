@@ -600,8 +600,10 @@ class AttendanceDepartureController extends Controller
 
             if (!empty($data)) {
                 foreach ($data as $info) {
-                    $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_fp_code = get_field_value(new Employee(), "fp_code", array("com_code" => $com_code, "fp_code" => $info->fp_code));
                 }
+                
             }
 
             return view('dashboard.attendanceDepartures.attendanceDepartures.ajax_search', ['data' => $data, 'finance_cln_periods_data' => $finance_cln_periods_data]);
