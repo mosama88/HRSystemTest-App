@@ -308,7 +308,7 @@
                     $("#ajax_response_searchDiv").html(data);
                 },
                 error: function() {
-                    alert("عفوا لقد حدث خطأ ");
+                    alert("عفوا لا توجد بيانات! ");
                 }
             })
         });
