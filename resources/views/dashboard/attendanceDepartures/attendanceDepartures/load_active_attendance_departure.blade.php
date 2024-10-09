@@ -118,14 +118,15 @@
                                 <hr>
 
                                 @php
-                                    $dt = new DateTime($info['date_time_in']);
-                                    $date = $dt->format('Y-m-d');
-                                    $time = $dt->format('h:i');
-                                    $newDateTime = date('a', strtotime($info['date_time_in'])); // 'a' returns 'am' or 'pm' in lowercase
-                                    $newDateTimeType = $newDateTime == 'AM' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
+                                    $dt_date_time_in = new DateTime($info['date_time_in']);
+                                    $date_date_time_in = $dt_date_time_in->format('Y-m-d');
+                                    $time_date_time_in = $dt_date_time_in->format('h:i');
+                                    $newDateTime_date_time_in = date('a', strtotime($info['date_time_in'])); // 'a' returns 'am' or 'pm' in lowercase
+                                    $newDateTimeType_date_time_in =
+                                        $newDateTime_date_time_in == 'am' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
                                 @endphp
-                                ({{ $time }}
-                                {{ $newDateTimeType }})
+                                ({{ $time_date_time_in }}
+                                {{ $newDateTimeType_date_time_in }})
                             @endif
                         </td>
                         {{-- الأنصراف --}}
@@ -134,14 +135,14 @@
                                 @php echo date("H:i", strtotime($info->date_time_out)) @endphp
                                 <hr>
                                 @php
-                                    $dt = new DateTime($info['date_time_out']);
-                                    $date = $dt->format('Y-m-d');
-                                    $time = $dt->format('h:i');
-                                    $newDateTime = date('a', strtotime($info['date_time_out'])); // 'a' returns 'am' or 'pm' in lowercase
-                                    $newDateTimeType = $newDateTime == 'AM' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
+                                    $dt_time_out = new DateTime($info['date_time_out']);
+                                    $date_time_out = $dt_time_out->format('Y-m-d');
+                                    $time_time_out = $dt_time_out->format('h:i');
+                                    $newDateTime_time_out = date('a', strtotime($info['date_time_out'])); // 'a' returns 'am' or 'pm' in lowercase
+                                    $newDateTimeType_time_out = $newDateTime_time_out == 'am' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
                                 @endphp
-                                ({{ $time }}
-                                {{ $newDateTimeType }})
+                                ({{ $time_time_out }}
+                                {{ $newDateTimeType_time_out }})
                             @endif
                         </td>
                         {{-- البصمات --}}
