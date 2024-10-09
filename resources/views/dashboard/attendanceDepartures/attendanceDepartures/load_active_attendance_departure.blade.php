@@ -115,12 +115,33 @@
                         <td class="text-center">
                             @if ($info->date_time_in != null)
                                 @php echo date("H:i", strtotime($info->date_time_in)) @endphp
+                                <hr>
+
+                                @php
+                                    $dt = new DateTime($info['date_time_in']);
+                                    $date = $dt->format('Y-m-d');
+                                    $time = $dt->format('h:i');
+                                    $newDateTime = date('a', strtotime($info['date_time_in'])); // 'a' returns 'am' or 'pm' in lowercase
+                                    $newDateTimeType = $newDateTime == 'AM' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
+                                @endphp
+                                ({{ $time }}
+                                {{ $newDateTimeType }})
                             @endif
                         </td>
                         {{-- الأنصراف --}}
                         <td class="text-center">
                             @if ($info->date_time_out != null)
                                 @php echo date("H:i", strtotime($info->date_time_out)) @endphp
+                                <hr>
+                                @php
+                                    $dt = new DateTime($info['date_time_out']);
+                                    $date = $dt->format('Y-m-d');
+                                    $time = $dt->format('h:i');
+                                    $newDateTime = date('a', strtotime($info['date_time_out'])); // 'a' returns 'am' or 'pm' in lowercase
+                                    $newDateTimeType = $newDateTime == 'AM' ? 'صباحآ' : 'مساءآ'; // Correct comparison with lowercase 'am' and 'pm'
+                                @endphp
+                                ({{ $time }}
+                                {{ $newDateTimeType }})
                             @endif
                         </td>
                         {{-- البصمات --}}
