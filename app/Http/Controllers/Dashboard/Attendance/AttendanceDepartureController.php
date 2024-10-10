@@ -594,16 +594,15 @@ class AttendanceDepartureController extends Controller
                 ->where($field5, $operator5, $value5)
                 ->where($field6, $operator6, $value6)
                 ->where($field7, $operator7, $value7)
-                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(5);
+                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
 
 
 
             if (!empty($data)) {
                 foreach ($data as $info) {
                     $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
-                    $info->emp_fp_code = get_field_value(new Employee(), "fp_code", array("com_code" => $com_code, "fp_code" => $info->fp_code));
+                    $info->emp_fp_code = get_field_value(new Employee(), "fp_code", array("com_code" => $com_code));
                 }
-                
             }
 
             return view('dashboard.attendanceDepartures.attendanceDepartures.ajax_search', ['data' => $data, 'finance_cln_periods_data' => $finance_cln_periods_data]);
