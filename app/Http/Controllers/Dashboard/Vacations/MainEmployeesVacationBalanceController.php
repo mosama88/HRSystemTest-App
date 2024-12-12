@@ -82,18 +82,6 @@ class MainEmployeesVacationBalanceController extends Controller
         }
 
 
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "id" => $data['branch_id']));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "id" => $data['qualification_id']));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "id" => $data['blood_types_id']));
-        $other['nationalities'] = get_cols_where(new Nationality, array('id', 'name'), array('com_code' => $com_code, "id" => $data['nationality_id']));
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "id" => $data['language_id']));
-        $other['countires'] = get_cols_where(new Country, array('id', 'name'), array('com_code' => $com_code, "id" => $data['country_id']));
-        $other['governorates'] = get_cols_where(new Governorate, array('id', 'name'), array("id" => $data['governorate_id']));
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "id" => $data['city_id']));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "id" => $data['departement_id']));
-        $other['jobs_categories'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "id" => $data['job_categories_id']));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
 
         $other['employee_files'] = get_cols_where(new EmployeeFile(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
         if ($data['fixed_allowances'] == 1) {
