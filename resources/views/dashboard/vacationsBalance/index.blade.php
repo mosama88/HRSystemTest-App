@@ -327,7 +327,7 @@
                 var searchByRadioCode = $("input[name='searchByRadioCode']:checked").val();
 
                 jQuery.ajax({
-                    url: '{{ route('dashboard.employees.ajax_search') }}',
+                    url: '{{ route('dashboard.vacationsBalance.ajax_search') }}',
                     type: 'post',
                     dataType: 'html',
                     cache: false,

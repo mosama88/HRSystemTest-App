@@ -28,7 +28,7 @@ class MainEmployeesVacationBalanceController extends Controller
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new Employee(), array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(10);
+        $data = getColumnsIndex(new Employee(), array("*"), array("com_code" => $com_code), "id", "DESC")->get();
         $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
         $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
@@ -98,4 +98,82 @@ class MainEmployeesVacationBalanceController extends Controller
     {
         //
     }
+
+
+    public function ajax_search(Request $request)
+    {
+        if ($request->ajax()) {
+            $com_code = auth()->user()->com_code;
+            $byCode_search = $request->byCode_search;
+            $name = $request->name;
+            $branch_id = $request->branch_id;
+            $department_id = $request->department_id;
+            $job_categories_id = $request->job_categories_id;
+            $job_grade_id = $request->job_grade_id;
+            $functional_status = $request->functional_status;
+            $Type_salary_receipt = $request->Type_salary_receipt;
+            $gender = $request->gender;
+            $searchByRadioCode = $request->searchByRadioCode;
+
+            $query = Employee::query();
+
+            if ($request->filled('byCode')) {
+                if ($request->searchByRadioCode == 'employee_code') {
+                    $query->where('employee_code', $request->byCode);
+                } elseif ($request->searchByRadioCode == 'fp_code') {
+                    $query->where('fp_code', $request->byCode);
+                }
+            }
+
+            // اضف باقي شروط البحث هنا
+            // مثال:
+            if ($request->filled('name')) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            }
+
+            if ($name != '') {
+                $query->where('name', 'like', '%' . $name . '%');
+            }
+
+            if ($branch_id != 'all') {
+                $query->where('branch_id', $branch_id);
+            }
+
+            if ($department_id != 'all') {
+                $query->where('department_id', $department_id);
+            }
+
+            if ($job_categories_id != 'all') {
+                $query->where('job_categories_id', $job_categories_id);
+            }
+
+            if ($job_grade_id != 'all') {
+                $query->where('job_grade_id', $job_grade_id);
+            }
+
+            if ($functional_status != 'all') {
+                $query->where('functional_status', $functional_status);
+            }
+
+            if ($Type_salary_receipt != 'all') {
+                $query->where('Type_salary_receipt', $Type_salary_receipt);
+            }
+
+            if ($gender != 'all') {
+                $query->where('gender', $gender);
+            }
+
+
+            if (!empty($data)) {
+                foreach ($data as $info) {
+                    $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $info['employee_code']));
+                }
+            }
+
+            $data = $query->orderby('id', 'DESC')->paginate(10);
+
+            return view('dashboard.affairs_employees.employees.ajax_search', ['data' => $data]);
+        }
+    }
+
 }

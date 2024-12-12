@@ -295,6 +295,18 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية الأجازات
     Route::resource('/vacationsBalance', MainEmployeesVacationBalanceController::class);
+    Route::controller(MainEmployeesVacationBalanceController::class)->prefix('vacationsBalance')->name('vacationsBalance.')->group(function () {
+        Route::post("/getcities", 'getcities')->name('getcities');
+        Route::post("/get_governorates", 'get_governorates')->name('get_governorates');
+        Route::post('/ajax_search', 'ajax_search')->name('ajax_search');
+        Route::post('/add_files/{id}', 'add_files')->name('add_files');
+        Route::delete('/delete_files/{id}', 'destroy_file')->name('destroy_file');
+        Route::post('/add_allowances/{id}', 'add_allowance')->name('add_allowance');
+        Route::delete('/delete_allowances/{id}', 'destroy_allowance')->name('destroy_allowance');
+        Route::post('/load_edit_allowances', 'load_edit_allowances')->name('load_edit_allowances');
+        Route::put('/do_edit_allowances/{id}', 'do_edit_allowances')->name('do_edit_allowances');
+        Route::post('/showSalaryArchived', 'showSalaryArchived')->name('showSalaryArchived');
+    });
 });
 
 // بداية صلاحيات المستخدمين
