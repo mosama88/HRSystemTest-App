@@ -3,9 +3,9 @@
 @section('title', 'عرض رواتب الموظفين المفصله ')
 
 @section('css')
-<link href="{{ URL::asset('dashboard/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('dashboard/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
 
-<link href="{{ URL::asset('dashboard/assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('dashboard/assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
 
     <!-- Internal Data table css -->
     <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
@@ -207,32 +207,31 @@
                                         <div class="table-responsive">
                                             @if (isset($data) && $data->isNotEmpty())
                                                 <div class="table-responsive mt-3">
-                                                    <table id="example1"
-                                                        class="table table-bordered table-striped table-hover">
-                                                        <thead class="thead-light">
+
+
+                                                    <table class="table mg-b-0 text-md-nowrap">
+                                                        <thead>
                                                             <tr>
-                                                                <th class="text-center">عدد الرواتب</th>
-                                                                <th class="text-center">عدد بأنتظار الأرشفه</th>
-                                                                <th class="text-center">عدد المؤرشف</th>
-                                                                <th class="text-center">عدد الموقوف راتبه</th>
+                                                                <th>عدد الرواتب</th>
+                                                                <th>عدد بأنتظار الأرشفه</th>
+                                                                <th>عدد المؤرشف</th>
+                                                                <th>عدد الموقوف راتبه</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-
                                                             <tr>
-                                                                <td class="text-center">
+                                                                <td>
                                                                     {{ $other['counter_salaries'] * 1 }}</td>
-                                                                <td class="text-center">
+                                                                <td>
                                                                     {{ $other['counter_salaries_waiting_archive'] * 1 }}
                                                                 </td>
-                                                                <td class="text-center">
+                                                                <td>
                                                                     {{ $other['counter_salaries_done_archive'] * 1 }}</td>
-                                                                <td class="text-center">
+                                                                <td>
                                                                     {{ $other['counter_salaries_stopped'] * 1 }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-
                                                 </div>
                                             @else
                                                 <div class="alert alert-warning" role="alert" dir="rtl">
@@ -344,7 +343,7 @@
                                     </tbody>
                                 </table>
                                 <div class="col-md-12 text-center" id="ajax-pagination_in_search">
-                                    {{ $data->links('pagination::bootstrap-5') }}
+                                    {{-- {{ $data->links('pagination::bootstrap-5') }} --}}
                                 </div>
                             </div>
                         @else
@@ -516,13 +515,13 @@
     <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
 
-        <!-- Internal Data tables -->
+    <!-- Internal Data tables -->
 
-        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
-        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
-        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
-        <!--Internal  Datatable js -->
-        <script src="{{ URL::asset('dashboard/assets/js/table-data.js') }}"></script>
+    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
+    <!--Internal  Datatable js -->
+    <script src="{{ URL::asset('dashboard/assets/js/table-data.js') }}"></script>
 
 
     <!--Internal  Datatable js -->

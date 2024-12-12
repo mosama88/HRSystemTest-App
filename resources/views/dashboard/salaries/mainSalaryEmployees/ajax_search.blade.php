@@ -5,22 +5,26 @@
             <div class="table-responsive">
                 @if (@isset($data) && !@empty($data))
                     <div class="table-responsive mt-3">
-                        <table id="example1" class="table table-bordered table-striped table-hover">
-                            <thead class="thead-light">
+                        <table class="table mg-b-0 text-md-nowrap">
+                            <thead>
                                 <tr>
-                                    <th class="text-center">عدد الرواتب</th>
-                                    <th class="text-center">عدد بأنتظار الأرشفه</th>
-                                    <th class="text-center">عدد المؤرشف</th>
-                                    <th class="text-center">عدد الموقوف راتبه</th>
+                                    <th>عدد الرواتب</th>
+                                    <th>عدد بأنتظار الأرشفه</th>
+                                    <th>عدد المؤرشف</th>
+                                    <th>عدد الموقوف راتبه</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <tr>
-                                    <td class="text-center">{{ $other['counter_salaries'] * 1 }}</td>
-                                    <td class="text-center">{{ $other['counter_salaries_waiting_archive'] * 1 }}</td>
-                                    <td class="text-center">{{ $other['counter_salaries_done_archive'] * 1 }}</td>
-                                    <td class="text-center">{{ $other['counter_salaries_stopped'] * 1 }}</td>
+                                    <td>
+                                        {{ $other['counter_salaries'] * 1 }}</td>
+                                    <td>
+                                        {{ $other['counter_salaries_waiting_archive'] * 1 }}
+                                    </td>
+                                    <td>
+                                        {{ $other['counter_salaries_done_archive'] * 1 }}</td>
+                                    <td>
+                                        {{ $other['counter_salaries_stopped'] * 1 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -41,6 +45,7 @@
 
         </div>
     </div>
+    
     <table id="example1" class="table table-bordered table-striped table-hover">
         <thead class="thead-light">
             <tr>
