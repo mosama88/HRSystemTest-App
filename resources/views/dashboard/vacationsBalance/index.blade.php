@@ -232,7 +232,7 @@
                                                     <div class="dropdown-menu tx-13">
                                                         {{-- show --}}
                                                         <a class="btn dropdown-item text-primary btn-sm"
-                                                            href="{{ route('dashboard.employees.show', $info->id) }}"><i
+                                                            href="{{ route('dashboard.vacationsBalance.show', $info->id) }}"><i
                                                                 class="fas fa-eye ml-1"></i>بيانات الموظف</a>
                                                         {{-- Edit --}}
                                                         <a class="btn dropdown-item text-info btn-outline-info btn-sm"
