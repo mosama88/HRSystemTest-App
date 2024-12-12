@@ -172,7 +172,7 @@ class MainEmployeesVacationBalanceController extends Controller
 
             $data = $query->orderby('id', 'DESC')->paginate(10);
 
-            return view('dashboard.affairs_employees.employees.ajax_search', ['data' => $data]);
+            return view('dashboard.vacationsBalance.ajax_search', ['data' => $data]);
         }
     }
 

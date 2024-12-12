@@ -157,9 +157,8 @@
 
                         {{-- active_vacation_search --}}
                         <div class="form-group col-3">
-                            <label> بحث هل له رصيد اجازات</label>
-                            <select name="active_vacation_search" id="active_vacation_search"
-                                class="form-control">
+                            <label> بحث بحالة تفعيل الرصيد</label>
+                            <select name="active_vacation_search" id="active_vacation_search" class="form-control">
                                 <option value="all">-- بحث بالكل --</option>
                                 <option value="Yes">له رصيد اجازات</option>
                                 <option value="No">ليس لديه رصيد اجازات</option>
@@ -185,7 +184,7 @@
                                         <th>الفرع</th>
                                         <th>الأدارة</th>
                                         <th>الوظيفه</th>
-                                        <th>الحالة الوظيفية</th>
+                                        <th>رصيد الاجازات</th>
                                         <th>الأضافه بواسطة</th>
                                         <th>العمليات</th>
                                     </tr>
@@ -217,10 +216,10 @@
                                             <td>{{ $info->jobCategories?->name }}</td>
                                             <td>{{ $info->work_start_date }}</td>
                                             <td>
-                                                @if ($info->functional_status == 'Employee')
-                                                    موظف
+                                                @if ($info->active_vacation == 'Yes')
+                                                    <span class="badge badge-pill badge-primary">له رصيد</span>
                                                 @else
-                                                    لا يعمل
+                                                    <span class="badge badge-pill badge-danger">ليس لدية رصيد</span>
                                                 @endif
                                             </td>
                                             <td>{{ $info->createdByAdmin?->name }}</td>
