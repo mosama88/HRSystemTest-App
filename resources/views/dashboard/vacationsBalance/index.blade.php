@@ -155,14 +155,14 @@
                             </select>
                         </div>
 
-                        {{-- Type_salary_receipt_search --}}
+                        {{-- active_vacation_search --}}
                         <div class="form-group col-3">
-                            <label> بحث بنوع صرف راتب الموظف</label>
-                            <select name="Type_salary_receipt_search" id="Type_salary_receipt_search"
+                            <label> بحث هل له رصيد اجازات</label>
+                            <select name="active_vacation_search" id="active_vacation_search"
                                 class="form-control">
                                 <option value="all">-- بحث بالكل --</option>
-                                <option value="Cach">كاش</option>
-                                <option value="Visa">فيزا</option>
+                                <option value="Yes">له رصيد اجازات</option>
+                                <option value="No">ليس لديه رصيد اجازات</option>
                             </select>
                         </div>
 
@@ -304,7 +304,7 @@
         $(document).ready(function() {
             // Event listeners for search inputs
             $(document).on('input',
-                '#byCode_search, #job_grade_id_search, #name_search, #branch_id_search, #department_id_search, #job_categories_id_search, #functional_status_search, #Type_salary_receipt_search, #gender_search',
+                '#byCode_search, #job_grade_id_search, #name_search, #branch_id_search, #department_id_search, #job_categories_id_search, #functional_status_search, #active_vacation_search, #gender_search',
                 function(e) {
                     ajax_search();
                 });
@@ -322,7 +322,7 @@
                 var job_categories_id = $("#job_categories_id_search").val();
                 var job_grade_id = $("#job_grade_id_search").val();
                 var functional_status = $("#functional_status_search").val();
-                var Type_salary_receipt = $("#Type_salary_receipt_search").val();
+                var active_vacation = $("#active_vacation_search").val();
                 var gender = $("#gender_search").val();
                 var searchByRadioCode = $("input[name='searchByRadioCode']:checked").val();
 
@@ -340,7 +340,7 @@
                         job_categories_id: job_categories_id,
                         job_grade_id: job_grade_id,
                         functional_status: functional_status,
-                        Type_salary_receipt: Type_salary_receipt,
+                        active_vacation: active_vacation,
                         gender: gender,
                         searchByRadioCode: searchByRadioCode,
                     },
@@ -363,7 +363,7 @@
                 var job_grade_id = $("#job_grade_id_search").val();
                 var job_categories_id = $("#job_categories_id_search").val();
                 var functional_status = $("#functional_status_search").val();
-                var Type_salary_receipt = $("#Type_salary_receipt_search").val();
+                var active_vacation = $("#active_vacation_search").val();
                 var gender = $("#gender_search").val();
                 var searchByRadioCode = $("input[name='searchByRadioCode']:checked").val();
                 var linkurl = $(this).attr("href");
@@ -382,7 +382,7 @@
                         job_categories_id: job_categories_id,
                         job_grade_id: job_grade_id,
                         functional_status: functional_status,
-                        Type_salary_receipt: Type_salary_receipt,
+                        active_vacation: active_vacation,
                         gender: gender,
                         searchByRadioCode: searchByRadioCode,
                     },

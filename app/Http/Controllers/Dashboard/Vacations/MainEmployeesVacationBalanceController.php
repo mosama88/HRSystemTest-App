@@ -111,7 +111,7 @@ class MainEmployeesVacationBalanceController extends Controller
             $job_categories_id = $request->job_categories_id;
             $job_grade_id = $request->job_grade_id;
             $functional_status = $request->functional_status;
-            $Type_salary_receipt = $request->Type_salary_receipt;
+            $active_vacation = $request->active_vacation;
             $gender = $request->gender;
             $searchByRadioCode = $request->searchByRadioCode;
 
@@ -155,8 +155,8 @@ class MainEmployeesVacationBalanceController extends Controller
                 $query->where('functional_status', $functional_status);
             }
 
-            if ($Type_salary_receipt != 'all') {
-                $query->where('Type_salary_receipt', $Type_salary_receipt);
+            if ($active_vacation != 'all') {
+                $query->where('active_vacation', $active_vacation);
             }
 
             if ($gender != 'all') {
