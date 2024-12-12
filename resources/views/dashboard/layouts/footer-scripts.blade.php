@@ -42,3 +42,8 @@
 
 
 <script src="{{ URL::asset('dashboard/assets/js/projects/sweetalert2.min.js') }}"></script>
+
+
+
+
+@livewireScripts

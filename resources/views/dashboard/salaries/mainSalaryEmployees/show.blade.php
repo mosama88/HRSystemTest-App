@@ -1,16 +1,19 @@
 @extends('dashboard.layouts.master')
 @section('mainSalaryEmployees', 'active')
 @section('title', 'عرض رواتب الموظفين المفصله ')
+
 @section('css')
+<link href="{{ URL::asset('dashboard/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
+
+<link href="{{ URL::asset('dashboard/assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
 
     <!-- Internal Data table css -->
-
+    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('dashboard/assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
-    <!---Internal Owl Carousel css-->
-    <link href="{{ URL::asset('dashboard/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
-    <!---Internal  Multislider css-->
-    <link href="{{ URL::asset('dashboard/assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
-    <!--- Select2 css -->
     <link href="{{ URL::asset('dashboard/assets/css/sweetalert2.min.css') }}" rel="stylesheet">
 
 @endsection
@@ -340,7 +343,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="col-md-12 text-center ajax_pagination_in_search">
+                                <div class="col-md-12 text-center" id="ajax-pagination_in_search">
                                     {{ $data->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
@@ -512,6 +515,16 @@
     <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.print.min.js') }}"></script>
     <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
+
+        <!-- Internal Data tables -->
+
+        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
+        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
+        <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
+        <!--Internal  Datatable js -->
+        <script src="{{ URL::asset('dashboard/assets/js/table-data.js') }}"></script>
+
+
     <!--Internal  Datatable js -->
     {{-- <script src="{{ URL::asset('dashboard/assets/js/table-data.js') }}"></script> --}}
 

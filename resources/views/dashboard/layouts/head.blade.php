@@ -28,3 +28,6 @@
 
 <!--- sweetalert2 css -->
 <link href="{{ URL::asset('dashboard/assets/css/sweetalert2.min.css') }}" rel="stylesheet">
+
+
+@livewireStyles

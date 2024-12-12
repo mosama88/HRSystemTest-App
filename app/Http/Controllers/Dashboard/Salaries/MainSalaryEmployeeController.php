@@ -115,7 +115,7 @@ class MainSalaryEmployeeController extends Controller
             ->where('main_salary_employees.finance_cln_periods_id', $finance_cln_periods_id)
             // ->where('is_archived', "=", 0)
             ->orderBy('main_salary_employees.id', 'DESC')
-            ->paginate(5);
+            ->paginate(10);
 
         // لا حاجة للتكرار على البيانات لتحديث الاسم والجنس لأنهم تم جلبهم بالفعل في الاستعلام الرئيسي
 
@@ -288,7 +288,7 @@ class MainSalaryEmployeeController extends Controller
                 ->where($field5, $operator5, $value5)
                 ->where($field6, $operator6, $value6)
                 ->where($field7, $operator7, $value7)
-                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
+                ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(10);
 
 
 
