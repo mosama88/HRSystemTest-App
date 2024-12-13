@@ -118,7 +118,7 @@ $maleNames = [
 
             // تأكد من أن عمود birth_date موجود في جدول الموظفين
 
-            'brith_date' => fake()->dateTimeBetween('-25 years', 'now')->format('Y-m-d'),
+            'birth_date' => fake()->dateTimeBetween('-25 years', 'now')->format('Y-m-d'),
             'national_id' => fake()->numerify('##############'),
 
             'end_national_id' => fake()->dateTimeBetween('now', '+5 years')->format('Y-m-d'),
@@ -152,7 +152,7 @@ $maleNames = [
             'shift_types_id' => ShiftsType::all()->random()->id,
             'daily_work_hour' => rand(7, 12),
             'job_grade_id' => JobGrade::all()->random()->id,
-            'salary' => $salary = fake()->randomFloat(2, 5000, 50000),
+            'salary' => $salary = fake()->randomFloat(2, 5000, 200000),
             'day_price' => $salary / 30,
             'motivation_type' => $motivation_type = fake()->randomElement(['Changeable', 'Fixed']),
             'motivation' => $motivation_type === 'Fixed' ? fake()->randomFloat(2, 1000, 2000) : null,

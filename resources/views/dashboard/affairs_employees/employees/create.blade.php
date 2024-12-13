@@ -242,7 +242,7 @@
 
                                                     {{-- Birth Date Input --}}
                                                     <div class="col-md-4 mb-3">
-                                                        <div class="form-group" id="employee_brith_date_input">
+                                                        <div class="form-group" id="employee_birth_date_input">
                                                             <label> تاريخ الميلاد</label> <span class="tx-danger">*</span>
                                                             <!-- حقل إدخال التاريخ -->
                                                             <div class="input-group">
@@ -250,17 +250,17 @@
                                                                     <span class="input-group-text"><i
                                                                             class="fa fa-calendar-alt"></i></span>
                                                                 </div>
-                                                                <input type="text" name="brith_date" id="brith_date"
+                                                                <input type="text" name="birth_date" id="birth_date"
                                                                     placeholder="يوم / شهر / سنه"
                                                                     class="form-control flatpickr bg-transparent"
-                                                                    value="{{ old('brith_date') }}">
+                                                                    value="{{ old('birth_date') }}">
                                                                 <div class="input-group-append">
                                                                     <button type="button" class="wd-80 btn btn-dark"
-                                                                        onclick="document.getElementById('brith_date')._flatpickr.clear()"><i
+                                                                        onclick="document.getElementById('birth_date')._flatpickr.clear()"><i
                                                                             class="fa fa-times"></i> محو</button>
                                                                 </div>
                                                             </div>
-                                                            @error('brith_date')
+                                                            @error('birth_date')
                                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -1619,7 +1619,7 @@
 
 
     <script>
-        flatpickr('#brith_date', {
+        flatpickr('#birth_date', {
             dateFormat: 'Y-m-d',
             locale: "ar",
         });
@@ -1705,7 +1705,7 @@
         // Function to calculate vacation days
         function calculateVacationDays() {
             // Get the input values
-            let birthDate = new Date(document.getElementById('brith_date').value);
+            let birthDate = new Date(document.getElementById('birth_date').value);
             let hiringDate = new Date(document.getElementById('work_start_date').value);
             let additionalServiceYears = parseInt(document.getElementById('add_service').value || 0);
 
@@ -1730,7 +1730,7 @@
         }
 
         // Attach event listeners to update vacation days on input change
-        document.getElementById('brith_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
         document.getElementById('work_start_date').addEventListener('change', calculateVacationDays);
         document.getElementById('add_service').addEventListener('input', calculateVacationDays);
     </script>

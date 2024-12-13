@@ -135,7 +135,7 @@ class EmployeeController extends Controller
                 $dataToInsert['qualification_year'] = $request->qualification_year;
                 $dataToInsert['major'] = $request->major;
                 $dataToInsert['graduation_estimate'] = $request->graduation_estimate;
-                $dataToInsert['brith_date'] = $request->brith_date;
+                $dataToInsert['birth_date'] = $request->birth_date;
                 $dataToInsert['national_id'] = $request->national_id;
                 $dataToInsert['end_national_id'] = $request->end_national_id;
                 $dataToInsert['national_id_place'] = $request->national_id_place;
@@ -379,7 +379,7 @@ class EmployeeController extends Controller
                 $dataToUpdate['job_grade_id'] = $request->job_grade_id;
                 $dataToUpdate['major'] = $request->major;
                 $dataToUpdate['graduation_estimate'] = $request->graduation_estimate;
-                $dataToUpdate['brith_date'] = $request->brith_date;
+                $dataToUpdate['birth_date'] = $request->birth_date;
                 $dataToUpdate['national_id'] = $request->national_id;
                 $dataToUpdate['end_national_id'] = $request->end_national_id;
                 $dataToUpdate['national_id_place'] = $request->national_id_place;

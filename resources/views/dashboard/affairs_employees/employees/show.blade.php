@@ -207,7 +207,7 @@
 
                                                         <tr>
                                                             <td class="wd-300 back">تاريخ الميلاد</td>
-                                                            <td>{{ $data->brith_date }} </td>
+                                                            <td>{{ $data->birth_date }} </td>
                                                         </tr>
 
                                                         <tr>

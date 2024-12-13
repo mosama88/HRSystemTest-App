@@ -34,7 +34,7 @@ class EmployeeRequest extends FormRequest
             'qualification_year' => 'nullable', // سنة التخرج
             'major' => 'nullable', // تخصص التخرج
             'graduation_estimate' => 'nullable|in:Fair,Good,Very_Good,Excellent', // تقدير التخرج
-            'brith_date' => 'required|date', // تاريخ الميلاد
+            'birth_date' => 'required|date', // تاريخ الميلاد
             'blood_types_id' => 'nullable|exists:blood_types,id', // فصيلة الدم
             'religion' => 'nullable|in:Muslim,Christian', //الديانة
             'language_id' => 'nullable|exists:languages,id', // اللغة الاساسية
@@ -117,8 +117,8 @@ class EmployeeRequest extends FormRequest
             'end_national_id.date' => 'تاريخ انتهاء الهوية يجب أن يكون بتنسيق صحيح.',
             'national_id_place.required' => 'مكان إصدار الهوية مطلوب.',
             'qualification_id.exists' => 'المؤهل الدراسي المحدد غير موجود.',
-            'brith_date.required' => 'تاريخ الميلاد مطلوب.',
-            'brith_date.date' => 'تاريخ الميلاد يجب أن يكون بتنسيق صحيح.',
+            'birth_date.required' => 'تاريخ الميلاد مطلوب.',
+            'birth_date.date' => 'تاريخ الميلاد يجب أن يكون بتنسيق صحيح.',
             'email.required' => 'البريد الإلكتروني مطلوب.',
             'email.unique' => 'البريد الإلكتروني مسجل بالفعل.',
             'email.email' => 'يرجى إدخال بريد إلكتروني صالح.',
