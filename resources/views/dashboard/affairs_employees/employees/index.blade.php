@@ -41,7 +41,8 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">جدول شئون الموظفين</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <a class="my-2 mx-2 btn btn-success" href="{{ url('employees/excel/export-excel') }}"> <i
+                                class="fas fa-file-excel fa-lg ml-2 "></i> سحب اكسيل شيت</a>
                     </div>
                     {{-- <p class="tx-12 tx-gray-500 mb-2">Example of Valex Striped Rows.. <a href="">Learn more</a></p> --}}
                 </div>
@@ -171,9 +172,6 @@
                     </div>
                     {{-- End Row --}}
                     <div class="table-responsive" id="resultsTable">
-
-                        <a class="my-2 mx-2 btn btn-success" href="{{ url('employees/excel/export-excel') }}"> <i
-                                class="fas fa-file-excel fa-lg ml-2 "></i> سحب اكسيل شيت</a>
                         @if (isset($data) && !@empty($data))
                             <table class="table text-md-nowrap" id="example1">
                                 <thead>
