@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Employee;
+use App\Models\JobGrade;
 use App\Models\Language;
 use App\Models\Allowance;
 use App\Models\BloodType;
@@ -23,10 +24,11 @@ use App\Models\SalaryArchive;
 use App\Models\MainSalaryEmployee;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\EmployeeFixedAllowance;
 use App\Http\Requests\Dashboard\EmployeeRequest;
 use App\Http\Requests\Dashboard\EmployeeUpdateRequest;
-use App\Models\JobGrade;
+use App\Exports\EmployeeExport;
 
 class EmployeeController extends Controller
 {
@@ -939,5 +941,14 @@ class EmployeeController extends Controller
                 return response()->json("no_exsists_befor", 200);
             }
         }
+    }
+
+
+    public function export(){
+        return Excel::download(new EmployeeExport(), 'employees.xlsx');
+    }
+
+    public function import(){
+        //
     }
 }

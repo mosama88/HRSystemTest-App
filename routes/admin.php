@@ -150,6 +150,8 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/load_edit_allowances', 'load_edit_allowances')->name('load_edit_allowances');
         Route::put('/do_edit_allowances/{id}', 'do_edit_allowances')->name('do_edit_allowances');
         Route::post('/showSalaryArchived', 'showSalaryArchived')->name('showSalaryArchived');
+        Route::get('excel/export-excel','export');
+        Route::post('/import-excel','import')->name('importData');
     });
 
     // بداية نوع الأضافة
@@ -273,6 +275,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/loadArchiveSalary',  'loadArchiveSalary')->name('loadArchiveSalary');
         Route::post('/doArchiveSalary/{id}',  'doArchiveSalary')->name('doArchiveSalary');
         Route::get('/printSalary/{id}',  'printSalary')->name('printSalary');
+        Route::get('excel/export-excel/{id}','export');
     });
 
     //البصمه
@@ -307,6 +310,12 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::put('/do_edit_allowances/{id}', 'do_edit_allowances')->name('do_edit_allowances');
         Route::post('/showSalaryArchived', 'showSalaryArchived')->name('showSalaryArchived');
     });
+
+
+    
+
+
+    
 });
 
 // بداية صلاحيات المستخدمين

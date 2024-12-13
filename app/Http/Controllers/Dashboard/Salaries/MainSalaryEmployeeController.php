@@ -11,17 +11,19 @@ use Illuminate\Http\Request;
 use App\Models\FinanceCalendar;
 use App\Models\FinanceClnPeriod;
 use App\Models\AdminPanelSetting;
-use App\Models\MainSalaryEmployee;
-use App\Models\EmployeeSalaryAbsenceDay;
-use App\Models\EmployeeSalaryAdditional;
-use App\Models\EmployeeSalaryAllowance;
-use App\Models\EmployeeSalaryDiscount;
 use App\Models\EmployeeSalaryLoan;
-use App\Models\PermanentLoansInstallment;
-use App\Models\EmployeeSalaryRewards;
-use App\Models\EmployeeSalarySanctions;
+use App\Models\MainSalaryEmployee;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\EmployeeSalaryRewards;
+use App\Models\EmployeeSalaryDiscount;
+use App\Models\EmployeeSalaryAllowance;
+use App\Models\EmployeeSalarySanctions;
+use App\Models\EmployeeSalaryAbsenceDay;
+use App\Models\EmployeeSalaryAdditional;
+use App\Exports\MainSalaryEmployeeExport;
+use App\Models\PermanentLoansInstallment;
 
 class MainSalaryEmployeeController extends Controller
 {
@@ -904,6 +906,12 @@ class MainSalaryEmployeeController extends Controller
             return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
         }
     }
+
+
+    public function export(){
+        return Excel::download(new MainSalaryEmployeeExport(), 'mainSalaryEmployees.xlsx');
+    }
+
 }
 
 

@@ -170,9 +170,10 @@
 
                     </div>
                     {{-- End Row --}}
-
-
                     <div class="table-responsive" id="resultsTable">
+
+                        <a class="my-2 mx-2 btn btn-success" href="{{ url('employees/excel/export-excel') }}"> <i
+                                class="fas fa-file-excel fa-lg ml-2 "></i> سحب اكسيل شيت</a>
                         @if (isset($data) && !@empty($data))
                             <table class="table text-md-nowrap" id="example1">
                                 <thead>
