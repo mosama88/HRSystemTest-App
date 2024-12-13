@@ -125,5 +125,205 @@ class JobsCategorieSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'فني ميكانيكا سيارات',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'فني تكييف وتبريد',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'سائق شاحنة',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مسؤول لوجستي',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'كاتب محتوى',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مترجم',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مندوب مبيعات',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'عامل نظافة',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'حارس أمن',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'كهربائي',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مستشار اقتصادي',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'أمين صندوق',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مدير مالي',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مستشار ضرائب',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مدير مشاريع',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مساعد إداري',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مدير مكتب',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مطور تطبيقات موبايل',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'مصمم واجهات وتجربة المستخدم (UI/UX)',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+        DB::table('jobs_categories')->insert([
+            [
+                'name' => 'خبير أمن سيبراني',
+                'active' => 1,
+                'com_code' => 1,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+        ]);
+        
     }
 }
