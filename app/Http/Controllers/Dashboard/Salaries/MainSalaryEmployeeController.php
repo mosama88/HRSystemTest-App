@@ -907,9 +907,20 @@ class MainSalaryEmployeeController extends Controller
         }
     }
 
-
-    public function export(){
-        return Excel::download(new MainSalaryEmployeeExport(), 'mainSalaryEmployees.xlsx');
+    public function export($finance_cln_periods_id)
+    {
+        $com_code = auth()->user()->com_code;
+        $finance_cln_periods_data = get_Columns_where_row(
+            new FinanceClnPeriod(),
+            array("*"),
+            array("com_code" => $com_code, "id" => $finance_cln_periods_id, ['is_open', '!=', 0])
+        );
+    
+        if (empty($finance_cln_periods_data)) {
+            return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول على البيانات المطلوبة!']);
+        }
+    
+        return Excel::download(new MainSalaryEmployeeExport($finance_cln_periods_id), 'mainSalaryEmployees.xlsx');
     }
 
 }

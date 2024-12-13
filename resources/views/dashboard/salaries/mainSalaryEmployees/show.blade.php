@@ -60,10 +60,18 @@
                                 class="text-danger ">{{ $finance_cln_periods_data['month']->name }}</span> لسنه
                             {{ $finance_cln_periods_data['finance_yr'] }})
                         </h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <a class="btn btn-success btn-md"
+                            href="{{ route('dashboard.mainSalaryEmployees.export-excel', $finance_cln_periods_data['id']) }}">
+                            <i class="fas fa-file-excel fa-lg ml-2"></i>سحب أكسيل</a>
                     </div>
 
                 </div>
+
+
+
+
+
+
                 <form method="POST" action="{{ route('dashboard.mainSalaryEmployees.print_search') }}" target="_blank">
                     @csrf
                     <input type="hidden" id="the_finance_cln_periods_id" name="the_finance_cln_periods_id"

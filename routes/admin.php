@@ -275,7 +275,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/loadArchiveSalary',  'loadArchiveSalary')->name('loadArchiveSalary');
         Route::post('/doArchiveSalary/{id}',  'doArchiveSalary')->name('doArchiveSalary');
         Route::get('/printSalary/{id}',  'printSalary')->name('printSalary');
-        Route::get('excel/export-excel/{id}','export');
+        Route::get('excel/export-excel/{id}','export')->name('export-excel');
     });
 
     //البصمه
