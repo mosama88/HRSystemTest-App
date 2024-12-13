@@ -26,13 +26,14 @@ class CityController extends Controller
     public function index()
     {
         $com_code = auth()->user()->com_code;
+        $other['governorates'] = Governorate::all();
         $data = getColumnsIndex(new City(), array("*"), array("com_code" => $com_code), 'id', 'DESC')->get();
         if (!empty($data)) {
             foreach ($data as $info) {
                 $info->counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "city_id" => $info->id));
             }
         }
-        return view('dashboard.settings.cities.index', ['data' => $data]);
+        return view('dashboard.settings.cities.index', ['data' => $data,'other'=>$other]);
     }
 
     public function create()
@@ -59,6 +60,7 @@ class CityController extends Controller
             }
             DB::beginTransaction();
             $DataToInsert['name'] = $request->name;
+            $DataToInsert['governorate_id'] = $request->governorate_id;
             $DataToInsert['active'] = $request->active;
             $DataToInsert['created_by'] = auth()->user()->id;
             $DataToInsert['com_code'] = $com_code;
@@ -96,6 +98,7 @@ class CityController extends Controller
             }
             DB::beginTransaction();
             $DataToUpdate['name'] = $request->name;
+            $DataToUpdate['governorate_id'] = $request->governorate_id;
             $DataToUpdate['active'] = $request->active;
             $DataToUpdate['updated_by'] = auth()->user()->id;
             update(new City(), $DataToUpdate, array("com_code" => $com_code, 'id' => $id));

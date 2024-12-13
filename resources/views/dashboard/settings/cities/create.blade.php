@@ -19,6 +19,29 @@
                          </div>
                      </div>
 
+
+                     {{-- Governorate Input --}}
+                     <div class="col-md-12">
+                         <div class="form-group">
+                             <label>المحافظة التابع لها الموظف</label> <span class="tx-danger">*</span>
+                             <select name="governorate_id" id="governorate_id" class="form-control select2">
+                                 <option value="">-- اختر المحافظة التابع لها الموظف
+                                     --</option>
+                                 @if (isset($other['governorates']) && !empty($other['governorates']))
+                                     @foreach ($other['governorates'] as $info)
+                                         <option value="{{ $info->id }}"
+                                             {{ old('governorate_id') == $info->id ? 'selected' : '' }}>
+                                             {{ $info->name }}
+                                         </option>
+                                     @endforeach
+                                 @endif
+                             </select>
+                             @error('governorate_id')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                         </div>
+                     </div>
+
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> حالة التفعيل</label>

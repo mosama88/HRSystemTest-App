@@ -72,6 +72,7 @@
                                     <tr>
                                         <th class="wd-15p border-bottom-0"> #</th>
                                         <th class="wd-15p border-bottom-0"> المنطقه</th>
+                                        <th class="wd-15p border-bottom-0"> المحافظة</th>
                                         <th class="wd-10p border-bottom-0">التفعيل</th>
                                         <th class="wd-10p border-bottom-0">الأضافة بواسطة</th>
                                         <th class="wd-25p border-bottom-0">التحديث بواسطة</th>
@@ -86,6 +87,7 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td>{{ $info->name }}</td>
+                                            <td>{{ $info->governorate->name }}</td>
                                             <td>
                                                 @if ($info->active == 0)
                                                     <span class="label text-danger d-flex">
