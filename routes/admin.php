@@ -326,9 +326,17 @@ Route::group(['middleware' => ['auth:admin', 'role:super-admin|admin']], functio
 });
 
 
+// Route::view('admin/login', 'dashboard.auth.login')->middleware('guest')->name('admin.login');
+Route::view('admin/login', 'dashboard.auth.login')->middleware('guest')->name('admin.login');
+Route::middleware('auth:admin')->group(function () {
+    Route::post('logout/admin', [AdminController::class, 'destroy'])
+        ->name('logout.admin');
+});
+
+
 Route::get('/{page}', [PageController::class, 'index']);
 
 Route::middleware('auth')->group(function () {});
 
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';

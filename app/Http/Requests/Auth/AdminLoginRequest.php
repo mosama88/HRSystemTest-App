@@ -27,7 +27,6 @@ class AdminLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['nullable', 'string', 'email'],
             'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
@@ -38,7 +37,7 @@ class AdminLoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'username.required' => 'البريد الالكترونى مطلوب',
+            'username.required' => 'أسم المستخدم مطلوب',
             'username.string' => 'برجاء كتابة أسم المستخدم بطريقه صحيحه.',
             'password.required' => 'كلمة المرور مطلوبه',
         ];
@@ -50,49 +49,56 @@ class AdminLoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
 
-        if (auth('admin')->attempt($this->only('username', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+     
+    // public function authenticate(): void
+    // {
+    //     $this->ensureIsNotRateLimited();
 
-            throw ValidationException::withMessages([
-                'username' => 'خطأ فى بيانات المستخدم',
-            ]);
-        }
+    //     if (auth('admin')->attempt($this->only('username', 'password'), $this->boolean('remember'))) {
+    //         RateLimiter::hit($this->throttleKey());
 
-        RateLimiter::clear($this->throttleKey());
-    }
+    //         throw ValidationException::withMessages([
+    //             'username' => 'خطأ فى بيانات المستخدم',
+    //         ]);
+    //     }
+
+    //     RateLimiter::clear($this->throttleKey());
+    // }
 
     /**
      * Ensure the login request is not rate limited.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited(): void
-    {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
-            return;
-        }
 
-        event(new Lockout($this));
 
-        $seconds = RateLimiter::availableIn($this->throttleKey());
 
-        throw ValidationException::withMessages([
-            'username' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
-        ]);
-    }
+    // public function ensureIsNotRateLimited(): void
+    // {
+    //     if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+    //         return;
+    //     }
+
+    //     event(new Lockout($this));
+
+    //     $seconds = RateLimiter::availableIn($this->throttleKey());
+
+    //     throw ValidationException::withMessages([
+    //         'username' => trans('auth.throttle', [
+    //             'seconds' => $seconds,
+    //             'minutes' => ceil($seconds / 60),
+    //         ]),
+    //     ]);
+    // }
 
     /**
      * Get the rate limiting throttle key for the request.
      */
-    public function throttleKey(): string
-    {
-        return Str::transliterate(Str::lower($this->string('username')) . '|' . $this->ip());
-    }
+
+
+    // public function throttleKey(): string
+    // {
+    //     return Str::transliterate(Str::lower($this->string('username')) . '|' . $this->ip());
+    // }
 }
