@@ -25,7 +25,6 @@ class BranchRequest extends FormRequest
             'name' => 'required',
             'phones' => 'required',
             'address' => 'required',
-            'active' => 'required'
         ];
     }
     public function messages()
@@ -34,7 +33,6 @@ class BranchRequest extends FormRequest
             'name.required' => 'اسم الفرع مطلوب',
             'phones.required' => 'هاتف الفرع مطلوب',
             'address.required' => 'عنوان الفرع مطلوب',
-            'active.required' => 'حالة تفعيل الفرع مطلوب',
 
         ];
     }

@@ -26,9 +26,10 @@
                 <div class="mb-3 mb-xl-0">
                     <div class="btn-group dropdown">
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-super-scaled"
-                            data-toggle="modal" href="#modaldemo8"> <i class="fas fa-plus-circle"></i> أضافة فرع جديده</a>
+                            data-toggle="modal" href="#createBranchModal"> <i class="fas fa-plus-circle"></i> أضافة فرع
+                            جديده</a>
 
-                        @include('dashboard.settings.branches.create')
+                        @livewire('dashboard.settings.branches.branch-create')
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                 <div class="card-body">
                     @livewire('dashboard.settings.branches.branch-table')
 
-                   
+
                 </div><!-- bd -->
             </div><!-- bd -->
         </div>
@@ -104,96 +105,14 @@
 
 
 
+
     <script>
-        $('#ajaxForm').on('submit', function(e) {
-            e.preventDefault();
-
-            var formData = $(this).serialize();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: formData,
-                success: function(response) {
-                    // إخفاء الـ modal فقط عند نجاح العملية
-                    $('#modaldemo8').modal('hide');
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'تم حفظ البيانات',
-                        text: 'تم حفظ البيانات بنجاح.',
-                        timer: 1000, // وقت العرض بالمللي ثانية
-                        timerProgressBar: true,
-                        showConfirmButton: false, // إخفاء زر OK
-                        didClose: () => {
-                            location.reload(); // إعادة تحميل الصفحة بعد انتهاء العرض
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    // إظهار الأخطاء في النموذج
-                    if (xhr.status === 422) {
-                        var errors = xhr.responseJSON.errors;
-                        if (errors.name) {
-                            $('#nameError').text(errors.name[0]);
-                        } else {
-                            $('#nameError').text(''); // إخفاء الرسالة إذا لم يكن هناك خطأ
-                        }
-
-                        if (errors.address) {
-                            $('#addressError').text(errors.address[0]);
-                        } else {
-                            $('#addressError').text(''); // إخفاء الرسالة إذا لم يكن هناك خطأ
-                        }
-
-                        if (errors.phones) {
-                            $('#phonesError').text(errors.phones[0]);
-                        } else {
-                            $('#phonesError').text(''); // إخفاء الرسالة إذا لم يكن هناك خطأ
-                        }
-
-                        if (errors.email) {
-                            $('#emailError').text(errors.email[0]);
-                        } else {
-                            $('#emailError').text(''); // إخفاء الرسالة إذا لم يكن هناك خطأ
-                        }
-
-                        if (errors.active) {
-                            $('#activeError').text(errors.active[0]);
-                        } else {
-                            $('#activeError').text(''); // إخفاء الرسالة إذا لم يكن هناك خطأ
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'حدث خطأ',
-                            text: 'عفوا حدث خطأ ما. الرجاء المحاولة مرة أخرى.'
-                        });
-                    }
-                }
-            });
+        //to open and close modal
+        // if Open will be close
+        // if Close will be open
+        window.addEventListener('createModalToggle', event => {
+            $("#createBranchModal").modal("toggle");
         });
     </script>
 
-
-
-    <script>
-        $('#modaldemo8').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: false // عدم فتح المودال تلقائيًا
-        });
-
-        $('.edit').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: false // عدم فتح المودال تلقائيًا
-        });
-
-        $('.delete').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: false // عدم فتح المودال تلقائيًا
-        });
-    </script>
 @endsection

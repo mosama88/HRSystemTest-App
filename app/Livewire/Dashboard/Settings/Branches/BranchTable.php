@@ -13,7 +13,7 @@ class BranchTable extends Component
     use  WithPagination;
     public $name,$phones;
 
-
+protected $listeners = ['refreshTableBranch'=>'refresh'];
         public function updatingSearch(){
             $this->resetPage();
         }
