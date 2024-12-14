@@ -7,7 +7,7 @@
                      type="button"><span aria-hidden="true">&times;</span></button>
              </div>
              <div class="modal-body">
-                 <form id="ajaxForm" action="{{ route('dashboard.branches.store') }}" method="POST">
+                 <form >
                      @csrf
                      <div class="col-md-12">
                          <div class="form-group">

@@ -8,7 +8,7 @@
                     aria-hidden="true">&times;</span></button>
              </div>
              <div class="modal-body">
-                 <form action="{{ route('dashboard.branches.update', $info->id) }}" method="POST">
+                 <form >
                      @csrf
                      @method('PUT')
 

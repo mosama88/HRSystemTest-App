@@ -9,7 +9,7 @@
                     class="icon icon ion-ios-close-circle-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
                 <h4 class="tx-danger mg-b-20">إحذر: ستقوم بحذف العملية !</h4>
 
-                <form action="{{ route('dashboard.branches.destroy', $info->id) }}" method="POST">
+                <form >
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">

@@ -94,7 +94,10 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     });
 
     // بداية الفروع
-    Route::resource('/branches', BranchController::class);
+    // Route::resource('/branches', BranchController::class);
+Route::view('/branches','dashboard.settings.branches.index')->name('branches.index');
+
+    
 
     // بداية الشفتات
     Route::resource('/shiftsTypes', ShiftsTypeController::class);
