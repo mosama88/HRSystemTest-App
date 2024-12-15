@@ -47,3 +47,17 @@
 
 
 @livewireScripts
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        Livewire.hook('morph.updated', (el, component) => {
+            var mySuccessAlert = $('#my-success-alert');
+            if (mySuccessAlert.length) {
+                setTimeout(function() {
+                    mySuccessAlert.fadeOut(2000); // Fades out over 2 seconds
+                }, 2000);
+            }
+        });
+    });
+</script>

@@ -13,6 +13,12 @@
 @section('page-header')
     @include('dashboard.messages_alert')
 
+
+
+
+
+
+
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
@@ -67,6 +73,7 @@
 
                 <div class="card-body">
                     @livewire('dashboard.settings.branches.branch-table')
+                    @livewire('dashboard.settings.branches.branch-update')
 
 
                 </div><!-- bd -->
@@ -112,6 +119,10 @@
         // if Close will be open
         window.addEventListener('createModalToggle', event => {
             $("#createBranchModal").modal("toggle");
+        });
+
+        window.addEventListener('updateModalToggle', event => {
+            $("#updatedBranchModal").modal("toggle");
         });
     </script>
 

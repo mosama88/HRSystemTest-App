@@ -65,7 +65,7 @@ class BranchController extends Controller
             $branch['active'] = $request->active;
             insert(new Branch(), $branch);
             DB::commit();
-            session()->flash('success', 'تم أضافة البيانات بنجاح');
+            session()->flash('success',  'تم أضافة البيانات بنجاح');
             return redirect()->route('dashboard.branches.index');
         } catch (\Exception $e) {
             DB::rollback();

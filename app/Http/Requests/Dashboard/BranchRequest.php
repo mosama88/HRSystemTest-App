@@ -23,14 +23,19 @@ class BranchRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'email' => 'required|email',
             'phones' => 'required',
             'address' => 'required',
+            'active' => 'nullable|in:2,1',
+
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'اسم الفرع مطلوب',
+            'email.required' => 'البريد الالكترونى للفرع مطلوب',
+            'email.email' => 'برجاء كتابة البريد الالكترونى بطريقة صحيحة',
             'phones.required' => 'هاتف الفرع مطلوب',
             'address.required' => 'عنوان الفرع مطلوب',
 

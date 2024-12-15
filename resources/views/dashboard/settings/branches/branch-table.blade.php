@@ -20,6 +20,12 @@
         </div>
     </div>
 
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="table-responsive">
         @if (@isset($data) && !@empty($data))
             <table class="table table-striped mg-b-0 text-md-nowrap">
@@ -48,7 +54,7 @@
                             <td>{{ $info->phones }}</td>
                             <td>{{ $info->email }}</td>
                             <td>
-                                @if ($info->active == 0)
+                                @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
                                         <div class="dot-label bg-danger ml-1"></div>{{ __('معطل') }}
                                     </span>
@@ -71,7 +77,8 @@
                                 @can('تعديل الفروع')
                                     {{-- Edit --}}
                                     <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale"
-                                        data-toggle="modal" href="#edit{{ $info->id }}"><i
+                                        data-toggle="modal" href="#"
+                                        wire:click.prevent="$dispatch('BranchEdit',{id:{{ $info->id }}})"><i
                                             class="fas fa-edit ml-1"></i>تعديل</a>
                                 @endcan
                                 @can('حذف الفروع')
@@ -85,8 +92,8 @@
 
 
                             </td>
-                            @include('dashboard.settings.branches.edit')
-                            @include('dashboard.settings.branches.delete')
+                            {{-- @include('dashboard.settings.branches.edit')
+                            @include('dashboard.settings.branches.delete') --}}
                         </tr>
                     @endforeach
                 </tbody>

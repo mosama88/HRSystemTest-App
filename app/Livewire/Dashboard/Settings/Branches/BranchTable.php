@@ -14,6 +14,7 @@ class BranchTable extends Component
     public $name,$phones;
 
 protected $listeners = ['refreshTableBranch'=>'refresh'];
+
         public function updatingSearch(){
             $this->resetPage();
         }

@@ -7,7 +7,17 @@
                      type="button"><span aria-hidden="true">&times;</span></button>
              </div>
              <div class="modal-body">
+                 @if (session('error') != null)
+                     <div class="alert alert-danger text-center">
+                         {{ session('error') }}
+                     </div>
+                 @endif
+
+
+
+
                  <form wire:submit.prevent="submit">
+
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> اسم الفرع</label> <span class="tx-danger">*</span>
@@ -38,7 +48,7 @@
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> البريد الالكترونى للفرع</label>
-                             <input type="email" wire:model="email" id="email" class="form-control">
+                             <input type="text" wire:model="email" id="email" class="form-control">
                              @error('email')
                                  <div class="alert alert-danger mt-2">{{ $message }}</div>
                              @enderror
