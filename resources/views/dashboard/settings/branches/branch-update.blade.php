@@ -7,6 +7,11 @@
                      type="button"><span aria-hidden="true">&times;</span></button>
              </div>
              <div class="modal-body">
+                 @if (session('error') != null)
+                     <div class="alert alert-danger text-center">
+                         {{ session('error') }}
+                     </div>
+                 @endif
                  <form wire:submit.prevent="submit">
                      <div class="col-md-12">
                          <div class="form-group">
