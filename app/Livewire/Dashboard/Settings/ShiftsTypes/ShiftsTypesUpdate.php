@@ -14,7 +14,6 @@ class ShiftsTypesUpdate extends Component
 
     public $type, $from_time, $to_time, $total_hours, $active;
 
-    public $updateData;
 
     protected $listeners = ['shiftsTypesEdit'];
 
