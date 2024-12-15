@@ -94,14 +94,12 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     });
 
     // بداية الفروع
-    // Route::resource('/branches', BranchController::class);
 Route::view('/branches','dashboard.settings.branches.index')->name('branches.index');
 
     
 
     // بداية الشفتات
-    Route::resource('/shiftsTypes', ShiftsTypeController::class);
-    Route::post('/shiftsTypes/search', [ShiftsTypeController::class, 'ajaxSearch'])->name('shiftsTypes.ajax-search');
+    Route::view('/shiftsTypes','dashboard.settings.shiftsTypes.index')->name('shiftsTypes.index');
 
 
     // بداية الأدارات
