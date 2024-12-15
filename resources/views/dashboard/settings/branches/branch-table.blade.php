@@ -85,15 +85,15 @@
                                     @if ($info->counterUsed == 0)
                                         {{-- Delete --}}
                                         <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale"
-                                            data-toggle="modal" href="#delete{{ $info->id }}">
+                                            wire:click.prevent="$dispatch('deleteBranch',{id:{{ $info->id }}})"
+                                            data-toggle="modal" href="#">
                                             <i class="fas fa-trash-alt ml-1"></i>حذف</a>
                                     @endif
                                 @endcan
 
 
                             </td>
-                            {{-- @include('dashboard.settings.branches.edit')
-                            @include('dashboard.settings.branches.delete') --}}
+
                         </tr>
                     @endforeach
                 </tbody>

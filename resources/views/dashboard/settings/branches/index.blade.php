@@ -74,6 +74,7 @@
                 <div class="card-body">
                     @livewire('dashboard.settings.branches.branch-table')
                     @livewire('dashboard.settings.branches.branch-update')
+                    @livewire('dashboard.settings.branches.branch-delete')
 
 
                 </div><!-- bd -->
@@ -123,6 +124,10 @@
 
         window.addEventListener('updateModalToggle', event => {
             $("#updatedBranchModal").modal("toggle");
+        });
+
+        window.addEventListener('deleteModalToggle', event => {
+            $("#deleteBranchModal").modal("toggle");
         });
     </script>
 
