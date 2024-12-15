@@ -70,7 +70,7 @@
                              <div wire:loading.remove>
                                  <span>تأكيد البيانات</span>
                              </div>
-                             <div class="spinner-border text-dark" wire:loading wire:target="submit" role="status">
+                             <div class="spinner-border text-white" wire:loading wire:target="submit" role="status">
                                  <span class="sr-only">تحميل...</span>
                              </div>
                          </button>
