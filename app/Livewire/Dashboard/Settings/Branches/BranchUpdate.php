@@ -47,7 +47,7 @@ class BranchUpdate extends Component
             DB::beginTransaction();
             $com_code = auth()->user()->com_code;
 
-columns_names:            
+            
             $checkExists = Branch::select("id")->where("com_code" , $com_code)->where( 'name' , $this->name)->where('id',"!=",$this->updateBranch->id)->first();
             if (!empty($checkExists)) {
                 return redirect()->back()->with('error', 'الفرع مسجل بالفعل ');

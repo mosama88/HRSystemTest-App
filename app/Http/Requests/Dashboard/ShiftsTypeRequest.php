@@ -37,7 +37,6 @@ class ShiftsTypeRequest extends FormRequest
             'from_time.required' => 'حقل يبدا من الساعه مطلوب',
             'to_time.required' => 'حقل ينتهي  الساعه مطلوب',
             'total_hours.required' => 'حقل عدد الساعات مطلوب',
-            'active.required' => 'حقل حالة التفعيل مطلوب',
 
         ];
     }

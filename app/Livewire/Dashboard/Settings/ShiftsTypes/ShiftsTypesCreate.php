@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Settings\ShiftsTypes;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\ShiftsType;
 use App\Http\Requests\Dashboard\ShiftsTypeRequest;
@@ -24,28 +25,27 @@ class ShiftsTypesCreate extends Component
         return (new ShiftsTypeRequest())->messages();
     }
 
-    public function updated()
-    {
-        if ($this->from_time && $this->to_time) {
-            $this->CalcDiffHours();
-        }
+public function updated()
+{
+    if ($this->from_time && $this->to_time) {
+        $this->from_time = Carbon::parse($this->from_time)->format('H:i'); // تنسيق 24 ساعة
+        $this->to_time = Carbon::parse($this->to_time)->format('H:i'); 
+        $this->CalcDiffHours();
     }
+}
 
 
-    public function CalcDiffHours()
-    {
-        $from = strtotime($this->from_time);
-        $to = strtotime($this->to_time);
+ public function CalcDiffHours()
+{
+    $from = strtotime($this->from_time);
+    $to = strtotime($this->to_time);
 
-        $diffSecond =  $to - $from;
+    // احسب الفرق بالأثواني بطريقة صحيحة
+    $diffSecond = abs($to - $from);
 
-        if ($diffSecond > 0) {
-            $this->total_hours = round($diffSecond / 3600, 2);
-        } else {
-            $this->total_hours = 0;
-
-        }
-    }
+    // تحويل الفرق إلى ساعات
+    $this->total_hours = round($diffSecond / 3600, 2);
+}
 
 
     public function submit()
