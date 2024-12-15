@@ -29,8 +29,7 @@ class BranchCreate extends Component
 
     public function submit()
     {
-        try {
-            DB::beginTransaction();
+
             $com_code = auth()->user()->com_code;
 
             $branchCreate = $this->validate();
@@ -45,13 +44,9 @@ class BranchCreate extends Component
             $this->reset(['name', 'address', 'phones', 'email']);
             $this->dispatch('createModalToggle');
             $this->dispatch('refreshTableBranch')->to(BranchTable::class);
-            DB::commit();
             session()->flash('message', 'تم إضافة البيانات بنجاح');
 
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
-        }
+      
     }
 
 

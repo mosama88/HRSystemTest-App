@@ -3,22 +3,16 @@
         use Carbon\Carbon;
     @endphp
     <div class="row row-sm">
-        <div class="col-lg-4">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                </div><input aria-describedby="basic-addon1" wire:model.live="name" aria-label="أبحث بأسم الفرع أو الايميل"
-                    class="form-control" placeholder="أبحث بأسم الفرع أو الايميل" type="text">
-            </div><!-- input-group -->
-        </div>
-        <div class="col-lg-4">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                </div><input aria-describedby="basic-addon1" wire:model.live="phones" aria-label="Username"
-                    class="form-control" placeholder="أبحث بالموبايل" type="text">
-            </div><!-- input-group -->
-        </div>
+        <div class="col-lg-4 mb-3">
+            <label> نوع الشفت </label>
+            <select wire:model.live="typeSearch" id="type" class="form-control">
+                <option value="">اختر النوع</option>
+                <option value="1">صباحي</option>
+                <option value="2">مسائي</option>
+                <option value="3"> يوم كامل
+                </option>
+            </select>
+        </div><!-- input-group -->
     </div>
 
     @if (session('success'))
@@ -133,6 +127,8 @@
                 <span class="alert-inner--text"><strong> عفواً :</strong> لا توجد بيانات لعرضها!</span>
             </div>
         @endif
-
+        <div class="row float-left mx-auto mt-4">
+            {{ $data->links() }}
+        </div>
     </div>
 </div>

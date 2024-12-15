@@ -43,8 +43,6 @@ class BranchUpdate extends Component
     public function submit()
     {
 
-        try {
-            DB::beginTransaction();
             $com_code = auth()->user()->com_code;
 
             
@@ -59,13 +57,8 @@ class BranchUpdate extends Component
             $this->updateBranch->update($updatedData);
             $this->dispatch('updateModalToggle');
             $this->dispatch('refreshTableBranch')->to(BranchTable::class);
-            DB::commit();
             session()->flash('message', 'تم إضافة البيانات بنجاح');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
-        }
-
+    
     }
 
     public function render()
