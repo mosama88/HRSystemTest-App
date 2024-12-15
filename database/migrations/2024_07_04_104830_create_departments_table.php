@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('notes', 300);
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('admins')->onUpdate('cascade');
-            $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('active')->default(1)->nullable();
             $table->integer('com_code');
             $table->timestamps();
         });

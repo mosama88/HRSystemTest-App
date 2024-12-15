@@ -64,7 +64,7 @@
                     @livewire('dashboard.settings.shiftsTypes.shifts-types-table')
 
                     @livewire('dashboard.settings.shiftsTypes.shifts-types-update')
-                    {{-- @livewire('dashboard.settings.shiftsTypes.shifts-types-delete') --}}
+                    @livewire('dashboard.settings.shiftsTypes.shifts-types-delete')
 
 
 

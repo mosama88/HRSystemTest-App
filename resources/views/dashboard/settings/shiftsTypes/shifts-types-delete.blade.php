@@ -1,5 +1,5 @@
 <!-- End Modal effects-->
-<div class="modal delete" id="deleteShiftsTypesModal" wire:ignore.self>
+<div class="modal fade out" id="deleteShiftsTypesModal" wire:ignore.self>
 
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-size-sm">
@@ -11,7 +11,6 @@
 
                 <form wire:submit.prevent="submit">
                     <div class="modal-body">
-                        <input type="hidden" name="id" value="{{ $info->id }}">
                         <h5 class="text-primary">أسم الشيفت:
                             @if ($type == 1)
                                 شيفت صباحى
@@ -25,14 +24,15 @@
                     <div class="modal-footer mx-auto">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
                         <button class="btn btn-md btn-danger  d-grid d-flex align-items-center justify-content-center"
-                        type="submit">
-                        <div wire:loading.remove>
-                            <span>تأكيد الحذف</span>
-                        </div>
-                        <div class="spinner-border text-white" wire:loading wire:target="submit" role="status">
-                            <span class="sr-only">تحميل...</span>
-                        </div>
-                    </button>                    </div>
+                            type="submit">
+                            <div wire:loading.remove>
+                                <span>تأكيد الحذف</span>
+                            </div>
+                            <div class="spinner-border text-white" wire:loading wire:target="submit" role="status">
+                                <span class="sr-only">تحميل...</span>
+                            </div>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

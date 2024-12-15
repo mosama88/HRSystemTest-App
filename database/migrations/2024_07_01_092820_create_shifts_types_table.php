@@ -17,7 +17,7 @@ return new class extends Migration
             $table->time('from_time');
             $table->time('to_time');
             $table->decimal('total_hours', 10, 2);
-            $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('active')->default(1)->nullable();
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('admins')->onUpdate('cascade');
             $table->integer('com_code');
