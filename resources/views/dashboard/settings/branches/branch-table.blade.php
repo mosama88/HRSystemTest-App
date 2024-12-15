@@ -3,19 +3,17 @@
         <div class="col-lg-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">بحث بأسم الفرع</span>
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                 </div><input aria-describedby="basic-addon1" wire:model.live="name" aria-label="أبحث بأسم الفرع أو الايميل"
                     class="form-control" placeholder="أبحث بأسم الفرع أو الايميل" type="text">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
             </div><!-- input-group -->
         </div>
         <div class="col-lg-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">بحث بالهاتف</span>
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                 </div><input aria-describedby="basic-addon1" wire:model.live="phones" aria-label="Username"
                     class="form-control" placeholder="أبحث بالموبايل" type="text">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
             </div><!-- input-group -->
         </div>
     </div>
@@ -74,33 +72,38 @@
                                 @endif
                             </td>
                             <td>
-                                @can('تعديل الفروع')
-                                    {{-- Edit --}}
-                                    <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale"
-                                        data-toggle="modal" href="#"
-                                        wire:click.prevent="$dispatch('BranchEdit',{id:{{ $info->id }}})"><i
-                                            class="fas fa-edit ml-1"></i>تعديل</a>
-                                @endcan
-                                @can('حذف الفروع')
-                                    @if ($info->counterUsed == 0)
-                                        {{-- Delete --}}
-                                        <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale"
-                                            wire:click.prevent="$dispatch('deleteBranch',{id:{{ $info->id }}})"
-                                            data-toggle="modal" href="#">
-                                            <i class="fas fa-trash-alt ml-1"></i>حذف</a>
-                                    @endif
-                                @endcan
 
-
+                                <div class="dropdown">
+                                    <button aria-expanded="false" aria-haspopup="true"
+                                        class="btn ripple btn-secondary btn-sm" data-toggle="dropdown"
+                                        type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
+                                    <div class="dropdown-menu tx-13">
+                                        <h6 class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
+                                            حذف وتعديل</h6>
+                                        @can('تعديل الفروع')
+                                            {{-- Edit --}}
+                                            <a class="dropdown-item modal-effect btn btn-outline-info btn-sm"
+                                                data-effect="effect-scale" data-toggle="modal" href="#"
+                                                wire:click.prevent="$dispatch('BranchEdit',{id:{{ $info->id }}})"><i
+                                                    class="fas fa-edit ml-1"></i>تعديل</a>
+                                        @endcan
+                                        @can('حذف الفروع')
+                                            @if ($info->counterUsed == 0)
+                                                {{-- Delete --}}
+                                                <a class="dropdown-item modal-effect btn btn-outline-danger btn-sm"
+                                                    data-effect="effect-scale"
+                                                    wire:click.prevent="$dispatch('deleteBranch',{id:{{ $info->id }}})"
+                                                    data-toggle="modal" href="#">
+                                                    <i class="fas fa-trash-alt ml-1"></i>حذف</a>
+                                            @endif
+                                        @endcan
+                                    </div>
+                                </div>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="row mt-2">
-                {{ $data->links() }}
-            </div>
         @else
             <div class="alert alert-warning" role="alert" dir="rtl">
                 <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
@@ -108,6 +111,9 @@
             </div>
         @endif
 
+        <div class="row float-left mx-auto mt-4">
+            {{ $data->links() }}
+        </div>
     </div>
 
 </div>
