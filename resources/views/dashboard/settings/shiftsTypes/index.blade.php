@@ -61,7 +61,8 @@
 
                     @livewire('dashboard.settings.shiftsTypes.shifts-types-table')
 
-
+                    @livewire('dashboard.settings.shiftsTypes.branch-update')
+                    @livewire('dashboard.settings.shiftsTypes.branch-delete')
 
 
 

@@ -1,5 +1,5 @@
 <!-- Basic modal -->
-<div class="modal edit" id="updateModalToggle" wire:ignore.self>
+<div class="modal edit" id="updatedShiftsTypesModal" wire:ignore.self>
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
