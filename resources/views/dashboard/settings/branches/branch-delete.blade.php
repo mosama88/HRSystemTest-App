@@ -1,5 +1,5 @@
 <!-- End Modal effects-->
-<div class="modal fade" id="deleteBranchModal"   wire:ignore.self>
+<div class="modal fade" id="deleteBranchModal" wire:ignore.self>
 
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-size-sm">
@@ -9,7 +9,7 @@
                     class="icon icon ion-ios-close-circle-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
                 <h4 class="tx-danger mg-b-20">إحذر: ستقوم بحذف العملية !</h4>
 
-                <form wire:model.submit = "submit">
+                <form wire:submit.prvent ="submit">
                     <div class="modal-body">
                         <h5>أسم الفرع</h5>
                         <h5 class="text-primary">
@@ -23,7 +23,7 @@
                             <div wire:loading.remove>
                                 <span>تأكيد الحذف</span>
                             </div>
-                            <div class="spinner-border text-dark" wire:loading wire:target="submit" role="status">
+                            <div class="spinner-border text-white" wire:loading wire:target="submit" role="status">
                                 <span class="sr-only">تحميل...</span>
                             </div>
                         </button>
