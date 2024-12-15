@@ -10,7 +10,7 @@ class ShiftsTypesTable extends Component
 {
 
 
-    protected $listeners = ['refreshTableshiftsTypes'=>'refresh'];
+    protected $listeners = ['refreshTableShiftsType'=>'refresh'];
 
     public function render()
     {

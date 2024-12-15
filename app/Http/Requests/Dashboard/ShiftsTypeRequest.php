@@ -25,8 +25,8 @@ class ShiftsTypeRequest extends FormRequest
             'type' => 'required',
             'from_time' => 'required',
             'to_time' => 'required',
-            'total_hours' => 'required',
-            'active' => 'required'
+            'total_hours' => 'nullable',
+            'active' => 'nullable|in:2,1',
         ];
     }
 

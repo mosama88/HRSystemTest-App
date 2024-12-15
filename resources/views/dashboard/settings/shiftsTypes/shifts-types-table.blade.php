@@ -76,7 +76,7 @@
                             @endphp
                             <td>{{ $hours }} ساعة و {{ $minutes }} دقيقة</td>
                             <td>
-                                @if ($info->active == 0)
+                                @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
                                         <div class="dot-label bg-danger ml-1"></div>{{ __('معطل') }}
                                     </span>

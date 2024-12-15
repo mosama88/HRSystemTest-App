@@ -65,7 +65,7 @@
                             <label> حالة التفعيل</label>
                             <select wire:model="active" id="active" class="form-control">
                                 <option @if (old('active', $info['active']) == 1) selected @endif value="1">مفعل</option>
-                                <option @if (old('active', $info['active']) == 0) selected @endif value="0">معطل</option>
+                                <option @if (old('active', $info['active']) == 2) selected @endif value="2">معطل</option>
                             </select>
                             @error('active')
                                 <span class="text-danger">{{ $message }}</span>

@@ -22,9 +22,11 @@
                 <div class="mb-3 mb-xl-0">
                     <div class="btn-group dropdown">
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-super-scaled"
-                            data-toggle="modal" href="#modaldemo8"> <i class="fas fa-plus-circle"></i> أضافة شيفت جديد</a>
+                            data-toggle="modal" href="#createShiftsTypesModal"> <i class="fas fa-plus-circle"></i> أضافة شيفت
+                            جديد</a>
                     </div>
                 </div>
+                @livewire('dashboard.settings.shiftsTypes.shifts-types-create')
             </div>
         @endcan
 
@@ -61,8 +63,8 @@
 
                     @livewire('dashboard.settings.shiftsTypes.shifts-types-table')
 
-                    @livewire('dashboard.settings.shiftsTypes.branch-update')
-                    @livewire('dashboard.settings.shiftsTypes.branch-delete')
+                    {{-- @livewire('dashboard.settings.shiftsTypes.shifts-types-update') --}}
+                    {{-- @livewire('dashboard.settings.shiftsTypes.shifts-types-delete') --}}
 
 
 
@@ -95,62 +97,5 @@
             $("#deleteShiftsTypesModal").modal("toggle");
         });
     </script>
-
-
-    <script>
-        $(document).ready(function() {
-            function calculateTotalHours() {
-                var fromTime = $('#from_time').val();
-                var toTime = $('#to_time').val();
-
-                if (fromTime && toTime) {
-                    var from = new Date('1970-01-01T' + fromTime + 'Z');
-                    var to = new Date('1970-01-01T' + toTime + 'Z');
-
-                    var diff = (to - from) / 3600000; // حساب الفرق بالساعات
-
-                    if (diff < 0) {
-                        diff += 24; // لإصلاح الفارق في حال كان الوقت ينتهي في اليوم التالي
-                    }
-
-                    $('#total_hours').val(diff.toFixed(2)); // تحديث حقل عدد الساعات
-                } else {
-                    $('#total_hours').val(''); // تفريغ حقل عدد الساعات إذا لم تكن القيم موجودة
-                }
-            }
-
-            $('#from_time, #to_time').on('change', calculateTotalHours);
-        });
-    </script>
-
-
-
-
-    <script>
-        $(document).ready(function() {
-            function calculateTotalHoursUpdate() {
-                var fromTime = $('#from_time_update').val();
-                var toTime = $('#to_time_update').val();
-
-                if (fromTime && toTime) {
-                    var from = new Date('1970-01-01T' + fromTime + 'Z');
-                    var to = new Date('1970-01-01T' + toTime + 'Z');
-
-                    var diff = (to - from) / 3600000; // حساب الفرق بالساعات
-
-                    if (diff < 0) {
-                        diff += 24; // لإصلاح الفارق في حال كان الوقت ينتهي في اليوم التالي
-                    }
-
-                    $('#total_hours_update').val(diff.toFixed(2)); // تحديث حقل عدد الساعات
-                } else {
-                    $('#total_hours_update').val(''); // تفريغ حقل عدد الساعات إذا لم تكن القيم موجودة
-                }
-            }
-
-            $('#from_time_update, #to_time_update').on('change', calculateTotalHoursUpdate);
-        });
-    </script>
-
 
 @endsection
