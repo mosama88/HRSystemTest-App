@@ -43,7 +43,7 @@ class HolidaysCreate extends Component
        $interval = $from_date_format->diff($to_date_format);
 
        // الحصول على الفرق بالأيام
-       $this->days_counter = $interval->days > 0 ? $interval->days : 1;
+       $this->days_counter = $interval->days + 1;
        if ($this->days_counter  > 0) {
             return $this->days_counter;
         } else {

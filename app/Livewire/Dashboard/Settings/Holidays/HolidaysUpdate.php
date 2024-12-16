@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Settings\Holidays;
 
+use DateTime;
 use App\Models\Holiday;
 use Livewire\Component;
 use App\Http\Requests\Dashboard\HolidayRequest;
@@ -24,6 +25,34 @@ class HolidaysUpdate extends Component
         return (new HolidayRequest())->messages();
     }
 
+
+
+    public function updated()
+    {
+        if ($this->from_date && $this->to_date) {
+
+            $this->CalcDiffDays();
+        }
+    }
+
+    public function CalcDiffDays()
+    {
+
+        $from_date_format = new DateTime($this->from_date);
+        $to_date_format = new DateTime($this->to_date);
+
+
+       // حساب الفرق بين التاريخين
+       $interval = $from_date_format->diff($to_date_format);
+
+       // الحصول على الفرق بالأيام
+       $this->days_counter = $interval->days + 1;
+       if ($this->days_counter  > 0) {
+            return $this->days_counter;
+        } else {
+            $this->days_counter = 0;
+        }
+    }
 
     public function editHolidays($id)
     {
