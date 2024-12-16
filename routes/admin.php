@@ -126,7 +126,8 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية البلاد
-    Route::resource('/countries', CountryController::class);
+    Route::view('/countries','dashboard.settings.countries.index')->name('countries.index');
+
 
     // بداية المحافظات
     Route::get('/governorates', [CityController::class, 'gevernrateIndex'])->name('governorates.index');

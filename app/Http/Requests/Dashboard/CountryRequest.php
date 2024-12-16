@@ -23,7 +23,7 @@ class CountryRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class CountryRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم البلد مطلوب',
-            'active.required' => 'حالة تفعيل البلد مطلوب'
         ];
     }
 }
