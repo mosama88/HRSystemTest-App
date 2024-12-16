@@ -23,7 +23,8 @@ class CityRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'governorate_id' => 'required|exists:governorates,id',
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +32,7 @@ class CityRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم الحى أو المنطقه مطلوب',
-            'active.required' => 'حالة تفعيل الحى أو المنطقه مطلوب'
+            'governorate_id.required' => 'المحافظة مطلوبة',
         ];
     }
 }

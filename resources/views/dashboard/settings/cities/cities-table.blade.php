@@ -1,19 +1,15 @@
 <div>
     <div class="row row-sm">
         <div class="col-lg-6">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                </div>
+            <div class="form-group">
                 <input aria-describedby="basic-addon1" wire:model.live="name_search" aria-label="أبحث بأسم المنطقه"
                     class="form-control" placeholder="أبحث بأسم المنطقه" type="text">
             </div><!-- input-group -->
         </div>
         {{-- Governorate Input --}}
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="form-group">
-                <label>بحث بالمحافظة</label> <span class="tx-danger">*</span>
-                <select name="governorate_search" id="governorate_search" class="form-control select2">
+                <select wire:model.live="governorate_search" id="governorate_search" class="form-control select2">
                     <option value="">-- اختر المحافظة التابع لها الموظف
                         --</option>
                     @if (isset($other['governorates']) && !empty($other['governorates']))
@@ -24,9 +20,6 @@
                         @endforeach
                     @endif
                 </select>
-                @error('governorate_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
             </div>
         </div>
     </div>
@@ -54,7 +47,7 @@
                             <td>{{ $info->name }}</td>
                             <td>{{ $info->governorate->name }}</td>
                             <td>
-                                @if ($info->active == 0)
+                                @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
                                         <div class="dot-label bg-danger ml-1"></div>{{ __('معطل') }}
                                     </span>
