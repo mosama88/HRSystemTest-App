@@ -16,7 +16,7 @@
             <label> تبدأ من تاريخ </label> <span class="tx-danger">*</span>
             <!-- حقل إدخال التاريخ -->
             <div class="input-group">
-                <input type="date" wire:model="from_date" id="from_date" placeholder="يوم / شهر / سنه"
+                <input type="date" wire:model.live="from_date" id="from_date" placeholder="يوم / شهر / سنه"
                     class="form-control">
             </div>
             @error('from_date')
@@ -30,7 +30,7 @@
             <label> تنتهي الي تاريخ </label> <span class="tx-danger">*</span>
             <!-- حقل إدخال التاريخ -->
             <div class="input-group">
-                <input type="date" wire:model="to_date" id="to_date" placeholder="يوم / شهر / سنه"
+                <input type="date" wire:model.live="to_date" id="to_date" placeholder="يوم / شهر / سنه"
                     class="form-control">
             </div>
             @error('to_date')
@@ -42,7 +42,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label> عدد الايام</label>
-            <input type="text" wire:model="days_counter" id="days_counter"
+            <input readonly type="text" wire:model.live="days_counter" id="days_counter"
                 oninput="this.value=this.value.replace(/[^0-9.]/g,'');" class="form-control">
             @error('days_counter')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
