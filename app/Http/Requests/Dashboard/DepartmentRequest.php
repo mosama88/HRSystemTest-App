@@ -25,7 +25,7 @@ class DepartmentRequest extends FormRequest
             'name' => 'required',
             'phones' => 'required',
             'notes' => 'required',
-            'active' => 'nullable'
+            'active' => 'nullable|in:2,1',
         ];
     }
     public function messages()

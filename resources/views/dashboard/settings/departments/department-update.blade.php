@@ -9,7 +9,11 @@
              </div>
              <div class="modal-body">
                  <form wire:submit.prevent="submit">
-
+                     @if (session('error') != null)
+                         <div class="alert alert-danger text-center">
+                             {{ session('error') }}
+                         </div>
+                     @endif
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> اسم الادارة</label>

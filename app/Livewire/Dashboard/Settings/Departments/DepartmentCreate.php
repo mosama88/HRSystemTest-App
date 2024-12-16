@@ -8,7 +8,7 @@ use App\Http\Requests\Dashboard\DepartmentRequest;
 
 class DepartmentCreate extends Component
 {
-    public $name, $notes, $phones;
+    public $name, $notes, $phones,$active;
 
 
     public function rules()
@@ -32,7 +32,7 @@ class DepartmentCreate extends Component
             $departmentCreate = $this->validate();
             $checkExists = get_Columns_where_row(new Department(), array('id'), array("com_code" => $com_code, 'name' => $this->name));
             if (!empty($checkExists)) {
-                return redirect()->back()->with('error', 'الفرع مسجل بالفعل ');
+                return redirect()->back()->with('error', 'الادارة مسجلة بالفعل ');
             }
             $departmentCreate['active'] = 1;
             $departmentCreate['created_by'] = auth()->user()->id;

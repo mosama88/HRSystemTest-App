@@ -12,10 +12,6 @@
                          {{ session('error') }}
                      </div>
                  @endif
-
-
-
-
                  <form wire:submit.prevent="submit">
 
                      <div class="col-md-12">
