@@ -117,7 +117,7 @@
                             </li>
                         @endcan
                         @can('الأجازات')
-                            <li><a class="slide-item" href="{{ route('dashboard.vacations.index') }}">أنواع الأجازات
+                            <li><a class="slide-item" href="{{ route('dashboard.vacationsTypes.index') }}">أنواع الأجازات
                                 </a>
                             </li>
                         @endcan

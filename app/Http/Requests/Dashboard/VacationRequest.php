@@ -23,7 +23,7 @@ class VacationRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class VacationRequest extends FormRequest
     {
         return [
             'name.required' => 'حقل الاسم مطلوب',
-            'active.required' => 'حقل التفعيل مطلوب'
         ];
     }
 }

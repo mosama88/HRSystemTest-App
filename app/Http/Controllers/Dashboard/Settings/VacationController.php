@@ -22,11 +22,11 @@ class VacationController extends Controller
                 $info->counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "resignation_id" => $info->id));
             }
         }
-        return view('dashboard.settings.vacations.index', ['data' => $data]);
+        return view('dashboard.settings.vacationsTypes.index', ['data' => $data]);
     }
     public function create()
     {
-        return view('dashboard.settings.vacations.create');
+        return view('dashboard.settings.vacationsTypes.create');
     }
     public function store(VacationRequest $request)
     {
@@ -43,7 +43,7 @@ class VacationController extends Controller
             $DataToInsert['com_code'] = $com_code;
             insert(new VacationType(), $DataToInsert);
             DB::commit();
-            return redirect()->route('dashboard.vacations.index')->with(['success' => 'تم ادخل البيانات بنجاح']);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['success' => 'تم ادخل البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
             return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
@@ -55,11 +55,11 @@ class VacationController extends Controller
             $com_code = auth()->user()->com_code;
             $data = get_Columns_where_row(new VacationType(), array("*"), array("com_code" => $com_code, "id" => $id));
             if (empty($data)) {
-                return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
+                return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
             }
-            return view('dashboard.settings.vacations.edit', ['data' => $data]);
+            return view('dashboard.settings.vacationsTypes.edit', ['data' => $data]);
         } catch (\Exception $ex) {
-            return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
         }
     }
     public function update($id, VacationRequest $request)
@@ -68,7 +68,7 @@ class VacationController extends Controller
             $com_code = auth()->user()->com_code;
             $data = get_Columns_where_row(new VacationType(), array("*"), array("com_code" => $com_code, "id" => $id));
             if (empty($data)) {
-                return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
+                return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
             }
             $CheckExsists = VacationType::select("id")->where("com_code", "=", $com_code)->where("name", "=", $request->name)->where("id", "!=", $id)->first();
             if (!empty($CheckExsists)) {
@@ -80,10 +80,10 @@ class VacationController extends Controller
             $dataToUpdate['updated_by'] = auth()->user()->id;
             update(new VacationType(), $dataToUpdate, array("com_code" => $com_code, "id" => $id));
             DB::commit();
-            return redirect()->route('dashboard.vacations.index')->with(['success' => '  تم تحديث البيانات بنجاح']);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['success' => '  تم تحديث البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
         }
     }
     public function destroy($id)
@@ -92,19 +92,19 @@ class VacationController extends Controller
             $com_code = auth()->user()->com_code;
             $data = get_Columns_where_row(new VacationType(), array("*"), array("com_code" => $com_code, "id" => $id));
             if (empty($data)) {
-                return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
+                return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا غير قادر للوصول للبيانات المطلوبة !']);
             }
             $counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "resignation_id" => $id));
             if ($counterUsed > 0) {
-                return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوآ غير قادر على الحذف لانه قد تم أستخدامه من قبل']);
+                return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوآ غير قادر على الحذف لانه قد تم أستخدامه من قبل']);
             }
             DB::beginTransaction();
             destroy(new VacationType(), array("com_code" => $com_code, "id" => $id));
             DB::commit();
-            return redirect()->route('dashboard.vacations.index')->with(['success' => '  تم حذف البيانات بنجاح']);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['success' => '  تم حذف البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->route('dashboard.vacations.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
+            return redirect()->route('dashboard.vacationsTypes.index')->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()]);
         }
     }
 }

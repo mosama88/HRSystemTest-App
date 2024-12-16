@@ -122,7 +122,8 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     Route::view('/resignations','dashboard.settings.resignations.index')->name('resignations.index');
 
     // بداية الأجازه
-    Route::resource('/vacations', VacationController::class);
+    Route::view('/vacationsTypes','dashboard.settings.vacationsTypes.index')->name('vacationsTypes.index');
+
 
     // بداية البلاد
     Route::resource('/countries', CountryController::class);
