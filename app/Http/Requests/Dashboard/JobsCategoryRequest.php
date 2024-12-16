@@ -23,14 +23,13 @@ class JobsCategoryRequest extends FormRequest
     {
         return [
        'name'=>'required',
-       'active'=>'required'
+       'active'=>'nullable'
         ];
     }
     public function messages()
     {
         return [
             'name.required'=>'اسم الوظيفة مطلوب',
-            'active.required'=>'حالة تفعيل الوظيفه مطلوب'
              ];
     }
 }

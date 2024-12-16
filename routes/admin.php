@@ -107,9 +107,9 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
     // بداية أنواع الوظائق
     Route::resource('/jobGrades', JobGradeController::class);
-
+    
     // بداية أنواع الوظائق
-    Route::resource('/jobsCategories', JobsCategoryController::class);
+    Route::view('/jobsCategories','dashboard.settings.jobsCategories.index')->name('jobsCategories.index');
 
     // بداية مؤهلات الموظفين
     Route::resource('/qualifications', QualificationController::class);

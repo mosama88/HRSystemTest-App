@@ -1,5 +1,5 @@
 <!-- End Modal effects-->
-<div class="modal delete" id="delete{{ $info->id }}">
+<div class="modal delete" id="deleteModal" wire:ignore.self>
 
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-size-sm">
@@ -9,13 +9,10 @@
                     class="icon icon ion-ios-close-circle-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
                 <h4 class="tx-danger mg-b-20">إحذر: ستقوم بحذف العملية !</h4>
 
-                <form action="{{ route('dashboard.jobsCategories.destroy', $info->id) }}" method="POST">
-                    {{ method_field('delete') }}
-                    {{ csrf_field() }}
+                <form wire:submit.prevent="submit">
                     <div class="modal-body">
-                        <input type="hidden" name="id" value="{{ $info->id }}">
                         <h5>أسم نوع الوظيفه</h5>
-                        <h5 class="text-primary">{{ $info->name }}</h5>
+                        <h5 class="text-primary">{{ $name }}</h5>
                     </div>
                     <div class="modal-footer mx-auto">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
