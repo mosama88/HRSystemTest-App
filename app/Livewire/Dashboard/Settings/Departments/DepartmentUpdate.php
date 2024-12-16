@@ -51,7 +51,7 @@ class DepartmentUpdate extends Component
             $this->updateBranch->update($updatedData);
             $this->dispatch('updateModalToggle');
             $this->dispatch('refreshTableDepartment')->to(DepartmentTable::class);
-            session()->flash('message', 'تم إضافة البيانات بنجاح');
+            session()->flash('message', 'تم تعديل البيانات بنجاح');
     
     }
 

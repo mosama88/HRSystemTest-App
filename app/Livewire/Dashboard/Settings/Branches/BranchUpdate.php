@@ -57,7 +57,7 @@ class BranchUpdate extends Component
             $this->updateBranch->update($updatedData);
             $this->dispatch('updateModalToggle');
             $this->dispatch('refreshTableBranch')->to(BranchTable::class);
-            session()->flash('message', 'تم إضافة البيانات بنجاح');
+            session()->flash('message', 'تم تعديل البيانات بنجاح');
     
     }
 

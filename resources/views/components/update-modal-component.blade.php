@@ -1,5 +1,5 @@
  <!-- Scroll modal -->
- <div class="modal edit" id="updateModal" wire:ignore.self>
+ <div class="modal fade out" id="updateModal" wire:ignore.self>
      <div class="modal-dialog" role="document">
          <div class="modal-content modal-content-demo">
              <div class="modal-header">

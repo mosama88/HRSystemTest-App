@@ -22,10 +22,12 @@ class JobGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'job_grades_code' => 'nullable',
+            'name' => 'required',   
             'min_salary' => 'required',
             'max_salary' => 'required|gt:min_salary',
-            'name' => 'required',
+            'notes' => 'nullable',
+            'active' => 'nullable',
         ];
     }
 

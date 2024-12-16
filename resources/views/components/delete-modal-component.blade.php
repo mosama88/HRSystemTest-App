@@ -1,5 +1,5 @@
 <!-- End Modal effects-->
-<div class="modal delete" id="deleteModal" wire:ignore.self>
+<div class="modal fade out" id="deleteModal" wire:ignore.self>
 
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-size-sm">

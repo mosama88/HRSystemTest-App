@@ -66,7 +66,6 @@ class ShiftsTypesUpdate extends Component
 
     public function submit()
     {
-        try {
             DB::beginTransaction();
             $com_code = auth()->user()->com_code;
             $updatedData = $this->validate();
@@ -76,12 +75,7 @@ class ShiftsTypesUpdate extends Component
             $this->dispatch('updateModalToggle');
             $this->dispatch('refreshTableShiftsType')->to(ShiftsTypesTable::class);
             DB::commit();
-            session()->flash('message', 'تم إضافة البيانات بنجاح');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
-        }
-
+            session()->flash('message', 'تم تعديل البيانات بنجاح');
     }
 
 

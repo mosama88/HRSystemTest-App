@@ -54,7 +54,7 @@ class JobsCategoriesUpdate extends Component
         $this->updateData->update($updatedData);
         $this->dispatch('updateModalToggle');
         $this->dispatch('refreshTablejobsCategories')->to(JobsCategoriesTable::class);
-        session()->flash('message', 'تم إضافة البيانات بنجاح');
+        session()->flash('message', 'تم تعديل البيانات بنجاح');
     }
 
 
