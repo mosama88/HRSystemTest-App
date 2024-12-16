@@ -23,7 +23,7 @@ class NationalityRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class NationalityRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم الجنسية مطلوب',
-            'active.required' => 'حالة تفعيل الجنسية مطلوب'
         ];
     }
 }

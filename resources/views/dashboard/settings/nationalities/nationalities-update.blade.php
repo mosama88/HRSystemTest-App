@@ -1,7 +1,7 @@
-<x-update-modal-component titleModel="تعديل بيانات البلد">
+<x-update-modal-component titleModel="تعديل بيانات الجنسية">
     <div class="col-md-12">
         <div class="form-group">
-            <label> اسم البلد</label>
+            <label> اسم الجنسية</label>
             <input type="text" wire:model="name" id="name" class="form-control">
             @error('name')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>

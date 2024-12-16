@@ -136,7 +136,8 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     Route::resource('/cities', CityController::class);
 
     // بداية الجنسيات
-    Route::resource('/nationalities', NationalityController::class);
+    Route::view('/nationalities','dashboard.settings.nationalities.index')->name('nationalities.index');
+
 
     // بداية فصيلة الدم
     Route::resource('/bloodTypes', BloodTypeController::class);
