@@ -38,7 +38,7 @@
                             <td>{{ $info->to_date }}</td>
                             <td>{{ $info->days_counter }}</td>
                             <td>
-                                @if ($info->active == 0)
+                                @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
                                         <div class="dot-label bg-danger ml-1"></div>{{ __('معطل') }}
                                     </span>

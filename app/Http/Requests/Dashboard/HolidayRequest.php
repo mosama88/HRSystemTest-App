@@ -26,7 +26,7 @@ class HolidayRequest extends FormRequest
             'from_date' => 'required',
             'to_date' => 'required',
             'days_counter' => 'required|numeric',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
     public function messages()
@@ -38,7 +38,6 @@ class HolidayRequest extends FormRequest
             //'to_date.gt' => 'حقل تاريخ النهاية يجب ان يكون اكبر من او يساوي تاريخ البداية',
             'days_counter.required' => 'حقل عدد الايام  مطلوب',
             'days_counter.numeric' => 'حقل عدد الايام يجب ان يكون رقم ',
-            'active' => 'required'
         ];
     }
 }
