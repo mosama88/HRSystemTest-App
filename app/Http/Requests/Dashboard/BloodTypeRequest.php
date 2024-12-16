@@ -23,14 +23,13 @@ class BloodTypeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'اسم فصيلة الدم مطلوب',
-            'active.required' => 'حالة التفعيل مطلوبة'
         ];
     }
 }
