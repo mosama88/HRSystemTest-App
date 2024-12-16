@@ -27,8 +27,7 @@ class JobGradesTable extends Component
         $query = (new JobGrade())->query();
 
         if ($this->name) {
-            $query->where('name', 'like', '%' . $this->name . '%')
-                ->orWhere('phones', 'like', '%' . $this->name . '%');
+            $query->where('name', 'like', '%' . $this->name . '%');
         }
 
         $data = $query->orderBy("id", "DESC")->where("com_code", $com_code)->paginate(10);
