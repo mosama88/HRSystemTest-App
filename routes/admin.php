@@ -140,7 +140,8 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية فصيلة الدم
-    Route::resource('/bloodTypes', BloodTypeController::class);
+    Route::view('/bloodTypes','dashboard.settings.bloodTypes.index')->name('bloodTypes.index');
+
 
     // بداية الموظفين
     Route::resource('/employees', EmployeeController::class);
