@@ -31,7 +31,8 @@ class ResignationsTable extends Component
             $query->where('name', 'like', '%' . $this->name_search . '%');
         }
 
-        $data = getColumnsIndex(new Resignation(), array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(10);
+        $data = $query->orderBy("id", "DESC")->where("com_code", $com_code)->paginate(10);
+
         if (!empty($data)) {
             foreach ($data as $info) {
                 $info->counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "resignation_id" => $info->id));
