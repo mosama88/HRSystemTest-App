@@ -59,12 +59,8 @@ class JobGradesUpdate extends Component
             $this->dispatch('updateModalToggle');
             $this->dispatch('refreshTableJobGrade')->to(JobGradesTable::class);
             session()->flash('message', 'تم تعديل البيانات بنجاح');
-    
     }
 
-
-
-    
     public function render()
     {
         return view('dashboard.settings.jobGrades.job-grades-update');

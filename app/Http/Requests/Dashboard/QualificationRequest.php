@@ -23,14 +23,13 @@ class QualificationRequest extends FormRequest
     {
         return [
         'name'=>'required',
-        'active'=>'required'
+        'active'=>'nullable'
         ];
     }
     public function messages()
     {
         return [
             'name.required'=>'اسم المؤهل مطلوب',
-            'active.required'=>'حالة التفعيل مطلوبة'
             ];
     }
 }
