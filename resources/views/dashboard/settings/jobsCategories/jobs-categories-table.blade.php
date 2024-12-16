@@ -13,8 +13,8 @@
 
     <div class="table-responsive">
         @if (@isset($data) && !@empty($data))
-            <table class="table text-md-nowrap" id="example2">
-                <thead>
+        <table class="table table-striped mg-b-0 text-md-nowrap">
+            <thead>
                     <tr>
                         <th>#</th>
                         <th class="wd-15p border-bottom-0"> اسم الوظيفة</th>

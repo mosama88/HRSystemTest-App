@@ -110,12 +110,13 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     
     // بداية أنواع الوظائق
     Route::view('/jobsCategories','dashboard.settings.jobsCategories.index')->name('jobsCategories.index');
-
+        
     // بداية مؤهلات الموظفين
-    Route::resource('/qualifications', QualificationController::class);
+    Route::view('/qualifications','dashboard.settings.qualifications.index')->name('qualifications.index');
+
 
     // بداية العظلات الرسمية
-    Route::resource('/holidays', HolidayController::class);
+    Route::view('/holidays','dashboard.settings.holidays.index')->name('holidays.index');
 
     // بداية الأستقالة
     Route::resource('/resignations', ResignationController::class);
