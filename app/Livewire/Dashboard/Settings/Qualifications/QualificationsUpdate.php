@@ -55,7 +55,6 @@ class QualificationsUpdate extends Component
             session()->flash('message', 'تم تعديل البيانات بنجاح');
     
     }
-
     public function render()
     {
         return view('dashboard.settings.qualifications.qualifications-update');

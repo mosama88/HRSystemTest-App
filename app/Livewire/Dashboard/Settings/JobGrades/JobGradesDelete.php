@@ -40,9 +40,6 @@ class JobGradesDelete extends Component
       $this->dispatch('refreshTableJobGrade')->to(JobGradesTable::class);
 
     }
-
-
-
     
     public function render()
     {
