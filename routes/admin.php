@@ -103,7 +103,7 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية الأدارات
-    Route::resource('/departments', DepartmentController::class);
+    Route::view('/departments','dashboard.settings.departments.index')->name('departments.index');
 
     // بداية أنواع الوظائق
     Route::resource('/jobGrades', JobGradeController::class);

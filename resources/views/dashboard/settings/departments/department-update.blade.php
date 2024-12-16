@@ -1,22 +1,19 @@
  <!-- Scroll modal -->
- <div class="modal edit" id="edit{{ $info->id }}">
+ <div class="modal fade" id="updatedDepartmentModal" wire:ignore.self>
      <div class="modal-dialog" role="document">
          <div class="modal-content modal-content-demo">
              <div class="modal-header">
                  <h6 class="modal-title">تعديل بيانات الأدارة</h6>
                  <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                    aria-hidden="true">&times;</span></button>
+                         aria-hidden="true">&times;</span></button>
              </div>
              <div class="modal-body">
-                 <form action="{{ route('dashboard.departments.update', $info->id) }}" method="POST">
-                     @csrf
-                     @method('PUT')
+                 <form wire:submit.prevent="submit">
 
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> اسم الادارة</label>
-                             <input type="text" name="name" id="name" class="form-control"
-                                 value="{{ old('name', $info['name']) }}">
+                             <input type="text" wire:model="name" id="name" class="form-control">
                              @error('name')
                                  <span class="text-danger">{{ $message }}</span>
                              @enderror
@@ -26,8 +23,7 @@
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> هاتف الادارة</label>
-                             <input type="text" name="phones" id="phones" class="form-control"
-                                 value="{{ old('phones', $info['phones']) }}">
+                             <input type="text" wire:model="phones" id="phones" class="form-control">
                              @error('phones')
                                  <span class="text-danger">{{ $message }}</span>
                              @enderror
@@ -36,8 +32,7 @@
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> ملاحظات علي الادارة</label>
-                             <input type="text" name="notes" id="notes" class="form-control"
-                                 value="{{ old('notes', $info['notes']) }}">
+                             <input type="text" wire:model="notes" id="notes" class="form-control">
                              @error('notes')
                                  <span class="text-danger">{{ $message }}</span>
                              @enderror
@@ -47,9 +42,9 @@
                      <div class="col-md-12">
                          <div class="form-group">
                              <label> حالة التفعيل</label>
-                             <select name="active" id="active" class="form-control">
-                                 <option @if (old('active', $info['active']) == 1) selected @endif value="1">مفعل</option>
-                                 <option @if (old('active', $info['active']) == 0) selected @endif value="0">معطل</option>
+                             <select wire:model="active" id="active" class="form-control">
+                                 <option value="1">مفعل</option>
+                                 <option value="2">معطل</option>
                              </select>
                              @error('active')
                                  <span class="text-danger">{{ $message }}</span>
@@ -57,9 +52,17 @@
                          </div>
                      </div>
                      <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit" type="button">تعديل البيانات</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">إغلاق</button>
-                    </div>
+                         <button class="btn btn-md btn-primary  d-grid d-flex align-items-center justify-content-center"
+                             type="submit">
+                             <div wire:loading.remove>
+                                 <span>تأكيد البيانات</span>
+                             </div>
+                             <div class="spinner-border text-white" wire:loading wire:target="submit" role="status">
+                                 <span class="sr-only">تحميل...</span>
+                             </div>
+                         </button>
+                         <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">إغلاق</button>
+                     </div>
                  </form>
              </div>
          </div>

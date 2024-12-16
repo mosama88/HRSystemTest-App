@@ -5,31 +5,24 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                 </div><input aria-describedby="basic-addon1" wire:model.live="name" aria-label="أبحث بأسم الفرع أو الايميل"
-                    class="form-control" placeholder="أبحث بأسم الفرع أو الايميل أو الموبايل" type="text">
+                    class="form-control" placeholder="أبحث بأسم الادارة أو الموبايل" type="text">
             </div><!-- input-group -->
         </div>
 
     </div>
 
-    @if (session('success'))
-        <div class="alert alert-success text-center">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="table-responsive">
         @if (@isset($data) && !@empty($data))
-            <table class="table table-striped mg-b-0 text-md-nowrap">
+            <table class="table text-md-nowrap" id="example2">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th class="wd-15p border-bottom-0">الأسم</th>
-                        <th class="wd-20p border-bottom-0">العنوان</th>
-                        <th class="wd-10p border-bottom-0">الهاتف</th>
-                        <th class="wd-15p border-bottom-0">البريد الالكتورنى</th>
+                        <th class="wd-20p border-bottom-0">الهاتف</th>
+                        <th class="wd-15p border-bottom-0">ملاحظات</th>
                         <th class="wd-10p border-bottom-0">التفعيل</th>
                         <th class="wd-10p border-bottom-0">الأضافة بواسطة</th>
-                        <th class="wd-10p border-bottom-0">التحديث بواسطة</th>
+                        <th class="wd-25p border-bottom-0">التحديث بواسطة</th>
                         <th class="wd-25p border-bottom-0">العمليات</th>
                     </tr>
                 </thead>
@@ -41,9 +34,8 @@
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $info->name }}</td>
-                            <td>{{ Str::limit($info->address, 30) }}</td>
                             <td>{{ $info->phones }}</td>
-                            <td>{{ $info->email }}</td>
+                            <td>{{ $info->notes }}</td>
                             <td>
                                 @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
@@ -64,6 +56,7 @@
                                     <span class="text">لا يوجد</span>
                                 @endif
                             </td>
+
                             <td>
 
                                 <div class="dropdown">
@@ -73,19 +66,19 @@
                                     <div class="dropdown-menu tx-13">
                                         <h6 class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
                                             حذف وتعديل</h6>
-                                        @can('تعديل الفروع')
+                                        @can('تعديل الأدارات')
                                             {{-- Edit --}}
                                             <a class="dropdown-item modal-effect btn btn-outline-info btn-sm"
                                                 data-effect="effect-scale" data-toggle="modal" href="#"
-                                                wire:click.prevent="$dispatch('BranchEdit',{id:{{ $info->id }}})"><i
+                                                wire:click.prevent="$dispatch('editDepartment',{id:{{ $info->id }}})"><i
                                                     class="fas fa-edit ml-1"></i>تعديل</a>
                                         @endcan
-                                        @can('حذف الفروع')
+                                        @can('حذف الأدارات')
                                             @if ($info->counterUsed == 0)
                                                 {{-- Delete --}}
                                                 <a class="dropdown-item modal-effect btn btn-outline-danger btn-sm"
                                                     data-effect="effect-scale"
-                                                    wire:click.prevent="$dispatch('deleteBranch',{id:{{ $info->id }}})"
+                                                    wire:click.prevent="$dispatch('deleteDepartment',{id:{{ $info->id }}})"
                                                     data-toggle="modal" href="#">
                                                     <i class="fas fa-trash-alt ml-1"></i>حذف</a>
                                             @endif

@@ -24,7 +24,8 @@ class DepartmentRequest extends FormRequest
         return [
             'name' => 'required',
             'phones' => 'required',
-            'active' => 'required'
+            'notes' => 'required',
+            'active' => 'nullable'
         ];
     }
     public function messages()
@@ -32,7 +33,7 @@ class DepartmentRequest extends FormRequest
         return [
             'name.required' => 'اسم الادارة مطلوب',
             'phones.required' => 'هاتف الادارة مطلوب',
-            'active.required' => 'حالة تفعيل الادارة مطلوب',
+            'notes.required' => 'ملاحظات الادارة مطلوب',
 
         ];
     }
