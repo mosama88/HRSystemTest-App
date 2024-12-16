@@ -119,7 +119,7 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     Route::view('/holidays','dashboard.settings.holidays.index')->name('holidays.index');
 
     // بداية الأستقالة
-    Route::resource('/resignations', ResignationController::class);
+    Route::view('/resignations','dashboard.settings.resignations.index')->name('resignations.index');
 
     // بداية الأجازه
     Route::resource('/vacations', VacationController::class);
