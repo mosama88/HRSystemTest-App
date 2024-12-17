@@ -44,7 +44,6 @@
                         <a class="my-2 mx-2 btn btn-success" href="{{ url('employees/excel/export-excel') }}"> <i
                                 class="fas fa-file-excel fa-lg ml-2 "></i> سحب اكسيل شيت</a>
                     </div>
-                    {{-- <p class="tx-12 tx-gray-500 mb-2">Example of Valex Striped Rows.. <a href="">Learn more</a></p> --}}
                 </div>
                 <div class="card-body">
                     {{-- Search --}}
