@@ -165,12 +165,13 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية نوع الخصم
-    // Route::resource('/discount_types', DiscountTypeController::class);
     Route::view('/discount_types','dashboard.affairs_employees.discount_types.index')->name('discount_types.index');
 
 
     // بداية نوع البدلات
-    Route::resource('/allowances', AllowanceController::class);
+    // Route::resource('/allowances', AllowanceController::class);
+    Route::view('/allowances','dashboard.affairs_employees.allowances.index')->name('allowances.index');
+
 
     // بداية السجلات الرئيسية للرواتب
     Route::resource('/salaryRecords', MainSalaryRecordController::class);

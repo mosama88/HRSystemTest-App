@@ -23,7 +23,7 @@ class AllowanceRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class AllowanceRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم نوع البدلات مطلوب',
-            'active.required' => 'حالة تفعيل نوع البدلات مطلوب'
         ];
     }
 }
