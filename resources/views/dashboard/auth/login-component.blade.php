@@ -30,7 +30,7 @@
             <button class="btn btn-block btn-md btn-dark  d-grid w-100 d-flex align-items-center justify-content-center"
                 type="submit">
                 <div wire:loading.remove>
-                    <span>دخول</span>
+                    <span>تسجيل الدخول</span>
                 </div>
                 <div class="spinner-border text-secondary" wire:loading wire:target="submit" role="status">
                     <span class="sr-only">تحميل...</span>
