@@ -89,58 +89,59 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية تكويد السنوات المالية
     Route::controller(FinanceCalendarController::class)->group(function () {
         Route::resource('/financeCalendars', FinanceCalendarController::class);
-        Route::get('financeCalendars/open/{id}',  'open')->name('financeCalendars.open');
-        Route::get('financeCalendars/close/{id}',  'close')->name('financeCalendars.close');
+        Route::get('financeCalendars/open/{id}', 'open')->name('financeCalendars.open');
+        Route::get('financeCalendars/close/{id}', 'close')->name('financeCalendars.close');
     });
 
     // بداية الفروع
-Route::view('/branches','dashboard.settings.branches.index')->name('branches.index');
+    Route::view('/branches', 'dashboard.settings.branches.index')->name('branches.index');
 
-    
+
 
     // بداية الشفتات
-    Route::view('/shiftsTypes','dashboard.settings.shiftsTypes.index')->name('shiftsTypes.index');
+    Route::view('/shiftsTypes', 'dashboard.settings.shiftsTypes.index')->name('shiftsTypes.index');
 
 
     // بداية الأدارات
-    Route::view('/departments','dashboard.settings.departments.index')->name('departments.index');
+    Route::view('/departments', 'dashboard.settings.departments.index')->name('departments.index');
 
     // بداية أنواع الوظائق
-    Route::view('/jobGrades','dashboard.settings.jobGrades.index')->name('jobGrades.index');
-    
+    Route::view('/jobGrades', 'dashboard.settings.jobGrades.index')->name('jobGrades.index');
+
     // بداية أنواع الوظائق
-    Route::view('/jobsCategories','dashboard.settings.jobsCategories.index')->name('jobsCategories.index');
-        
+    Route::view('/jobsCategories', 'dashboard.settings.jobsCategories.index')->name('jobsCategories.index');
+
     // بداية مؤهلات الموظفين
-    Route::view('/qualifications','dashboard.settings.qualifications.index')->name('qualifications.index');
+    Route::view('/qualifications', 'dashboard.settings.qualifications.index')->name('qualifications.index');
 
 
     // بداية العظلات الرسمية
-    Route::view('/holidays','dashboard.settings.holidays.index')->name('holidays.index');
+    Route::view('/holidays', 'dashboard.settings.holidays.index')->name('holidays.index');
 
     // بداية الأستقالة
-    Route::view('/resignations','dashboard.settings.resignations.index')->name('resignations.index');
+    Route::view('/resignations', 'dashboard.settings.resignations.index')->name('resignations.index');
 
     // بداية الأجازه
-    Route::view('/vacationsTypes','dashboard.settings.vacationsTypes.index')->name('vacationsTypes.index');
+    Route::view('/vacationsTypes', 'dashboard.settings.vacationsTypes.index')->name('vacationsTypes.index');
 
 
     // بداية البلاد
-    Route::view('/countries','dashboard.settings.countries.index')->name('countries.index');
+    Route::view('/countries', 'dashboard.settings.countries.index')->name('countries.index');
 
 
     // بداية المحافظات
-    // Route::get('/governorates', [CityController::class, 'gevernrateIndex'])->name('governorates.index');
+    Route::view('/governorates', 'dashboard.settings.governorates.index')->name('governorates.index');
+
 
     // بداية المدن
-    Route::resource('/cities', CityController::class);
+    Route::view('/cities', 'dashboard.settings.cities.index')->name('cities.index');
 
     // بداية الجنسيات
-    Route::view('/nationalities','dashboard.settings.nationalities.index')->name('nationalities.index');
+    Route::view('/nationalities', 'dashboard.settings.nationalities.index')->name('nationalities.index');
 
 
     // بداية فصيلة الدم
-    Route::view('/bloodTypes','dashboard.settings.bloodTypes.index')->name('bloodTypes.index');
+    Route::view('/bloodTypes', 'dashboard.settings.bloodTypes.index')->name('bloodTypes.index');
 
 
     // بداية الموظفين
@@ -156,20 +157,20 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
         Route::post('/load_edit_allowances', 'load_edit_allowances')->name('load_edit_allowances');
         Route::put('/do_edit_allowances/{id}', 'do_edit_allowances')->name('do_edit_allowances');
         Route::post('/showSalaryArchived', 'showSalaryArchived')->name('showSalaryArchived');
-        Route::get('excel/export-excel','export');
-        Route::post('/import-excel','import')->name('importData');
+        Route::get('excel/export-excel', 'export');
+        Route::post('/import-excel', 'import')->name('importData');
     });
 
     // بداية نوع الأضافة
-    Route::view('/additional_types','dashboard.affairs_employees.additional_types.index')->name('additional_types.index');
+    Route::view('/additional_types', 'dashboard.affairs_employees.additional_types.index')->name('additional_types.index');
 
 
     // بداية نوع الخصم
-    Route::view('/discount_types','dashboard.affairs_employees.discount_types.index')->name('discount_types.index');
+    Route::view('/discount_types', 'dashboard.affairs_employees.discount_types.index')->name('discount_types.index');
 
 
     // بداية نوع البدلات
-    Route::view('/allowances','dashboard.affairs_employees.allowances.index')->name('allowances.index');
+    Route::view('/allowances', 'dashboard.affairs_employees.allowances.index')->name('allowances.index');
 
 
     // بداية السجلات الرئيسية للرواتب
@@ -186,105 +187,105 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     Route::controller(SalarySanctionsController::class)->prefix('sanctions')->name('sanctions.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
         Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية الغيابات الرواتب
     Route::resource('/absences', EmployeeSalaryAbsenceDayController::class);
     Route::controller(EmployeeSalaryAbsenceDayController::class)->prefix('absences')->name('absences.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية الأضافى الرواتب
     Route::resource('/additionals', EmployeeSalaryAdditionalController::class);
     Route::controller(EmployeeSalaryAdditionalController::class)->prefix('additionals')->name('additionals.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية الخصومات الرواتب
     Route::resource('/discounts', EmployeeSalaryDiscountController::class);
     Route::controller(EmployeeSalaryDiscountController::class)->prefix('discounts')->name('discounts.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية المكافئات الرواتب
     Route::resource('/rewards', EmployeeSalaryRewardsController::class);
     Route::controller(EmployeeSalaryRewardsController::class)->prefix('rewards')->name('rewards.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية البدلات الرواتب
     Route::resource('/allowancesSalary', EmployeeSalaryAllowanceController::class);
     Route::controller(EmployeeSalaryAllowanceController::class)->prefix('allowancesSalary')->name('allowancesSalary.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
 
     // بداية السلف الشهرية الرواتب
     Route::resource('/loans', EmployeeSalaryLoanController::class);
     Route::controller(EmployeeSalaryLoanController::class)->prefix('loans')->name('loans.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
     });
 
     // بداية السلف المستديمة الرواتب
     Route::resource('/permanentLoan', EmployeeSalaryPermanentLoansController::class);
     Route::controller(EmployeeSalaryPermanentLoansController::class)->prefix('permanentLoan')->name('permanentLoan.')->group(function () {
-        Route::post('/checkExsistsBefor',  'checkExsistsBefor')->name('checkExsistsBefor');
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/load_edit_row',  'load_edit_row')->name('load_edit_row');
-        Route::post('/load_installment_details',  'load_installment_details')->name('load_installment_details');
-        Route::post('/do_edit_row',  'do_edit_row')->name('do_edit_row');
-        Route::post('/print_search',  'print_search')->name('print_search');
-        Route::put('/disbursed_done_now/{id}',  'disbursed_done_now')->name('disbursed_done_now');
-        Route::post('/doSingleCachPayNow',  'doSingleCachPayNow')->name('doSingleCachPayNow');
+        Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/load_edit_row', 'load_edit_row')->name('load_edit_row');
+        Route::post('/load_installment_details', 'load_installment_details')->name('load_installment_details');
+        Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
+        Route::post('/print_search', 'print_search')->name('print_search');
+        Route::put('/disbursed_done_now/{id}', 'disbursed_done_now')->name('disbursed_done_now');
+        Route::post('/doSingleCachPayNow', 'doSingleCachPayNow')->name('doSingleCachPayNow');
     });
 
 
     // رواتب الموظفين المفصلة
     Route::resource('/mainSalaryEmployees', MainSalaryEmployeeController::class);
     Route::controller(MainSalaryEmployeeController::class)->prefix('mainSalaryEmployees')->name('mainSalaryEmployees.')->group(function () {
-        Route::post('/search',  'ajaxSearch')->name('ajax-search');
-        Route::post('/print_search',  'print_search')->name('print_search');
-        Route::post('/addManualSalary/{id}',  'addManualSalary')->name('addManualSalary');
-        Route::get('/showSalryDetails/{id}',  'showSalryDetails')->name('showSalryDetails');
-        Route::put('/doStopSalary/{id}',  'doStopSalary')->name('doStopSalary');
-        Route::put('/doUnlockSalary/{id}',  'doUnlockSalary')->name('doUnlockSalary');
-        Route::put('/doDeleteSalaryInternal/{id}',  'doDeleteSalaryInternal')->name('doDeleteSalaryInternal');
-        Route::post('/loadArchiveSalary',  'loadArchiveSalary')->name('loadArchiveSalary');
-        Route::post('/doArchiveSalary/{id}',  'doArchiveSalary')->name('doArchiveSalary');
-        Route::get('/printSalary/{id}',  'printSalary')->name('printSalary');
-        Route::get('excel/export-excel/{id}','export')->name('export-excel');
+        Route::post('/search', 'ajaxSearch')->name('ajax-search');
+        Route::post('/print_search', 'print_search')->name('print_search');
+        Route::post('/addManualSalary/{id}', 'addManualSalary')->name('addManualSalary');
+        Route::get('/showSalryDetails/{id}', 'showSalryDetails')->name('showSalryDetails');
+        Route::put('/doStopSalary/{id}', 'doStopSalary')->name('doStopSalary');
+        Route::put('/doUnlockSalary/{id}', 'doUnlockSalary')->name('doUnlockSalary');
+        Route::put('/doDeleteSalaryInternal/{id}', 'doDeleteSalaryInternal')->name('doDeleteSalaryInternal');
+        Route::post('/loadArchiveSalary', 'loadArchiveSalary')->name('loadArchiveSalary');
+        Route::post('/doArchiveSalary/{id}', 'doArchiveSalary')->name('doArchiveSalary');
+        Route::get('/printSalary/{id}', 'printSalary')->name('printSalary');
+        Route::get('excel/export-excel/{id}', 'export')->name('export-excel');
     });
 
     //البصمه
@@ -292,15 +293,15 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     Route::controller(AttendanceDepartureController::class)->prefix('attendanceDepartures')->name('attendanceDepartures.')->group(function () {
         // Route::post('/search', 'ajaxSearch')->name('attendanceDepartures.ajax-search');
         Route::post('/print_one_attendance_search', 'print_one_attendance_search')->name('print_one_attendance_search');
-        Route::get('/showAttendanceDetails/{employee_code}/{finance_cln_periods_id}',  'showAttendanceDetails')->name('showAttendanceDetails');
+        Route::get('/showAttendanceDetails/{employee_code}/{finance_cln_periods_id}', 'showAttendanceDetails')->name('showAttendanceDetails');
         Route::get('/uploadFileExcel/{id}', 'uploadFileExcel')->name('uploadFileExcel');
         Route::post('/DoUploadFileExcel/{id}', 'DoUploadFileExcel')->name('DoUploadFileExcel');
         Route::post('/load_fp_archive', 'load_fp_archive')->name('load_fp_archive');
-        Route::post('/load_active_attendance_departure',  'load_active_attendance_departure')->name('load_active_attendance_departure');
-        Route::post('/save_active_attendance_departure',  'save_active_attendance_departure')->name('save_active_attendance_departure');
-        Route::post('/redo_update_actions',  'redo_update_actions')->name('redo_update_actions');
+        Route::post('/load_active_attendance_departure', 'load_active_attendance_departure')->name('load_active_attendance_departure');
+        Route::post('/save_active_attendance_departure', 'save_active_attendance_departure')->name('save_active_attendance_departure');
+        Route::post('/redo_update_actions', 'redo_update_actions')->name('redo_update_actions');
         Route::post('/load_my_actions', 'load_my_actions')->name('load_my_actions');
-        Route::get('/print_one_fp_details/{employee_code}/{finance_cln_periods_id}',  'print_one_fp_details')->name('print_one_fp_details');
+        Route::get('/print_one_fp_details/{employee_code}/{finance_cln_periods_id}', 'print_one_fp_details')->name('print_one_fp_details');
         Route::post('/ajax_search/{employee_code}/{finance_cln_periods_id}', 'ajax_search')->name('ajax_search');
     });
 
@@ -321,10 +322,10 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     });
 
 
-    
 
 
-    
+
+
 });
 
 // بداية صلاحيات المستخدمين
@@ -345,7 +346,7 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::get('/{page}', [PageController::class, 'index']);
 
-Route::middleware('auth')->group(function () {});
+Route::middleware('auth')->group(function () { });
 
 
 // require __DIR__ . '/auth.php';

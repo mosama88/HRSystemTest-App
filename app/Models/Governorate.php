@@ -13,8 +13,24 @@ class Governorate extends Model
 
     protected $fillable = [
         'name',
-        'country_id'
+        'country_id',
+        'active',
+        'com_code',
+        'created_by',
+        'updated_by',
     ];
+
+
+    public function createdByAdmin()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updatedByAdmin()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
+
 
 
     public function country()

@@ -126,6 +126,11 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('المحافظات')
+                            <li><a class="slide-item" href="{{ route('dashboard.governorates.index') }}">المحافظات
+                                </a>
+                            </li>
+                        @endcan
                         @can('المنطقه')
                             <li><a class="slide-item" href="{{ route('dashboard.cities.index') }}">المدن
                                 </a>

@@ -1,6 +1,7 @@
 @extends('dashboard.layouts.master')
 @section('title', 'المحافظات')
 @section('css')
+
 @endsection
 @section('page-header')
     @include('dashboard.messages_alert')
@@ -14,10 +15,33 @@
                     المحافظات</span>
             </div>
         </div>
+        @can('اضافة المنطقه')
+            <div class="d-flex my-xl-auto right-content">
+                <div class="mb-3 mb-xl-0">
+                    <div class="btn-group dropdown">
+                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-super-scaled"
+                            data-toggle="modal" href="#createModal"> <i class="fas fa-plus-circle"></i> أضافة محافظة
+                            جديدة</a>
+                        @livewire('dashboard.settings.governorates.governorates-create')
+                    </div>
+                </div>
+            </div>
+        @endcan
+
     </div>
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-solid-danger mb-2 col-6" role="alert">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                    <span aria-hidden="true">&times;</span></button>
+                <strong>عفوآ حدث خطأ ما!</strong> {{ $error }}
+            </div>
+            </div>
+        @endforeach
+    @endif
     <!-- row -->
     <div class="row">
         <!--div-->
@@ -33,38 +57,13 @@
                     </p>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        @if (@isset($data) && !@empty($data))
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="wd-15p border-bottom-0"> #</th>
-                                        <th class="wd-15p border-bottom-0"> المحافظة</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 0; ?>
-                                    @foreach ($data as $info)
-                                        <?php $i++; ?>
 
-                                        <tr>
-                                            <td>{{ $i }}</td>
-                                            <td>{{ $info->name }}</td>
-                                        </tr>
-                                        @include('dashboard.cities.delete')
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-warning" role="alert" dir="rtl">
-                                <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
-                                <span class="alert-inner--text"><strong> عفواً :</strong> لا توجد بيانات لعرضها!</span>
-                            </div>
-                        @endif
+                    @livewire('dashboard.settings.governorates.governorates-table')
+                    @livewire('dashboard.settings.governorates.governorates-update')
 
-                    </div>
                 </div><!-- bd -->
             </div><!-- bd -->
+            @livewire('dashboard.settings.governorates.governorates-delete')
         </div>
         <!--/div-->
     </div>
@@ -75,4 +74,20 @@
     <!-- main-content closed -->
 @endsection
 @section('js')
+    <script>
+        //to open and close modal
+        // if Open will be close
+        // if Close will be open
+        window.addEventListener('createModalToggle', event => {
+            $("#createModal").modal("toggle");
+        });
+
+        window.addEventListener('updateModalToggle', event => {
+            $("#updateModal").modal("toggle");
+        });
+
+        window.addEventListener('deleteModalToggle', event => {
+            $("#deleteModal").modal("toggle");
+        });
+    </script>
 @endsection
