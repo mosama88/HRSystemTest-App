@@ -1,29 +1,28 @@
 <div>
     {{-- Search Form --}}
     <div class="row mb-4">
+        {{-- employee_code_search --}}
         <div class="form-group col-3">
-            <label>
-                <input checked wire:model="searchByRadioCode" value="employee_code" id="employee_code_radio" type="radio">
-                <label for="employee_code_radio">كود الموظف</label>
-
-                <input wire:model="searchByRadioCode" value="fp_code" id="fp_code_radio" type="radio"> <label
-                    for="fp_code_radio">بصمة الموظف</label>
-
-            </label>
-            <input autofocus type="text" wire:model="byCode_search" id="byCode_search"
-                oninput="this.value=this.value.replace(/[^0-9.]/g,'');" class="form-control" value="">
+            <label> بحث بكود الموظف </label>
+            <input type="text" wire:model.live="employee_code_search" id="employee_code_search" class="form-control"
+                value="">
+        </div>
+        {{-- fp_search --}}
+        <div class="form-group col-3">
+            <label> بحث بكود بصمة الموظف </label>
+            <input type="text" wire:model.live="fp_search" id="fp_search" class="form-control" value="">
         </div>
         {{-- name_search --}}
         <div class="form-group col-3">
-            <label> بحث بأسم الموظف بالكامل</label>
-            <input type="text" wire:model="name_search" id="name_search" class="form-control" value="">
+            <label> بحث بأسم أو الايميل او الرقم القومى</label>
+            <input type="text" wire:model.live="name_search" id="name_search" class="form-control" value="">
         </div>
 
         {{-- gender_search --}}
         <div class="form-group col-3">
             <label> بحث بنوع الجنس</label>
-            <select wire:model="gender_search" id="gender_search" class="form-control">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="gender_search" id="gender_search" class="form-control">
+                <option value="">-- بحث بالكل --</option>
                 <option value="Male">ذكر</option>
                 <option value="Female">انثي</option>
             </select>
@@ -33,8 +32,8 @@
         {{-- branch_id_search --}}
         <div class="form-group col-3">
             <label> بحث بأسم الفرع</label>
-            <select wire:model="branch_id_search" id="branch_id_search" class="form-control select2">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="branch_id_search" id="branch_id_search" class="form-control select2">
+                <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['branches']) && !@empty($other['branches']))
                     @foreach ($other['branches'] as $info)
                         <option value="{{ $info->id }}">
@@ -48,8 +47,8 @@
         {{-- job_grade_id_search --}}
         <div class="form-group col-3">
             <label> الدرجه الوظيفية</label>
-            <select wire:model="job_grade_id_search" id="job_grade_id_search" class="form-control select2">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="job_grade_id_search" id="job_grade_id_search" class="form-control select2">
+                <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['job_grades']) && !@empty($other['job_grades']))
                     @foreach ($other['job_grades'] as $info)
                         <option value="{{ $info->id }}">
@@ -62,8 +61,8 @@
         {{-- department_id_search --}}
         <div class="form-group col-3">
             <label>بحث بالادارة </label>
-            <select wire:model="department_id_search" id="department_id_search" class="form-control select2 ">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="department_id_search" id="department_id_search" class="form-control select2 ">
+                <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['departements']) && !@empty($other['departements']))
                     @foreach ($other['departements'] as $info)
                         <option value="{{ $info->id }}">
@@ -76,8 +75,8 @@
         {{-- job_categories_id_search --}}
         <div class="form-group col-3">
             <label> بحث بوظيفة الموظف</label>
-            <select wire:model="job_categories_id_search" id="job_categories_id_search" class="form-control select2">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="job_categories_id_search" id="job_categories_id_search" class="form-control select2">
+                <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['jobs']) && !@empty($other['jobs']))
                     @foreach ($other['jobs'] as $info)
                         <option value="{{ $info->id }}">
@@ -90,8 +89,8 @@
         {{-- functional_status_search --}}
         <div class="form-group col-3">
             <label>بحث بأسم الحالة الوظيفية</label>
-            <select wire:model="functional_status_search" id="functional_status_search" class="form-control">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="functional_status_search" id="functional_status_search" class="form-control">
+                <option value="">-- بحث بالكل --</option>
                 <option value="Employee">موظف</option>
                 <option value="Unemployed">لا يعمل
                 </option>
@@ -101,8 +100,8 @@
         {{-- Type_salary_receipt_search --}}
         <div class="form-group col-3">
             <label> بحث بنوع صرف راتب الموظف</label>
-            <select wire:model="Type_salary_receipt_search" id="Type_salary_receipt_search" class="form-control">
-                <option value="all">-- بحث بالكل --</option>
+            <select wire:model.live="Type_salary_receipt_search" id="Type_salary_receipt_search" class="form-control">
+                <option value="">-- بحث بالكل --</option>
                 <option value="Cach">كاش</option>
                 <option value="Visa">فيزا</option>
             </select>
