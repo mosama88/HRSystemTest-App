@@ -23,7 +23,7 @@ class AdditionalTypeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class AdditionalTypeRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم نوع الأضافى مطلوب',
-            'active.required' => 'حالة تفعيل نوع الأضافى مطلوب'
         ];
     }
 }

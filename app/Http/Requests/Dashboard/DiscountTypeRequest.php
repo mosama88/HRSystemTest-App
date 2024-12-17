@@ -23,7 +23,7 @@ class DiscountTypeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'required'
+            'active' => 'nullable'
         ];
     }
 
@@ -31,7 +31,6 @@ class DiscountTypeRequest extends FormRequest
     {
         return [
             'name.required' => 'اسم نوع الخصم مطلوب',
-            'active.required' => 'حالة تفعيل نوع الخصم مطلوب'
         ];
     }
 }

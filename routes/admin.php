@@ -130,7 +130,7 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية المحافظات
-    Route::get('/governorates', [CityController::class, 'gevernrateIndex'])->name('governorates.index');
+    // Route::get('/governorates', [CityController::class, 'gevernrateIndex'])->name('governorates.index');
 
     // بداية المدن
     Route::resource('/cities', CityController::class);
@@ -161,10 +161,13 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
     });
 
     // بداية نوع الأضافة
-    Route::resource('/additional_types', AdditionalTypesController::class);
+    Route::view('/additional_types','dashboard.affairs_employees.additional_types.index')->name('additional_types.index');
+
 
     // بداية نوع الخصم
-    Route::resource('/discount_types', DiscountTypeController::class);
+    // Route::resource('/discount_types', DiscountTypeController::class);
+    Route::view('/discount_types','dashboard.affairs_employees.discount_types.index')->name('discount_types.index');
+
 
     // بداية نوع البدلات
     Route::resource('/allowances', AllowanceController::class);
