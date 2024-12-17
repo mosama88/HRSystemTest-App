@@ -26,7 +26,7 @@
                 <label class="form-check-label mx-3" for="customControlInline">تذكرنى</label>
             </div>
         </div>
-        <div class="my-2 col-4 mx-auto">
+        <div class="mt-4 mx-auto">
             <button class="btn btn-block btn-md btn-dark  d-grid w-100 d-flex align-items-center justify-content-center"
                 type="submit">
                 <div wire:loading.remove>
