@@ -2,28 +2,31 @@
 
 namespace App\Livewire\Dashboard\AffairsEmployees\Employees;
 
-use Livewire\Component;
-use App\Models\Employee;
-use App\Models\JobGrade;
-use App\Models\ShiftsType;
-use App\Traits\UploadTrait;
-use App\Traits\GeneralTrait;
-use App\Http\Requests\Dashboard\EmployeeRequest;
 use App\Models\City;
 use App\Models\Branch;
 use App\Models\Country;
+use Livewire\Component;
+use App\Models\Employee;
+use App\Models\JobGrade;
 use App\Models\Language;
 use App\Models\BloodType;
 use App\Models\Department;
+use App\Models\ShiftsType;
 use App\Models\Governorate;
 use App\Models\Nationality;
+use App\Traits\UploadTrait;
 use App\Models\JobsCategory;
+use App\Traits\GeneralTrait;
 use App\Models\Qualification;
+use Livewire\WithFileUploads;
+use App\Http\Requests\Dashboard\EmployeeRequest;
+
 class EmployeesCreate extends Component
 {
 
     use UploadTrait;
     use GeneralTrait;
+    use WithFileUploads;
 
 
 

@@ -29,9 +29,7 @@
             height: 50px !important;
         }
     </style>
-    @php
-        use Carbon\Carbon;
-    @endphp
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -57,38 +55,35 @@
     <div class="row">
         <div class="col-xl-12">
             <!-- div -->
-            <div class="card mg-b-20" id="tabs-style2">
+            <div class="card custom-card" id="tab">
                 <div class="card-body">
-                    @include('dashboard.messages_alert')
-
-                    {{-- Success Message --}}
-                    <div id="successMessage" class="alert alert-solid-success d-none" role="alert"
-                        style="opacity: 0; position: relative; right: -100%; transition: right 0.5s ease-out, opacity 0.5s ease-out;">
-                        <button aria-label="Close" class="close" data-dismiss="alert" type="button">
-                            <span aria-hidden="true">&times;</span></button>
-                        <strong>نجاح العملية!</strong> تم أضافة بيانات الموظف بنجاح .
+                    <div>
+                        <h6 class="card-title mb-1">Simple Tab Navigation</h6>
+                        <p class="text-muted card-sub-title">Below is a tab navigation that have only few links.</p>
                     </div>
+                    <div class="text-wrap">
+                        <div class="example">
+                            <div class="border">
+                               
 
 
-                    {{-- <form id="employeeForm" action="{{ route('dashboard.employees.store') }}" method="POST"
-                        enctype="multipart/form-data"> --}}
-                
-                        @livewire('dashboard.affairs_employees.employees.employees-create')
+                                @livewire('dashboard.affairs_employees.employees.employees-create')
+
+                            </div>
+                        </div>
+                        <!-- Prism Precode -->
+
+                        <!-- End Prism Precode -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    </div>
 
-    <!-- Container closed -->
-    </div>
-    <!-- main-content closed -->
-    </div>
-    <!-- row closed -->
-    </div>
-    <!-- Container closed -->
-    </div>
-    </div>
-    </div>
+
 
 
     <!-- main-content closed -->
