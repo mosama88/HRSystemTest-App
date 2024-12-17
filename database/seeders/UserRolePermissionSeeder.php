@@ -124,6 +124,12 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'تعديل البلاد', 'category' => 'countries', 'guard_name' => $guardAdmin],
             ['name' => 'حذف البلاد', 'category' => 'countries', 'guard_name' => $guardAdmin],
 
+            //    المحافظات
+            ['name' => 'المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
+            ['name' => 'اضافة المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
+            ['name' => 'تعديل المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
+            ['name' => 'حذف المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
+
 
             //    المنطقه
             ['name' => 'المنطقه', 'category' => 'cities', 'guard_name' => $guardAdmin],

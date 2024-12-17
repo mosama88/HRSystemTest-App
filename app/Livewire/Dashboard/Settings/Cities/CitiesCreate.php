@@ -41,7 +41,7 @@ class CitiesCreate extends Component
             $dataCreate['created_by'] = auth()->user()->id;
             $dataCreate['com_code'] = $com_code;
             City::create($dataCreate);
-            $this->reset(['name']);
+            $this->reset(['name','governorate_id']);
             $this->dispatch('createModalToggle');
             $this->dispatch('refreshTableCities')->to(CitiesTable::class);
             session()->flash('message', 'تم إضافة البيانات بنجاح');

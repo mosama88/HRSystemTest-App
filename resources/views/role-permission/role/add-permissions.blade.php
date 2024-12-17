@@ -371,6 +371,29 @@
                                                         </li>
 
                                                         <li>
+                                                            <a href="#">المحافظات</a>
+                                                            <ul>
+
+                                                                <ul>
+                                                                    <li>
+                                                                        @foreach ($permissions->where('category', 'governorates') as $permission)
+                                                                            <div class="col-md-12">
+                                                                                <label>
+                                                                                    <input type="checkbox"
+                                                                                        name="permission[]"
+                                                                                        value="{{ $permission->name }}"
+                                                                                        {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }} />
+                                                                                    {{ $permission->name }}
+                                                                                </label>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </li>
+                                                                </ul>
+
+                                                            </ul>
+                                                        </li>
+
+                                                        <li>
                                                             <a href="#">المنطقه</a>
                                                             <ul>
 

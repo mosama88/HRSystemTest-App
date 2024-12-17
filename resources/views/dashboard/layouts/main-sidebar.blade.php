@@ -57,7 +57,7 @@
             @can('قائمة الأعدادات')
                 <li class="side-item side-item-category">قائمة الأعدادات</li>
                 <li
-                    class="slide {{ request()->is('generalSettings*') || request()->is('financeCalendars*') || request()->is('branches*') || request()->is('shiftsTypes*') || request()->is('departments*') || request()->is('jobsCategories*') || request()->is('qualifications*') || request()->is('holidays*') || request()->is('resignations*') || request()->is('countries*') || request()->is('cities*') || request()->is('nationalities*') || request()->is('bloodTypes*') ? 'menu-open' : '' }}">
+                    class="slide {{ request()->is('generalSettings*') || request()->is('financeCalendars*') || request()->is('branches*') || request()->is('shiftsTypes*') || request()->is('departments*') || request()->is('jobsCategories*') || request()->is('qualifications*') || request()->is('holidays*') || request()->is('resignations*') || request()->is('countries*') || request()->is('cities*') || request()->is('governorates*') || request()->is('nationalities*') || request()->is('bloodTypes*') ? 'menu-open' : '' }}">
                     <a class="side-menu__item {{ request()->is('generalSettings*') || request()->is('financeCalendars*') ? 'active' : '' }}"
                         data-toggle="slide" href="{{ url('admin/' . ($page = '#')) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">

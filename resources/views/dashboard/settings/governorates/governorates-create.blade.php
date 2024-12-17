@@ -4,8 +4,9 @@
         <div class="form-group">
             <label>اسم المحافظة</label> <span class="tx-danger">*</span>
             <input type="text" wire:model="name" id="name" class="form-control" value="{{ old('name') }}">
-            <span class="text-danger" id="nameError"></span> <!-- مكان عرض الخطأ -->
-
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
     </div>
 

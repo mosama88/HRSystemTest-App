@@ -40,7 +40,7 @@ class GovernoratesCreate extends Component
             $dataCreate['created_by'] = auth()->user()->id;
             $dataCreate['com_code'] = $com_code;
             Governorate::create($dataCreate);
-            $this->reset(['name']);
+            $this->reset(['name','country_id']);
             $this->dispatch('createModalToggle');
             $this->dispatch('refreshTableGovernorates')->to(GovernoratesTable::class);
             session()->flash('message', value: 'تم إضافة البيانات بنجاح');

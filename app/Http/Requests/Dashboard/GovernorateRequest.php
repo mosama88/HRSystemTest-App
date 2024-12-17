@@ -31,7 +31,7 @@ class GovernorateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'اسم الحى أو المنطقه مطلوب',
+            'name.required' => 'اسم المحافظة مطلوب',
             'country_id.required' => 'البلد مطلوبة',
         ];
     }

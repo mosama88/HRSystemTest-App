@@ -45,7 +45,7 @@
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $info->name }}</td>
-                            <td>{{ $info->governorate->name }}</td>
+                            <td>{{ $info->country->name }}</td>
                             <td>
                                 @if ($info->active == 2)
                                     <span class="label text-danger d-flex">
@@ -75,14 +75,14 @@
                                     <div class="dropdown-menu tx-13">
                                         <h6 class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
                                             حذف وتعديل</h6>
-                                        @can('تعديل المحافظة')
+                                        @can('تعديل المحافظات')
                                             {{-- Edit --}}
                                             <a class="dropdown-item modal-effect btn btn-outline-info btn-sm"
                                                 data-effect="effect-scale" data-toggle="modal" href="#"
                                                 wire:click.prevent="$dispatch('editGovernorates',{id:{{ $info->id }}})"><i
                                                     class="fas fa-edit ml-1"></i>تعديل</a>
                                         @endcan
-                                        @can('حذف المحافظة')
+                                        @can('حذف المحافظات')
                                             @if ($info->counterUsed == 0)
                                                 {{-- Delete --}}
                                                 <a class="dropdown-item modal-effect btn btn-outline-danger btn-sm"
