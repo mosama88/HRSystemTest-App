@@ -1168,10 +1168,9 @@
 
                     {{-- Photo Input --}}
                     <div class="col-md-4 mb-3">
-                        <label> الصورة الشخصية للموظف</label>
-                        <input class="form-control" wire:model="photo" type="file" id="formFileMultiple">
+                        <label for="formFile" class="form-label">الصورة الشخصية للموظف</label>
+                        <input class="form-control" wire:model="photo" type="file" id="formFile">
                         <div class="my-2" wire:loading wire:target="photo">Uploading...</div>
-
                         @error('photo')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -1179,14 +1178,13 @@
 
                     {{-- CV Input --}}
                     <div class="col-md-4 mb-3">
-                        <div class="">
-                            <label> السيرة الذاتية للموظف</label>
-                            <input class="form-control" wire:model="cv" type="file" id="formFileMultiple">
-                            <div class="my-2" wire:loading wire:target="cv">Uploading...</div>
-                            @error('cv')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <label for="formFile" class="form-label">السيرة الذاتية للموظف</label>
+                        <input class="form-control" wire:model="cv" type="file" id="formFile">
+                        <div class="my-2" wire:loading wire:target="cv">Uploading...</div>
+
+                        @error('cv')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
 
