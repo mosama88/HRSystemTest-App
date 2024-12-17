@@ -23,10 +23,12 @@ class EmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'employee_code' => 'required|unique:employees,employee_code', // كود بصمة الموظف
             'fp_code' => 'required|unique:employees,fp_code', // كود بصمة الموظف
             'name' => 'required|min:7|unique:employees,name', // اسم الموظف
             'gender' => 'required|in:Male,Female', // نوع الجنس
             'branch_id' => 'required|exists:branches,id', // الفرع التابع له الموظف
+            'job_grade_id' => 'required|exists:job_grades,id', // الفرع التابع له الموظف
             'national_id' => 'required|unique:employees,national_id|max:14|min:14', //رقم الهوية
             'end_national_id' => 'required|date', //
             'national_id_place' => 'required', //
@@ -74,6 +76,7 @@ class EmployeeRequest extends FormRequest
             'motivation' => 'nullable', // قيمة الحافز الثابت ان وجد
             'social_insurance' => 'nullable|in:Yes,No', // قيمة استقطاع التأمين الاجتماعي الشهري للموظف
             'social_insurance_number' => 'nullable', // رقم التامين الاجتماعي للموظف
+            'social_insurance_cut_monthely' => 'nullable', // رقم التامين الاجتماعي للموظف
             'medical_insurance' => 'nullable|in:Yes,No', // هل للموظف تأمين طبي
             'medical_insurance_cut_monthely' => 'nullable', // قيمة استقطاع التأمين الطبي الشهري للموظف
             'medical_insurance_number' => 'nullable', // رقم التامين الطبي للموظف
@@ -82,8 +85,12 @@ class EmployeeRequest extends FormRequest
             'urgent_person_details' => 'nullable', // تفاصيل شخص يمكن الرجوع اليه للوصول للموظف
             'social_status' => 'nullable|in:Divorced,Married,Single,Widowed', // الحالة الاجتماعية
             'children_number' => 'nullable', // عدد الأطفال
+            'num_vacation_days' => 'nullable', // عدد الأطفال
+            'add_service' => 'nullable', // عدد الأطفال
+            'years_service' => 'nullable', // عدد الأطفال
             'resignation_id' => 'nullable|exists:resignations,id', // الاستقاله
             'bank_number_account' => 'nullable', // رقم حساب البنك للموظف
+            'staies_address' => 'nullable', // رقم حساب البنك للموظف
             'disabilities' => 'nullable|in:Yes,No', // هل له اعاقة
             'disabilities_type' => 'nullable', // نوع الاعاقة
             'nationality_id' => 'required|exists:nationalities,id', // الجنسية
