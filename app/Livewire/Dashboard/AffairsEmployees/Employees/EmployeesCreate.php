@@ -23,10 +23,10 @@ use App\Http\Requests\Dashboard\EmployeeRequest;
 
 class EmployeesCreate extends Component
 {
+    use WithFileUploads;
 
     use UploadTrait;
     use GeneralTrait;
-    use WithFileUploads;
 
 
 
@@ -74,4 +74,3 @@ class EmployeesCreate extends Component
         return view('dashboard.affairs_employees.employees.employees-create',compact('other'));
     }
 }
-

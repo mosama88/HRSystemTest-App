@@ -23,7 +23,7 @@ class EmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_code' => 'required|unique:employees,employee_code', // كود بصمة الموظف
+            'employee_code' => 'nullable|unique:employees,employee_code', // كود بصمة الموظف
             'fp_code' => 'required|unique:employees,fp_code', // كود بصمة الموظف
             'name' => 'required|min:7|unique:employees,name', // اسم الموظف
             'gender' => 'required|in:Male,Female', // نوع الجنس
