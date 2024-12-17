@@ -169,7 +169,6 @@ Route::view('/branches','dashboard.settings.branches.index')->name('branches.ind
 
 
     // بداية نوع البدلات
-    // Route::resource('/allowances', AllowanceController::class);
     Route::view('/allowances','dashboard.affairs_employees.allowances.index')->name('allowances.index');
 
 

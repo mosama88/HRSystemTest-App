@@ -21,7 +21,7 @@
                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-super-scaled"
                         data-toggle="modal" href="#createModal"> <i class="fas fa-plus-circle"></i> أضافة نوع بدل
                         جديدة</a>
-                    @livewire('dashboard.affairs_employees.additional_types.additional-types-create')
+                    @livewire('dashboard.affairs_employees.allowances.allowances-create')
 
                 </div>
             </div>
@@ -59,11 +59,11 @@
 
 
 
-                    @livewire('dashboard.affairs_employees.additional_types.additional-types-table')
-                    @livewire('dashboard.affairs_employees.additional_types.additional-types-update')
+                    @livewire('dashboard.affairs_employees.allowances.allowances-table')
+                    @livewire('dashboard.affairs_employees.allowances.allowances-update')
                 </div><!-- bd -->
             </div><!-- bd -->
-            @livewire('dashboard.affairs_employees.additional_types.additional-types-delete')
+            @livewire('dashboard.affairs_employees.allowances.allowances-delete')
         </div>
         <!--/div-->
     </div>
