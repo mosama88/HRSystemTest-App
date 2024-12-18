@@ -79,7 +79,7 @@ class EmployeesTable extends Component
         }
         
         if ($this->gender_search) {
-            $query->where('gender', 'like', '%' . $this->gender_search . '%');
+            $query->where('gender', $this->gender_search);
         }
 
         if ($this->branch_id_search) {
@@ -91,7 +91,7 @@ class EmployeesTable extends Component
         }
 
         if ($this->department_id_search) {
-            $query->where('department_id', 'like', '%' . $this->department_id_search . '%');
+            $query->where('department_id', $this->department_id_search );
         }
 
         if ($this->job_categories_id_search) {

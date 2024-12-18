@@ -33,7 +33,7 @@ class CitiesTable extends Component
         }
 
         if ($this->governorate_search) {
-            $query->where('governorate_id', 'like', '%' . $this->governorate_search . '%');
+            $query->where('governorate_id', $this->governorate_search); // استخدام `=` بدلاً من `like`
         }
 
         $data = $query->orderBy("id", "DESC")->where("com_code", $com_code)->paginate(10);
