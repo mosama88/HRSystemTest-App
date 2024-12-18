@@ -175,6 +175,8 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية السجلات الرئيسية للرواتب
     Route::resource('/salaryRecords', MainSalaryRecordController::class);
+    Route::view('/salaryRecords', 'dashboard.salaries.salaryRecords.index')->name('salaryRecords.index');
+
     Route::controller(MainSalaryRecordController::class)->prefix('salaryRecords')->name('salaryRecords.')->group(function () {
         Route::post('/do_open_month/{id}', 'do_open_month')->name('do_open_month');
         Route::post('/load_open_month', 'load_open_month')->name('load_open_month');
@@ -184,6 +186,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية جزاءات الرواتب
     Route::resource('/sanctions', SalarySanctionsController::class);
+    Route::view('/sanctions', 'dashboard.salaries.sanctions.index')->name('sanctions.index');
     Route::controller(SalarySanctionsController::class)->prefix('sanctions')->name('sanctions.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
