@@ -345,10 +345,14 @@ class EmployeeController extends Controller
         try {
             $com_code = auth()->user()->com_code;
             $employee = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "id" => $id));
-            // $employee = Employee::select("*")->where('com_code', $com_code)->where('id', $id)->first();
 
             if (empty($employee)) {
                 return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !']);
+            }
+
+            $CheckExsists_fb_code = Employee::select("id")->where("com_code", "=", $com_code)->where("fp_code", "=", $request->fp_code)->where('id', '!=', $id)->first();
+            if (!empty($CheckExsists_fb_code)) {
+                return redirect()->back()->with(['error' => 'عفوا هذا الكود مسجل من قبل '])->withInput();
             }
 
 

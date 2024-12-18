@@ -42,6 +42,7 @@ class GovernorateSeeder extends Seeder
                 ['name' => 'الفيوم', 'country_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'active' => 1, 'com_code' => 1],
                 ['name' => 'بنى سويف', 'country_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'active' => 1, 'com_code' => 1],
                 ['name' => 'الشرقيه', 'country_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'active' => 1, 'com_code' => 1],
+                ['name' => 'المنوفية', 'country_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'active' => 1, 'com_code' => 1],
             ]
         );
     }

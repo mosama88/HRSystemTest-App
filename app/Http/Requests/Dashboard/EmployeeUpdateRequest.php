@@ -23,7 +23,7 @@ class EmployeeUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'fp_code' => 'required|unique:employees,fp_code,id',
+            'fp_code' => 'required',
             'gender' => 'required',
             'branch_id' => 'required',
             'national_id' => 'required',
@@ -38,7 +38,6 @@ class EmployeeUpdateRequest extends FormRequest
     {
         return [
             'name.required' => 'أسم الموظف مطلوب.',
-            'fp_code.unique' => 'رقم كود بصمة الموظف موجود بالفعل، يرجى كتابة رقم مختلف.',
             'gender.required' => 'نوع الجنس مطلوب.',
             'branch_id.required' => 'حقل الفرع مطلوب.',
             'national_id.required' => 'حقل بطاقة الهوية مطلوب.',
