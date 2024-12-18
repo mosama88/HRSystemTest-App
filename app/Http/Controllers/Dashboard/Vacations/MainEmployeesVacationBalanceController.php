@@ -117,10 +117,34 @@ class MainEmployeesVacationBalanceController extends Controller
                     $now = time();
                     $yourDate = strtotime($employee_data['work_start_date']);
                     $dateDiff =  $now  - $yourDate;
-                    $difference_days = round($dateDiff/(60*60*24));
+                    $difference_days = round($dateDiff / (60 * 60 * 24));
                     //لو عدد الايام يساوى او اكبر من الضبط العام سوف ينزل له رصيد اول المده
-                    if($difference_days >= $admin_panel_settingsData['after_days_begin_vacation']){
-                        
+                    if ($difference_days >= $admin_panel_settingsData['after_days_begin_vacation']) {
+                        $activeDays = $admin_panel_settingsData['after_days_begin_vacation'];
+                        $current_year = $currentOpenMonth['finance_yr'];
+                        $workYear = date('Y', strtotime($employee_data['work_start_date']));
+                        $dateActiveFormula = date('Y-m-d', strtotime($employee_data['work_start_date'] . ' + ' . $activeDays . ' days'));
+                        if ($workYear == $current_year) {
+                            $dataToInsert['current_month_balance'] = $admin_panel_settingsData['first_balance_begin_vacation'];
+                            $dataToInsert['total_available_balance'] = $admin_panel_settingsData['first_balance_begin_vacation'];
+                            $dataToInsert['net_balance'] = $admin_panel_settingsData['first_balance_begin_vacation'];
+                        } else {
+                            $dataToInsert['current_month_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
+                            $dataToInsert['total_available_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
+                            $dataToInsert['net_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
+                        }
+
+                        if ($difference_days <= 360) {
+                            $dataToInsert['year_month'] = date('Y-m', strtotime($dateActiveFormula));
+                        } else {
+                            $dataToInsert['year_month'] = $current_year . '-01';
+                        }
+                        $dataToInsert['financial_year'] = $current_year;
+                        $dataToInsert['employee_code'] = $employee_code;
+                        $dataToInsert['created_at'] = date('Y-m-d H:i:s');
+                        $dataToInsert['created_by'] = auth()->user()->id;
+                        $dataToInsert['com_code'] = $com_code;
+                        $checkExists = get_Columns_where_row(new MainEmployeesVacationBalance(), array("id"), array("com_code" => $com_code,"employee_code"=>$employee_code,"financial_year"=>$current_year));
                     }
                 } else { //is_done_Vacation_formula
                     // نزل له رصيد سابقآ
