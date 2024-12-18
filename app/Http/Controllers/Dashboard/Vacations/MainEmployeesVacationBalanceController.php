@@ -21,6 +21,7 @@ use App\Models\Qualification;
 use App\Models\MainSalaryEmployee;
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeFixedAllowance;
+use App\Models\FinanceClnPeriod;
 use App\Models\MainEmployeesVacationBalance;
 
 class MainEmployeesVacationBalanceController extends Controller
@@ -81,8 +82,6 @@ class MainEmployeesVacationBalanceController extends Controller
             return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !'])->withInput();
         }
 
-
-
         $other['employee_files'] = get_cols_where(new EmployeeFile(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
         if ($data['fixed_allowances'] == 1) {
             $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
@@ -92,6 +91,37 @@ class MainEmployeesVacationBalanceController extends Controller
         return view('dashboard.vacationsBalance.show', compact('data', 'other'));
     }
 
+    public function calculate_employees_vacations_balance($employee_code)
+    {
+        $com_code = auth()->user()->com_code;
+
+        /*
+    1- التأكد من وجود بيانات الموظف وانه بالخدمه
+    2- التأكد بأن الموظف له رصيد سنوى
+    3- التحقق من حالة تنفيذ المعادله اول مره او نفذت من قبل فكلا الحالتين لهما طريقه عمل مختلفه
+    4- فى حالة انه اول مره سنتحقق من الضبط العام ثم السنه المالية المفتوحة ونطبق الضبط العام
+    5- فى حالة انه تم تنفيذ الدالة سابقآ سيكون فقط الرصيد المرحل من الشهر السابق على رصيد الشهر الحالى
+  */
+
+
+        //   بداية دالة أحتساب رصيد أجازات السنوى والشهرى
+        $employee_data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "employee_code" => $employee_code, 'functional_status' => 'Employee', 'active_vacation' => 'Yes'));
+        if (!empty($employee_data)) {
+            // التحقق من وجود شهر مالى مفتوج مع سنه مالية مفتوحة
+            $currentOpenMonth = get_Columns_where_row(new FinanceClnPeriod(), array("id", "finance_yr", "year_and_month"), array("com_code" => $com_code, "is_open" => 1));
+            if (!empty($currentOpenMonth)) {
+                if ($employee_data['is_done_Vacation_formula'] == 0) {
+                    //أول مره ينزل له رصيد
+                    $now = time();
+                    $yourDate = strtotime($employee_data['work_start_date']);
+                    $dateDiff =  $now  - $yourDate;
+                    $difference_days = round($dateDiff/(60*60*24));
+                } else { //is_done_Vacation_formula
+                    // نزل له رصيد سابقآ
+                }
+            }
+        }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -193,5 +223,4 @@ class MainEmployeesVacationBalanceController extends Controller
             return view('dashboard.vacationsBalance.ajax_search', ['data' => $data]);
         }
     }
-
 }
