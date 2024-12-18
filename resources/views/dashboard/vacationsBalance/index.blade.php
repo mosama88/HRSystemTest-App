@@ -239,14 +239,6 @@
                                                             href="{{ route('dashboard.employees.edit', $info->id) }}"><i
                                                                 class="fas fa-edit ml-1"></i>تعديل</a>
 
-                                                        @if ($info->CounterUsedBefore == 0)
-                                                            {{-- Delete --}}
-                                                            <a class="modal-effect btn btn-outline-danger text-danger dropdown-item btn-sm"
-                                                                data-effect="effect-scale" data-toggle="modal"
-                                                                href="#delete{{ $info->id }}">
-                                                                <i class="fas fa-trash-alt ml-1"></i>حذف</a>
-                                                        @endif
-
                                                     </div>
                                                 </div>
 

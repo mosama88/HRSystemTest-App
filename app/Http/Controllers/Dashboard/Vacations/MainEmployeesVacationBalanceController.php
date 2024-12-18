@@ -133,7 +133,7 @@ class MainEmployeesVacationBalanceController extends Controller
                             $dataToInsert['total_available_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
                             $dataToInsert['net_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
                         }
-//نقطة خلاف
+                        //نقطة خلاف
                         if ($difference_days <= 360) {
                             $dataToInsert['year_month'] = date('Y-m', strtotime($dateActiveFormula));
                         } else {
@@ -144,16 +144,14 @@ class MainEmployeesVacationBalanceController extends Controller
                         $dataToInsert['created_at'] = date('Y-m-d H:i:s');
                         $dataToInsert['created_by'] = auth()->user()->id;
                         $dataToInsert['com_code'] = $com_code;
-                        $checkExists = get_Columns_where_row(new MainEmployeesVacationBalance(), array("id"), array("com_code"=>$com_code,"employee_code"=>$employee_code,"financial_year"=>$current_year,"year_month"=>$dataToInsert['year_month']));
-                        if(empty($checkExists)){
-                            $flag = insert(new MainEmployeesVacationBalance(),$dataToInsert);
-                            if( $flag ){
+                        $checkExists = get_Columns_where_row(new MainEmployeesVacationBalance(), array("id"), array("com_code" => $com_code, "employee_code" => $employee_code, "financial_year" => $current_year, "year_month" => $dataToInsert['year_month']));
+                        if (empty($checkExists)) {
+                            $flag = insert(new MainEmployeesVacationBalance(), $dataToInsert);
+                            if ($flag) {
                                 $dataToUpdate['is_done_Vacation_formula'] = 1;
                                 // $dataToUpdate['last_update'] = date('Y-m-d');
                                 $dataToUpdate['updated_by '] = auth()->user()->id;
-                                update(new Employee(),$dataToUpdate,array("com_code"=>$com_code,"employee_code"=>$employee_code));
-
-
+                                update(new Employee(), $dataToUpdate, array("com_code" => $com_code, "employee_code" => $employee_code));
                             }
                         }
                     }

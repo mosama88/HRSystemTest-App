@@ -9,9 +9,8 @@ class MainEmployeesVacationBalance extends Model
 {
     use HasFactory;
     protected $table = "main_employees_vacation_balances";
-
+    
     protected $guarded = [];
-
 
 
     public function createdByAdmin()
