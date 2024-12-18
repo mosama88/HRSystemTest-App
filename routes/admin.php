@@ -258,6 +258,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية السلف الشهرية الرواتب
     Route::resource('/loans', EmployeeSalaryLoanController::class);
+    Route::view('/loans', 'dashboard.salaries.loans.index')->name('loans.index');
     Route::controller(EmployeeSalaryLoanController::class)->prefix('loans')->name('loans.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
