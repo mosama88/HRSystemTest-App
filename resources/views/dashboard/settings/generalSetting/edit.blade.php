@@ -184,7 +184,7 @@
                                     <input type="text" name="monthly_vacation_balance" id="monthly_vacation_balance"
                                         class="form-control"
                                         value="{{ old('monthly_vacation_balance', $data['monthly_vacation_balance']) }}"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                                        oninput="this.value=this.value.replace(/[^0-9.]/g,'');">
                                     @error('monthly_vacation_balance')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -209,7 +209,7 @@
                                     <input type="text" name="first_balance_begin_vacation"
                                         id="first_balance_begin_vacation" class="form-control"
                                         value="{{ old('first_balance_begin_vacation', $data['first_balance_begin_vacation']) }}"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                                        oninput="this.value=this.value.replace(/[^0-9.]/g,'');">
                                     @error('first_balance_begin_vacation')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

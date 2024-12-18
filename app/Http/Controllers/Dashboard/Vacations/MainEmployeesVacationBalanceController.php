@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use App\Models\Qualification;
 use App\Models\MainSalaryEmployee;
 use App\Http\Controllers\Controller;
+use App\Models\AdminPanelSetting;
 use App\Models\EmployeeFixedAllowance;
 use App\Models\FinanceClnPeriod;
 use App\Models\MainEmployeesVacationBalance;
@@ -106,7 +107,8 @@ class MainEmployeesVacationBalanceController extends Controller
 
         //   بداية دالة أحتساب رصيد أجازات السنوى والشهرى
         $employee_data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "employee_code" => $employee_code, 'functional_status' => 'Employee', 'active_vacation' => 'Yes'));
-        if (!empty($employee_data)) {
+        $admin_panel_settingsData = get_Columns_where_row(new AdminPanelSetting(), array("*"), array("com_code" => $com_code));
+        if (!empty($employee_data) && !empty($admin_panel_settingsData)) {
             // التحقق من وجود شهر مالى مفتوج مع سنه مالية مفتوحة
             $currentOpenMonth = get_Columns_where_row(new FinanceClnPeriod(), array("id", "finance_yr", "year_and_month"), array("com_code" => $com_code, "is_open" => 1));
             if (!empty($currentOpenMonth)) {
@@ -116,6 +118,10 @@ class MainEmployeesVacationBalanceController extends Controller
                     $yourDate = strtotime($employee_data['work_start_date']);
                     $dateDiff =  $now  - $yourDate;
                     $difference_days = round($dateDiff/(60*60*24));
+                    //لو عدد الايام يساوى او اكبر من الضبط العام سوف ينزل له رصيد اول المده
+                    if($difference_days >= $admin_panel_settingsData['after_days_begin_vacation']){
+                        
+                    }
                 } else { //is_done_Vacation_formula
                     // نزل له رصيد سابقآ
                 }
