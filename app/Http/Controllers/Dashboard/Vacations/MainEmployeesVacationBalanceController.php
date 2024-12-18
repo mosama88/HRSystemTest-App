@@ -88,7 +88,7 @@ class MainEmployeesVacationBalanceController extends Controller
             $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
             $other['allowances'] = get_cols_where(new Allowance(), array('id', 'name'), array('active' => 1, 'com_code' => $com_code), 'id', 'ASC');
         }
-
+        $this->calculate_employees_vacations_balance($data['employee_code']);
         return view('dashboard.vacationsBalance.show', compact('data', 'other'));
     }
 
@@ -133,7 +133,7 @@ class MainEmployeesVacationBalanceController extends Controller
                             $dataToInsert['total_available_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
                             $dataToInsert['net_balance'] = $admin_panel_settingsData['monthly_vacation_balance'];
                         }
-
+//نقطة خلاف
                         if ($difference_days <= 360) {
                             $dataToInsert['year_month'] = date('Y-m', strtotime($dateActiveFormula));
                         } else {
@@ -149,7 +149,7 @@ class MainEmployeesVacationBalanceController extends Controller
                             $flag = insert(new MainEmployeesVacationBalance(),$dataToInsert);
                             if( $flag ){
                                 $dataToUpdate['is_done_Vacation_formula'] = 1;
-                                // $dataToUpdate['is_done_Vacation_formula'] = date('Y-m-d');
+                                // $dataToUpdate['last_update'] = date('Y-m-d');
                                 $dataToUpdate['updated_by '] = auth()->user()->id;
                                 update(new Employee(),$dataToUpdate,array("com_code"=>$com_code,"employee_code"=>$employee_code));
 
