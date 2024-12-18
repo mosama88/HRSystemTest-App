@@ -283,6 +283,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // رواتب الموظفين المفصلة
     Route::resource('/mainSalaryEmployees', MainSalaryEmployeeController::class);
+    Route::view('/mainSalaryEmployees', 'dashboard.salaries.mainSalaryEmployees.index')->name('mainSalaryEmployees.index');
     Route::controller(MainSalaryEmployeeController::class)->prefix('mainSalaryEmployees')->name('mainSalaryEmployees.')->group(function () {
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
         Route::post('/print_search', 'print_search')->name('print_search');
