@@ -1,20 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title', 'البدلات')
 @section('css')
-    <!-- Internal Data table css -->
-    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('dashboard/assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
-
-
-    <!---Internal Owl Carousel css-->
-    <link href="{{ URL::asset('dashboard/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
-    <!---Internal  Multislider css-->
-    <link href="{{ URL::asset('dashboard/assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
-    <!--- Select2 css -->
-    <link href="{{ URL::asset('dashboard/assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 
 @endsection
 @section('page-header')
@@ -58,66 +44,9 @@
                     </p>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        @if ($data->isNotEmpty())
-                            <div class="table-responsive mt-3">
-                                <table class="table table-bordered table-striped table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>اسم الشهر </th>
-                                            <th>سنة</th>
-                                            <th>تاريخ البداية</th>
-                                            <th>تاريخ النهاية</th>
-                                            <th>بداية البصمة</th>
-                                            <th>نهاية البصمة</th>
-                                            <th>عدد الأيام</th>
-                                            <th>حالة الشهر</th>
-                                            <th>العمليات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $info)
-                                            <tr>
-                                                <td>{{ $info->month->name ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->finance_yr ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->start_date_m ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->end_date_m ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->start_date_fp ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->end_date_fp ?? 'غير محدد' }}</td>
-                                                <td>{{ $info->number_of_days ?? 'غير محدد' }}</td>
-                                                <td>
-                                                    @if ($info->is_open == 1)
-                                                        <span class="badge badge-success">مفتوح &#x1F60A;</span>
-                                                    @elseif ($info->is_open == 2)
-                                                        <span class="badge badge-danger">مغلق ومؤرشف &#x2716;</span>
-                                                    @else
-                                                        <span class="badge badge-warning">معلق &#x23F3;
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                                <td>
 
-                                                    @if ($info->is_open != 0)
-                                                        <a href="{{ route('dashboard.allowancesSalary.show', $info->id) }}"
-                                                            class="btn-sm btn btn-info mr-2">
-                                                            <i class="fas fa-eye ml-1"></i> عرض</a>
-                                                    @endif
 
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="alert alert-warning" role="alert" dir="rtl">
-                                <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
-                                <span class="alert-inner--text"><strong> عفواً :</strong> لا توجد بيانات لعرضها!</span>
-                            </div>
-                        @endif
-
-                    </div>
-                    {{ $data->render("pagination::bootstrap-5") }}
+                    @livewire('dashboard.salaries.allowancesSalary.allowances-salary-table')
 
                 </div><!-- bd -->
             </div><!-- bd -->
@@ -132,34 +61,6 @@
 
 @endsection
 @section('js')
-    <!-- Internal Data tables -->
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.dataTables.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/jszip.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/pdfmake.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/vfs_fonts.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.print.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ URL::asset('dashboard/assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
-    <!--Internal  Datatable js -->
-    <script src="{{ URL::asset('dashboard/assets/js/table-data.js') }}"></script>
 
-
-
-
-    <!--Internal  Datepicker js -->
-    <script src="{{ URL::asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
-    <!-- Internal Select2 js-->
-    <script src="{{ URL::asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
-    <!-- Internal Modal js-->
-    <script src="{{ URL::asset('dashboard/assets/js/modal.js') }}"></script>
 
 @endsection

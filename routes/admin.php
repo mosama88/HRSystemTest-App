@@ -198,6 +198,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية الغيابات الرواتب
     Route::resource('/absences', EmployeeSalaryAbsenceDayController::class);
+    Route::view('/absences', 'dashboard.salaries.absences.index')->name('absences.index');
     Route::controller(EmployeeSalaryAbsenceDayController::class)->prefix('absences')->name('absences.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
@@ -209,6 +210,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية الأضافى الرواتب
     Route::resource('/additionals', EmployeeSalaryAdditionalController::class);
+    Route::view('/additionals', 'dashboard.salaries.additionals.index')->name('additionals.index');
     Route::controller(EmployeeSalaryAdditionalController::class)->prefix('additionals')->name('additionals.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
@@ -220,6 +222,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية الخصومات الرواتب
     Route::resource('/discounts', EmployeeSalaryDiscountController::class);
+    Route::view('/discounts', 'dashboard.salaries.discounts.index')->name('discounts.index');
     Route::controller(EmployeeSalaryDiscountController::class)->prefix('discounts')->name('discounts.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
@@ -231,6 +234,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية المكافئات الرواتب
     Route::resource('/rewards', EmployeeSalaryRewardsController::class);
+    Route::view('/rewards', 'dashboard.salaries.rewards.index')->name('rewards.index');
     Route::controller(EmployeeSalaryRewardsController::class)->prefix('rewards')->name('rewards.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
@@ -242,6 +246,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 
     // بداية البدلات الرواتب
     Route::resource('/allowancesSalary', EmployeeSalaryAllowanceController::class);
+    Route::view('/allowancesSalary', 'dashboard.salaries.allowancesSalary.index')->name('allowancesSalary.index');
     Route::controller(EmployeeSalaryAllowanceController::class)->prefix('allowancesSalary')->name('allowancesSalary.')->group(function () {
         Route::post('/checkExsistsBefor', 'checkExsistsBefor')->name('checkExsistsBefor');
         Route::post('/search', 'ajaxSearch')->name('ajax-search');
