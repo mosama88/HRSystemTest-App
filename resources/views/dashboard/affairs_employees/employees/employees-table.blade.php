@@ -2,26 +2,27 @@
     {{-- Search Form --}}
     <div class="row mb-4">
         {{-- employee_code_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بكود الموظف </label>
-            <input type="text" wire:model.live="employee_code_search" id="employee_code_search" class="form-control"
-                value="">
+            <input type="text" wire:model.live.debounce.debounce="employee_code_search" id="employee_code_search"
+                class="form-control" value="">
         </div>
         {{-- fp_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بكود بصمة الموظف </label>
-            <input type="text" wire:model.live="fp_search" id="fp_search" class="form-control" value="">
+            <input type="text" wire:model.live.debounce="fp_search" id="fp_search" class="form-control" value="">
         </div>
         {{-- name_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بأسم أو الايميل او الرقم القومى</label>
-            <input type="text" wire:model.live="name_search" id="name_search" class="form-control" value="">
+            <input type="text" wire:model.live.debounce="name_search" id="name_search" class="form-control"
+                value="">
         </div>
 
         {{-- gender_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بنوع الجنس</label>
-            <select wire:model.live="gender_search" id="gender_search" class="form-control">
+            <select wire:model.live.debounce="gender_search" id="gender_search" class="form-control">
                 <option value="">-- بحث بالكل --</option>
                 <option value="Male">ذكر</option>
                 <option value="Female">انثي</option>
@@ -30,9 +31,9 @@
 
 
         {{-- branch_id_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بأسم الفرع</label>
-            <select wire:model.live="branch_id_search" id="branch_id_search" class="form-control select2">
+            <select wire:model.live.debounce="branch_id_search" id="branch_id_search" class="form-control select2">
                 <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['branches']) && !@empty($other['branches']))
                     @foreach ($other['branches'] as $info)
@@ -45,9 +46,10 @@
 
 
         {{-- job_grade_id_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> الدرجه الوظيفية</label>
-            <select wire:model.live="job_grade_id_search" id="job_grade_id_search" class="form-control select2">
+            <select wire:model.live.debounce="job_grade_id_search" id="job_grade_id_search"
+                class="form-control select2">
                 <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['job_grades']) && !@empty($other['job_grades']))
                     @foreach ($other['job_grades'] as $info)
@@ -59,9 +61,10 @@
         </div>
 
         {{-- department_id_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label>بحث بالادارة </label>
-            <select wire:model.live="department_id_search" id="department_id_search" class="form-control select2 ">
+            <select wire:model.live.debounce="department_id_search" id="department_id_search"
+                class="form-control select2 ">
                 <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['departements']) && !@empty($other['departements']))
                     @foreach ($other['departements'] as $info)
@@ -73,9 +76,10 @@
         </div>
 
         {{-- job_categories_id_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بوظيفة الموظف</label>
-            <select wire:model.live="job_categories_id_search" id="job_categories_id_search" class="form-control select2">
+            <select wire:model.live.debounce="job_categories_id_search" id="job_categories_id_search"
+                class="form-control select2">
                 <option value="">-- بحث بالكل --</option>
                 @if (@isset($other['jobs']) && !@empty($other['jobs']))
                     @foreach ($other['jobs'] as $info)
@@ -87,9 +91,10 @@
         </div>
 
         {{-- functional_status_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label>بحث بأسم الحالة الوظيفية</label>
-            <select wire:model.live="functional_status_search" id="functional_status_search" class="form-control">
+            <select wire:model.live.debounce="functional_status_search" id="functional_status_search"
+                class="form-control">
                 <option value="">-- بحث بالكل --</option>
                 <option value="Employee">موظف</option>
                 <option value="Unemployed">لا يعمل
@@ -98,13 +103,21 @@
         </div>
 
         {{-- Type_salary_receipt_search --}}
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label> بحث بنوع صرف راتب الموظف</label>
-            <select wire:model.live="Type_salary_receipt_search" id="Type_salary_receipt_search" class="form-control">
+            <select wire:model.live.debounce="Type_salary_receipt_search" id="Type_salary_receipt_search"
+                class="form-control">
                 <option value="">-- بحث بالكل --</option>
                 <option value="Cach">كاش</option>
                 <option value="Visa">فيزا</option>
             </select>
+        </div>
+
+        <div class="form-group col-3">
+            <label></label>
+            <div class="mg-t-10">
+                <button wire:click="clear()" class="btn btn-outline-light btn-block">أمسح</button>
+            </div>
         </div>
 
 

@@ -59,6 +59,14 @@ class EmployeesTable extends Component
         $this->resetPage();
     }
 
+
+    public function clear(){
+        $this->reset('employee_code_search','name_search','fp_search',
+        'gender_search','branch_id_search','job_grade_id_search','department_id_search',
+        'job_categories_id_search','functional_status_search','Type_salary_receipt_search');
+    }
+
+    
     public function render()
     {
 
