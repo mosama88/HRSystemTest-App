@@ -126,12 +126,12 @@
                         empty($department_id_search) &&
                         empty($job_categories_id_search) &&
                         empty($functional_status_search))
-                    <div class="mg-t-10 " hidden>
-                        <button class="btn  btn-outline-light btn-block"></button>
+                    <div class="mg-t-10">
+                        <button class="btn  btn-light btn-block" disabled>أمسح</button>
                     </div>
                 @else
                     <div class="mg-t-10">
-                        <button wire:click.prevent="clear()" class="btn btn-outline-primary btn-block">أمسح</button>
+                        <button wire:click.prevent="clear()" class="btn btn-primary btn-block">أمسح</button>
                     </div>
                 @endif
 
