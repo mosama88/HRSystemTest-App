@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class JobsCategorieSeeder extends Seeder
 {
@@ -13,7 +12,6 @@ class JobsCategorieSeeder extends Seeder
      */
     public function run(): void
     {
-
 
         DB::table('jobs_categories')->delete();
         DB::table('jobs_categories')->insert([
@@ -26,7 +24,6 @@ class JobsCategorieSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('jobs_categories')->insert([
             [
                 'name' => 'محامى',
@@ -36,7 +33,6 @@ class JobsCategorieSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('jobs_categories')->insert([
             [
@@ -58,8 +54,6 @@ class JobsCategorieSeeder extends Seeder
             ],
         ]);
 
-
-
         DB::table('jobs_categories')->insert([
             [
                 'name' => 'المبيعات',
@@ -69,7 +63,6 @@ class JobsCategorieSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('jobs_categories')->insert([
             [
@@ -91,7 +84,6 @@ class JobsCategorieSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('jobs_categories')->insert([
             [
                 'name' => 'مهندس شبكات',
@@ -102,8 +94,6 @@ class JobsCategorieSeeder extends Seeder
             ],
         ]);
 
-
-
         DB::table('jobs_categories')->insert([
             [
                 'name' => 'مهندس تطوير الويب',
@@ -113,8 +103,6 @@ class JobsCategorieSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
-
 
         DB::table('jobs_categories')->insert([
             [
@@ -324,6 +312,6 @@ class JobsCategorieSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-        
+
     }
 }

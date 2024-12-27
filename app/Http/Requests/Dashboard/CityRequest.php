@@ -24,7 +24,7 @@ class CityRequest extends FormRequest
         return [
             'name' => 'required',
             'governorate_id' => 'required|exists:governorates,id',
-            'active' => 'nullable'
+            'active' => 'nullable',
         ];
     }
 

@@ -26,9 +26,10 @@ class HolidayRequest extends FormRequest
             'from_date' => 'required',
             'to_date' => 'required',
             'days_counter' => 'required|numeric',
-            'active' => 'nullable'
+            'active' => 'nullable',
         ];
     }
+
     public function messages()
     {
         return [

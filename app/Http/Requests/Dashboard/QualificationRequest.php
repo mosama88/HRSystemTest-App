@@ -22,14 +22,15 @@ class QualificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'name'=>'required',
-        'active'=>'nullable'
+            'name' => 'required',
+            'active' => 'nullable',
         ];
     }
+
     public function messages()
     {
         return [
-            'name.required'=>'اسم المؤهل مطلوب',
-            ];
+            'name.required' => 'اسم المؤهل مطلوب',
+        ];
     }
 }

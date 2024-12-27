@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('salary_archives', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("employee_id")->nullable()->references("id")->on("employees")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreignId('employee_id')->nullable()->references('id')->on('employees')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('value', 10, 2)->nullable()->comment('قيمة الراتب قبل التغيير');
             $table->integer('com_code');
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');

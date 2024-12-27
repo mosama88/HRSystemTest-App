@@ -9,7 +9,7 @@ class Qualification extends Model
 {
     use HasFactory;
 
-    protected $table = "qualifications";
+    protected $table = 'qualifications';
 
     protected $fillable = [
         'name',
@@ -18,7 +18,6 @@ class Qualification extends Model
         'created_by',
         'updated_by',
     ];
-
 
     public function createdByAdmin()
     {
@@ -30,5 +29,3 @@ class Qualification extends Model
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 }
-
-

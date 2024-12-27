@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class VacationSeeder extends Seeder
 {
@@ -25,7 +24,6 @@ class VacationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('vacation_types')->insert([
             [
                 'name' => 'سنوى',
@@ -35,7 +33,6 @@ class VacationSeeder extends Seeder
                 'com_code' => 1,
             ],
         ]);
-
 
         DB::table('vacation_types')->insert([
             [
@@ -47,7 +44,6 @@ class VacationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('vacation_types')->insert([
             [
                 'name' => 'اجازه رسمية',
@@ -58,7 +54,6 @@ class VacationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('vacation_types')->insert([
             [
                 'name' => 'غياب بدون إذن',
@@ -68,7 +63,6 @@ class VacationSeeder extends Seeder
                 'com_code' => 1,
             ],
         ]);
-
 
         DB::table('vacation_types')->insert([
             [

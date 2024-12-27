@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\EmployeeSalaryPermanentLoans;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PermanentLoansInstallment extends Model
 {
     use HasFactory;
 
-    protected $table = "permanent_loans_installments";
+    protected $table = 'permanent_loans_installments';
 
     protected $guarded = [];
 
@@ -28,7 +27,6 @@ class PermanentLoansInstallment extends Model
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

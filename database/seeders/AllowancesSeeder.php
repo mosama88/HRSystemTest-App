@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AllowancesSeeder extends Seeder
 {
@@ -14,7 +13,6 @@ class AllowancesSeeder extends Seeder
     public function run(): void
     {
         DB::table('allowances')->delete();
-
 
         DB::table('allowances')->insert([
             [
@@ -26,7 +24,6 @@ class AllowancesSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('allowances')->insert([
             [
                 'name' => 'بدل سكن',
@@ -37,7 +34,6 @@ class AllowancesSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('allowances')->insert([
             [
                 'name' => 'بدل طعام',
@@ -47,7 +43,6 @@ class AllowancesSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('allowances')->insert([
             [
@@ -69,7 +64,6 @@ class AllowancesSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('allowances')->insert([
             [
                 'name' => 'بدل مخاطرة',
@@ -79,7 +73,6 @@ class AllowancesSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('allowances')->insert([
             [
@@ -134,13 +127,12 @@ class AllowancesSeeder extends Seeder
         DB::table('allowances')->insert([
             [
                 'name' => 'بدل اتصالات',
-               'active' => 1,
+                'active' => 1,
                 'com_code' => 1,
                 'created_by' => 1,
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('allowances')->insert([
             [

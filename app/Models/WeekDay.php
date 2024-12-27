@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class WeekDay extends Model
 {
     use HasFactory;
-    protected $table = "week_days";
+
+    protected $table = 'week_days';
 
     protected $fillable = [
         'name',

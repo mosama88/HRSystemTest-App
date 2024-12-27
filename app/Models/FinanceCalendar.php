@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Admin;
-use App\Models\FinanceClnPeriod;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class FinanceCalendar extends Model
 {
     use HasFactory;
 
-    protected $table = "finance_calendars";
+    protected $table = 'finance_calendars';
 
     protected $fillable = [
         'finance_yr',
@@ -23,8 +21,6 @@ class FinanceCalendar extends Model
         'created_by',
         'updated_by',
     ];
-
-
 
     public function FinanceClnCalendar()
     {

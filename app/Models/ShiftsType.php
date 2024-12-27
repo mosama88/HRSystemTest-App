@@ -9,7 +9,7 @@ class ShiftsType extends Model
 {
     use HasFactory;
 
-    protected $table = "shifts_types";
+    protected $table = 'shifts_types';
 
     protected $fillable = [
         'type',
@@ -28,22 +28,8 @@ class ShiftsType extends Model
         return $this->belongsTo(Admin::class, 'created_by');
     }
 
-
     public function updatedBy()
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

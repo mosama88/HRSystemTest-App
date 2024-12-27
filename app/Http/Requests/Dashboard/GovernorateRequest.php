@@ -24,7 +24,7 @@ class GovernorateRequest extends FormRequest
         return [
             'name' => 'required',
             'country_id' => 'required|exists:countries,id',
-            'active' => 'nullable'
+            'active' => 'nullable',
         ];
     }
 

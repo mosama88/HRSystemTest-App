@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Dashboard\Salaries;
 
+use App\Http\Controllers\Controller;
+use App\Models\AdminPanelSetting;
 use App\Models\Employee;
-use App\Traits\GeneralTrait;
-use Illuminate\Http\Request;
+use App\Models\EmployeeSalaryLoan;
 use App\Models\FinanceCalendar;
 use App\Models\FinanceClnPeriod;
-use App\Models\AdminPanelSetting;
-use App\Models\EmployeeSalaryLoan;
 use App\Models\MainSalaryEmployee;
+use App\Traits\GeneralTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class EmployeeSalaryLoanController extends Controller
 {
-
     use GeneralTrait;
 
     public function __construct()
@@ -59,15 +58,13 @@ class EmployeeSalaryLoanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
-
     public function store(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod(), array("id"), array("com_code" => $com_code, 'id' => $request->finance_cln_periods_id, 'is_open' => 1));
-            $main_salary_employee_data = get_Columns_where_row(new MainSalaryEmployee(), array("*"), array("com_code" => $com_code, 'finance_cln_periods_id' => $request->finance_cln_periods_id, 'employee_code' => $request->employee_code, 'is_archived' => 0));
-            if (!empty($finance_cln_periods_data) and !empty($main_salary_employee_data)) {
+            $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod, ['id'], ['com_code' => $com_code, 'id' => $request->finance_cln_periods_id, 'is_open' => 1]);
+            $main_salary_employee_data = get_Columns_where_row(new MainSalaryEmployee, ['*'], ['com_code' => $com_code, 'finance_cln_periods_id' => $request->finance_cln_periods_id, 'employee_code' => $request->employee_code, 'is_archived' => 0]);
+            if (! empty($finance_cln_periods_data) and ! empty($main_salary_employee_data)) {
                 DB::beginTransaction();
                 $dataToInsert['main_salary_employees_id'] = $main_salary_employee_data['id'];
                 $dataToInsert['finance_cln_periods_id'] = $request->finance_cln_periods_id;
@@ -77,29 +74,26 @@ class EmployeeSalaryLoanController extends Controller
                 $dataToInsert['notes'] = $request->notes;
                 $dataToInsert['created_by'] = auth()->user()->id;
                 $dataToInsert['com_code'] = $com_code;
-                $flagInsert = insert(new EmployeeSalaryLoan(), $dataToInsert);
+                $flagInsert = insert(new EmployeeSalaryLoan, $dataToInsert);
 
                 if ($flagInsert) {
                     $this->recalculateMainSalaryEmployee($main_salary_employee_data['id']);
                 }
 
                 DB::commit();
-                return json_encode("done");
+
+                return json_encode('done');
             }
         }
     }
 
-
-
     /**
      * Display the specified resource.
      */
-
-
     public function show($finance_cln_periods_id)
     {
         $com_code = auth()->user()->com_code;
-        $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod(), array("*"), array("com_code" => $com_code, "id" => $finance_cln_periods_id));
+        $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod, ['*'], ['com_code' => $com_code, 'id' => $finance_cln_periods_id]);
 
         if (empty($finance_cln_periods_data)) {
             return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول على البيانات المطلوبه !'])->withInput();
@@ -110,22 +104,19 @@ class EmployeeSalaryLoanController extends Controller
             ->where('finance_cln_periods_id', $finance_cln_periods_id)
             ->paginate(5);
 
-            if (!empty($data)) {
-                foreach ($data as $info) {
-                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
-                }
-            }
-
-
-        $employees = MainSalaryEmployee::where("com_code", "=", $com_code)->where("finance_cln_periods_id", "=", $finance_cln_periods_id)->distinct()->get("employee_code");
-        if (!empty($employees)) {
-            foreach ($employees as $info) {
-                $info->EmployeeData = get_Columns_where_row(new Employee(), array("name", "salary", "day_price"), array("com_code" => $com_code, "employee_code" => $info->employee_code));
+        if (! empty($data)) {
+            foreach ($data as $info) {
+                $info->emp_name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
             }
         }
-        $employees_for_search = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price","fp_code"), array("com_code" => $com_code), 'employee_code', 'ASC');
 
-
+        $employees = MainSalaryEmployee::where('com_code', '=', $com_code)->where('finance_cln_periods_id', '=', $finance_cln_periods_id)->distinct()->get('employee_code');
+        if (! empty($employees)) {
+            foreach ($employees as $info) {
+                $info->EmployeeData = get_Columns_where_row(new Employee, ['name', 'salary', 'day_price'], ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
+            }
+        }
+        $employees_for_search = get_cols_where(new Employee, ['employee_code', 'name', 'salary', 'day_price', 'fp_code'], ['com_code' => $com_code], 'employee_code', 'ASC');
 
         return view('dashboard.salaries.loans.show', compact('data', 'finance_cln_periods_data', 'employees', 'employees_for_search'));
     }
@@ -133,35 +124,30 @@ class EmployeeSalaryLoanController extends Controller
     /**
      * edit the form for editing the specified resource.
      */
-
-
     public function load_edit_row(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod(), array("id"), array("com_code" => $com_code, 'id' => $request->the_finance_cln_periods_id, 'is_open' => 1));
-            $main_salary_employees_data = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, 'finance_cln_periods_id' => $request->the_finance_cln_periods_id, 'id' => $request->main_salary_employees_id, 'is_archived' => 0));
-            $sanctions = get_Columns_where_row(new EmployeeSalaryLoan(), array("*"), array("com_code" => $com_code, 'id' => $request->id, 'is_archived' => 0, 'finance_cln_periods_id' => $request->the_finance_cln_periods_id, 'main_salary_employees_id' => $request->main_salary_employees_id));
-            $employees = MainSalaryEmployee::where("com_code", "=", $com_code)->where("finance_cln_periods_id", "=", $request->the_finance_cln_periods_id)->distinct()->get("employee_code");
+            $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod, ['id'], ['com_code' => $com_code, 'id' => $request->the_finance_cln_periods_id, 'is_open' => 1]);
+            $main_salary_employees_data = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'finance_cln_periods_id' => $request->the_finance_cln_periods_id, 'id' => $request->main_salary_employees_id, 'is_archived' => 0]);
+            $sanctions = get_Columns_where_row(new EmployeeSalaryLoan, ['*'], ['com_code' => $com_code, 'id' => $request->id, 'is_archived' => 0, 'finance_cln_periods_id' => $request->the_finance_cln_periods_id, 'main_salary_employees_id' => $request->main_salary_employees_id]);
+            $employees = MainSalaryEmployee::where('com_code', '=', $com_code)->where('finance_cln_periods_id', '=', $request->the_finance_cln_periods_id)->distinct()->get('employee_code');
 
-            $employee = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price"), array("com_code" => $com_code), 'employee_code', 'ASC');
+            $employee = get_cols_where(new Employee, ['employee_code', 'name', 'salary', 'day_price'], ['com_code' => $com_code], 'employee_code', 'ASC');
 
-            if (!empty($employees)) {
+            if (! empty($employees)) {
                 foreach ($employees as $info) {
-                    $info->EmployeeData = get_Columns_where_row(new Employee(), array("name", "salary", "day_price"), array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->EmployeeData = get_Columns_where_row(new Employee, ['name', 'salary', 'day_price'], ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
                 }
             }
+
             return view('dashboard.salaries.loans.load_edit_row', ['finance_cln_periods_data' => $finance_cln_periods_data, 'main_salary_employees_data' => $main_salary_employees_data, 'sanctions' => $sanctions, 'employees' => $employees, 'employee' => $employee]);
         }
     }
 
-
-
     /**
      * update the form for editing the specified resource.
      */
-
-
     public function do_edit_row(Request $request)
     {
         if ($request->ajax()) {
@@ -171,7 +157,7 @@ class EmployeeSalaryLoanController extends Controller
             $finance_cln_periods_data = FinanceClnPeriod::where([
                 'com_code' => $com_code,
                 'id' => $request->the_finance_cln_periods_id,
-                'is_open' => 0
+                'is_open' => 0,
             ]);
 
             $main_salary_employees = MainSalaryEmployee::where([
@@ -179,7 +165,7 @@ class EmployeeSalaryLoanController extends Controller
                 'finance_cln_periods_id' => $request->the_finance_cln_periods_id,
                 'employee_code' => $request->employee_code,
                 'is_archived' => 0,
-                'id' => $request->main_salary_employees_id
+                'id' => $request->main_salary_employees_id,
             ]);
 
             $sanctions = EmployeeSalaryLoan::where([
@@ -187,7 +173,7 @@ class EmployeeSalaryLoanController extends Controller
                 'id' => $request->id,
                 'is_archived' => 0,
                 'finance_cln_periods_id' => $request->the_finance_cln_periods_id,
-                'main_salary_employees_id' => $request->main_salary_employees_id
+                'main_salary_employees_id' => $request->main_salary_employees_id,
             ]);
 
             // Validate fetched data
@@ -201,7 +187,7 @@ class EmployeeSalaryLoanController extends Controller
                         'day_price' => $request->day_price,
                         'total' => $request->total,
                         'notes' => $request->notes,
-                        'updated_by' => auth()->user()->id
+                        'updated_by' => auth()->user()->id,
                     ]);
 
                     if ($flagInsert) {
@@ -209,9 +195,11 @@ class EmployeeSalaryLoanController extends Controller
                     }
 
                     DB::commit();
+
                     return response()->json('done');
                 } catch (\Exception $e) {
                     DB::rollBack();
+
                     return response()->json(['error' => 'حدث خطأ أثناء تحديث السجل.'], 500);
                 }
             } else {
@@ -219,8 +207,6 @@ class EmployeeSalaryLoanController extends Controller
             }
         }
     }
-
-
 
     /**
      * Update the specified resource in storage.
@@ -237,50 +223,48 @@ class EmployeeSalaryLoanController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new EmployeeSalaryLoan(), array("*"), array("com_code" => $com_code, 'id' => $id));
+            $data = get_Columns_where_row(new EmployeeSalaryLoan, ['*'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($data)) {
                 return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة']);
             }
             // استرجاع بيانات الموظف من جدول MainSalaryEmployee
-            $main_salary_employee_data = get_Columns_where_row(new MainSalaryEmployee(), array("*"), array(
+            $main_salary_employee_data = get_Columns_where_row(new MainSalaryEmployee, ['*'], [
                 'com_code' => $com_code,
                 'finance_cln_periods_id' => $data->finance_cln_periods_id,
                 'employee_code' => $data->employee_code,
-                'is_archived' => 0
-            ));
+                'is_archived' => 0,
+            ]);
             DB::beginTransaction();
-            $flagInsert = destroy(new EmployeeSalaryLoan(), array("com_code" => $com_code, 'id' => $id));
+            $flagInsert = destroy(new EmployeeSalaryLoan, ['com_code' => $com_code, 'id' => $id]);
             if ($flagInsert) {
                 // إعادة حساب الراتب الأساسي
                 $this->recalculateMainSalaryEmployee($main_salary_employee_data['id']);
             }
             DB::commit();
+
             return redirect()->back()->with(['success' => 'تم الحذف  البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  '.$ex->getMessage()])->withInput();
         }
     }
-
-
 
     public function checkExsistsBefor(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $checkExsistsBeforCounter = get_count_where(new EmployeeSalaryLoan(), array("com_code" => $com_code, "finance_cln_periods_id" => $request->the_finance_cln_periods_id, "employee_code" => $request->employee_code));
+            $checkExsistsBeforCounter = get_count_where(new EmployeeSalaryLoan, ['com_code' => $com_code, 'finance_cln_periods_id' => $request->the_finance_cln_periods_id, 'employee_code' => $request->employee_code]);
             if ($checkExsistsBeforCounter > 0) {
-                return json_encode("exsists_befor");
+                return json_encode('exsists_befor');
             } else {
-                return json_encode("no_exsists_befor");
+                return json_encode('no_exsists_befor');
             }
         }
     }
 
-
     public function ajaxSearch(Request $request)
     {
-
 
         if ($request->ajax()) {
             $employee_code = $request->employee_code;
@@ -288,38 +272,37 @@ class EmployeeSalaryLoanController extends Controller
             $the_finance_cln_periods_id = $request->the_finance_cln_periods_id;
             if ($employee_code == 'all') {
                 //هنا نعمل شرط دائم التحقق
-                $field1 = "id";
-                $operator1 = ">";
+                $field1 = 'id';
+                $operator1 = '>';
                 $value1 = 0;
             } else {
-                $field1 = "employee_code";
-                $operator1 = "=";
+                $field1 = 'employee_code';
+                $operator1 = '=';
                 $value1 = $employee_code;
             }
 
             if ($is_archived == 'all') {
                 //هنا نعمل شرط دائم التحقق
-                $field3 = "id";
-                $operator3 = ">";
+                $field3 = 'id';
+                $operator3 = '>';
                 $value3 = 0;
             } else {
-                $field3 = "is_archived";
-                $operator3 = "=";
+                $field3 = 'is_archived';
+                $operator3 = '=';
                 $value3 = $is_archived;
             }
             $com_code = auth()->user()->com_code;
-            $data = EmployeeSalaryLoan::select("*")->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
+            $data = EmployeeSalaryLoan::select('*')->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
                 ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
-            if (!empty($data)) {
+            if (! empty($data)) {
                 foreach ($data as $info) {
-                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
                 }
             }
 
             return view('dashboard.salaries.loans.ajax_search', ['data' => $data]);
         }
     }
-
 
     public function print_search(Request $request)
     {
@@ -330,39 +313,40 @@ class EmployeeSalaryLoanController extends Controller
         $the_finance_cln_periods_id = $request->the_finance_cln_periods_id;
         if ($employee_code == 'all') {
             //هنا نعمل شرط دائم التحقق
-            $field1 = "id";
-            $operator1 = ">";
+            $field1 = 'id';
+            $operator1 = '>';
             $value1 = 0;
         } else {
-            $field1 = "employee_code";
-            $operator1 = "=";
+            $field1 = 'employee_code';
+            $operator1 = '=';
             $value1 = $employee_code;
         }
 
         if ($is_archived == 'all') {
             //هنا نعمل شرط دائم التحقق
-            $field3 = "id";
-            $operator3 = ">";
+            $field3 = 'id';
+            $operator3 = '>';
             $value3 = 0;
         } else {
-            $field3 = "is_archived";
-            $operator3 = "=";
+            $field3 = 'is_archived';
+            $operator3 = '=';
             $value3 = $is_archived;
         }
         $com_code = auth()->user()->com_code;
         $other['value_sum'] = 0;
         $other['total_sum'] = 0;
-        $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod(), array("*"), array("com_code" => $com_code, 'id' => $the_finance_cln_periods_id));
-        $data = EmployeeSalaryLoan::select("*")->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
+        $finance_cln_periods_data = get_Columns_where_row(new FinanceClnPeriod, ['*'], ['com_code' => $com_code, 'id' => $the_finance_cln_periods_id]);
+        $data = EmployeeSalaryLoan::select('*')->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
             ->where('finance_cln_periods_id', '=', $the_finance_cln_periods_id)->where('com_code', '=', $com_code)->orderby('id', 'DESC')->get();
-        if (!empty($data)) {
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                $info->name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
                 $other['value_sum'] += $info->value;
                 $other['total_sum'] += $info->total;
             }
         }
-        $systemData = get_Columns_where_row(new AdminPanelSetting(), array('phons', 'address', 'image', 'company_name'), array("com_code" => $com_code));
+        $systemData = get_Columns_where_row(new AdminPanelSetting, ['phons', 'address', 'image', 'company_name'], ['com_code' => $com_code]);
+
         return view('dashboard.salaries.loans.print_search', ['data' => $data, 'finance_cln_periods_data' => $finance_cln_periods_data, 'systemData' => $systemData, 'other' => $other]);
     }
 }

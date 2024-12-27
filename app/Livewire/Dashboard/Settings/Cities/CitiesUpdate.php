@@ -2,29 +2,32 @@
 
 namespace App\Livewire\Dashboard\Settings\Cities;
 
-use App\Models\City;
-use Livewire\Component;
-use App\Models\Governorate;
 use App\Http\Requests\Dashboard\CityRequest;
+use App\Models\City;
+use App\Models\Governorate;
+use Livewire\Component;
 
 class CitiesUpdate extends Component
 {
-
     public $updateData;
-    public $name,$governorate_id,$active;
+
+    public $name;
+
+    public $governorate_id;
+
+    public $active;
 
     protected $listeners = ['editCities'];
 
     public function rules()
     {
-        return (new CityRequest())->rules();
+        return (new CityRequest)->rules();
     }
 
     public function messages()
     {
-        return (new CityRequest())->messages();
+        return (new CityRequest)->messages();
     }
-
 
     public function editCities($id)
     {
@@ -36,37 +39,34 @@ class CitiesUpdate extends Component
         $this->dispatch('updateModalToggle');
     }
 
-
     public function submit()
     {
 
         $com_code = auth()->user()->com_code;
 
-        $data = get_Columns_where_row(new City(), array("*"), array("com_code" => $com_code, 'id' => $this->updateData->id));
+        $data = get_Columns_where_row(new City, ['*'], ['com_code' => $com_code, 'id' => $this->updateData->id]);
         if (empty($data)) {
             return redirect()->route('dashboard.cities.index')->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة']);
         }
-        $CheckExsists = City::select("id")->where("com_code", "=", $com_code)->where("name", "=", $this->name)->where('id', '!=', $this->updateData->id)->first();
-        if (!empty($CheckExsists)) {
+        $CheckExsists = City::select('id')->where('com_code', '=', $com_code)->where('name', '=', $this->name)->where('id', '!=', $this->updateData->id)->first();
+        if (! empty($CheckExsists)) {
             return redirect()->back()->with(['error' => 'عفوا هذا الاسم مسجل من قبل '])->withInput();
         }
 
-            
-            $updatedData = $this->validate();
-            $this->updateData['updated_by'] = auth()->user()->id;
-            $this->updateData['com_code'] = $com_code;
-            $this->updateData->update($updatedData);
-            $this->dispatch('updateModalToggle');
-            $this->dispatch('refreshTableCities')->to(CitiesTable::class);
-            session()->flash('message', 'تم تعديل البيانات بنجاح');
-    
+        $updatedData = $this->validate();
+        $this->updateData['updated_by'] = auth()->user()->id;
+        $this->updateData['com_code'] = $com_code;
+        $this->updateData->update($updatedData);
+        $this->dispatch('updateModalToggle');
+        $this->dispatch('refreshTableCities')->to(CitiesTable::class);
+        session()->flash('message', 'تم تعديل البيانات بنجاح');
+
     }
 
-
-    
     public function render()
     {
         $other['governorates'] = Governorate::all();
-        return view('dashboard.settings.cities.cities-update',compact('other'));
+
+        return view('dashboard.settings.cities.cities-update', compact('other'));
     }
 }

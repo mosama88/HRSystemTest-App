@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('attendance_departure_actions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_departure_id')->references('id')->on('attendance_departures')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId("finance_cln_periods_id")->comment('كود الشهر المالى');
+            $table->foreignId('finance_cln_periods_id')->comment('كود الشهر المالى');
             $table->bigInteger('employee_code')->comment('كود الموظف');
             $table->bigInteger('attendance_departure_action_excel_id')->comment('رقم البصمة فى الارشيف');
             $table->dateTime('date_time_action')->nullable()->comment('توقيت البصمه ');

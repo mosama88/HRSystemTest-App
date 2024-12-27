@@ -2,26 +2,31 @@
 
 namespace App\Livewire\Dashboard\Settings\Holidays;
 
-use DateTime;
-use App\Models\Holiday;
-use Livewire\Component;
 use App\Http\Requests\Dashboard\HolidayRequest;
+use App\Models\Holiday;
+use DateTime;
+use Livewire\Component;
 
 class HolidaysCreate extends Component
 {
+    public $name;
 
-    public $name, $from_date, $to_date, $days_counter, $active;
+    public $from_date;
 
+    public $to_date;
+
+    public $days_counter;
+
+    public $active;
 
     public function rules()
     {
-        return (new HolidayRequest())->rules();
+        return (new HolidayRequest)->rules();
     }
-
 
     public function messages()
     {
-        return (new HolidayRequest())->messages();
+        return (new HolidayRequest)->messages();
     }
 
     public function updated()
@@ -38,13 +43,12 @@ class HolidaysCreate extends Component
         $from_date_format = new DateTime($this->from_date);
         $to_date_format = new DateTime($this->to_date);
 
+        // حساب الفرق بين التاريخين
+        $interval = $from_date_format->diff($to_date_format);
 
-       // حساب الفرق بين التاريخين
-       $interval = $from_date_format->diff($to_date_format);
-
-       // الحصول على الفرق بالأيام
-       $this->days_counter = $interval->days + 1;
-       if ($this->days_counter  > 0) {
+        // الحصول على الفرق بالأيام
+        $this->days_counter = $interval->days + 1;
+        if ($this->days_counter > 0) {
             return $this->days_counter;
         } else {
             $this->days_counter = 0;
@@ -56,8 +60,8 @@ class HolidaysCreate extends Component
 
         $com_code = auth()->user()->com_code;
         $dataCreate = $this->validate();
-        $checkExsists = get_Columns_where_row(new Holiday(), array("id"), array("com_code" => $com_code, "name" => $this->name));
-        if (!empty($checkExsists)) {
+        $checkExsists = get_Columns_where_row(new Holiday, ['id'], ['com_code' => $com_code, 'name' => $this->name]);
+        if (! empty($checkExsists)) {
             return redirect()->back()->with(['error' => 'عفوا  هذا الاسم مسجل من قبل '])->withInput();
         }
         $dataCreate['active'] = 1;
@@ -69,8 +73,6 @@ class HolidaysCreate extends Component
         $this->dispatch('refreshTableHolidays')->to(HolidaysTable::class);
         session()->flash('message', 'تم إضافة البيانات بنجاح');
     }
-
-
 
     public function render()
     {

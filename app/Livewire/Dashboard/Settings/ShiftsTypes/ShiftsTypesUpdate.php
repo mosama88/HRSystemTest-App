@@ -2,30 +2,36 @@
 
 namespace App\Livewire\Dashboard\Settings\ShiftsTypes;
 
-use Carbon\Carbon;
-use Livewire\Component;
-use App\Models\ShiftsType;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Dashboard\ShiftsTypeRequest;
+use App\Models\ShiftsType;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class ShiftsTypesUpdate extends Component
 {
     public $UpdateShiftTypes;
 
-    public $type, $from_time, $to_time, $total_hours, $active;
+    public $type;
 
+    public $from_time;
+
+    public $to_time;
+
+    public $total_hours;
+
+    public $active;
 
     protected $listeners = ['shiftsTypesEdit'];
 
-        public function rules()
+    public function rules()
     {
-        return (new ShiftsTypeRequest())->rules();
+        return (new ShiftsTypeRequest)->rules();
     }
-
 
     public function messages()
     {
-        return (new ShiftsTypeRequest())->messages();
+        return (new ShiftsTypeRequest)->messages();
     }
 
     public function shiftsTypesEdit($id)
@@ -40,7 +46,6 @@ class ShiftsTypesUpdate extends Component
         $this->dispatch('updateModalToggle');
     }
 
-
     public function updated()
     {
         if ($this->from_time && $this->to_time) {
@@ -49,7 +54,6 @@ class ShiftsTypesUpdate extends Component
             $this->CalcDiffHours();
         }
     }
-
 
     public function CalcDiffHours()
     {
@@ -63,21 +67,19 @@ class ShiftsTypesUpdate extends Component
         $this->total_hours = round($diffSecond / 3600, 2);
     }
 
-
     public function submit()
     {
-            DB::beginTransaction();
-            $com_code = auth()->user()->com_code;
-            $updatedData = $this->validate();
-            $this->UpdateShiftTypes['updated_by'] = auth()->user()->id;
-            $this->UpdateShiftTypes['com_code'] = $com_code;
-            $this->UpdateShiftTypes->update($updatedData);
-            $this->dispatch('updateModalToggle');
-            $this->dispatch('refreshTableShiftsType')->to(ShiftsTypesTable::class);
-            DB::commit();
-            session()->flash('message', 'تم تعديل البيانات بنجاح');
+        DB::beginTransaction();
+        $com_code = auth()->user()->com_code;
+        $updatedData = $this->validate();
+        $this->UpdateShiftTypes['updated_by'] = auth()->user()->id;
+        $this->UpdateShiftTypes['com_code'] = $com_code;
+        $this->UpdateShiftTypes->update($updatedData);
+        $this->dispatch('updateModalToggle');
+        $this->dispatch('refreshTableShiftsType')->to(ShiftsTypesTable::class);
+        DB::commit();
+        session()->flash('message', 'تم تعديل البيانات بنجاح');
     }
-
 
     public function render()
     {

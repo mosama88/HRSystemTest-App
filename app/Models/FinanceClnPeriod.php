@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Month;
-use App\Models\FinanceCalendar;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class FinanceClnPeriod extends Model
 {
     use HasFactory;
 
-    protected $table = "finance_cln_periods";
+    protected $table = 'finance_cln_periods';
 
     protected $fillable = [
         'finance_calendars_id',
@@ -29,7 +27,6 @@ class FinanceClnPeriod extends Model
         'com_code',
     ];
 
-
     public function FinanceCalendar()
     {
         return $this->belongsTo(FinanceCalendar::class, 'finance_calendars_id');
@@ -44,7 +41,7 @@ class FinanceClnPeriod extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-    
+
     public function month()
     {
         return $this->belongsTo(Month::class, 'month_id');

@@ -1,32 +1,31 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminController;
-use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
-        Route::get('user/login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('user/login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
-######################################### End Route User  #########################################################
+    //######################################## End Route User  #########################################################
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('user.login');
-######################################### Start Route Admin  #########################################################
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('user.login');
+    //######################################## Start Route Admin  #########################################################
 
-Route::post('admin/login', [AdminController::class, 'store'])->name('admin.login');
+    Route::post('admin/login', [AdminController::class, 'store'])->name('admin.login');
 
-######################################### End Route Admin  #########################################################
-
+    //######################################## End Route Admin  #########################################################
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -64,7 +63,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function () {
-
 
     Route::post('logout/admin', [AdminController::class, 'destroy'])
         ->name('logout.admin');

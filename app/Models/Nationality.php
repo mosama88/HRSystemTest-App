@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Nationality extends Model
 {
     use HasFactory;
-    protected $table = "nationalities";
+
+    protected $table = 'nationalities';
 
     protected $fillable = [
         'name',
@@ -17,7 +18,6 @@ class Nationality extends Model
         'created_by',
         'updated_by',
     ];
-
 
     public function createdByAdmin()
     {

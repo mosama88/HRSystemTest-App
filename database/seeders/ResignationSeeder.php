@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ResignationSeeder extends Seeder
 {
@@ -25,7 +24,6 @@ class ResignationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('resignations')->insert([
             [
                 'name' => 'إستقاله بدون سبب',
@@ -36,7 +34,6 @@ class ResignationSeeder extends Seeder
             ],
         ]);
 
-        
         DB::table('resignations')->insert([
             [
                 'name' => 'كثرة الغياب',
@@ -46,7 +43,6 @@ class ResignationSeeder extends Seeder
                 'com_code' => 1,
             ],
         ]);
-
 
     }
 }

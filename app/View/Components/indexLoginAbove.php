@@ -2,10 +2,10 @@
 
 namespace App\View\Components;
 
-use Closure;
-use Illuminate\View\Component;
 use App\Models\AdminPanelSetting;
+use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
 
 class indexLoginAbove extends Component
 {
@@ -24,7 +24,6 @@ class indexLoginAbove extends Component
     {
         $data = AdminPanelSetting::select('*')->first();
 
-        return view('components.index-login-above',compact('data'));
+        return view('components.index-login-above', compact('data'));
     }
 }
-

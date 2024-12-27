@@ -9,12 +9,11 @@ class AttendanceDepartureActionExcel extends Model
 {
     use HasFactory;
 
-    protected $table = "attendance_departure_action_excels";
+    protected $table = 'attendance_departure_action_excels';
 
     protected $guarded = [];
 
-    public $timestamps  = false;
-
+    public $timestamps = false;
 
     public function createdByAdmin()
     {
@@ -25,7 +24,6 @@ class AttendanceDepartureActionExcel extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
 
     public function employee()
     {

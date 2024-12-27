@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Language extends Model
 {
     use HasFactory;
-    protected $table = "languages";
+
+    protected $table = 'languages';
 
     protected $fillable = [
         'name',
@@ -27,5 +28,4 @@ class Language extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
 }

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BloodType extends Model
 {
     use HasFactory;
-    protected $table = "blood_types";
+
+    protected $table = 'blood_types';
 
     protected $fillable = [
         'name',
@@ -17,7 +18,6 @@ class BloodType extends Model
         'created_by',
         'updated_by',
     ];
-
 
     public function createdByAdmin()
     {

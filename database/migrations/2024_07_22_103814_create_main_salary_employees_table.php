@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('main_salary_employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("finance_cln_periods_id")->references("id")->on("finance_cln_periods")->onUpdate("cascade")->comment('كود الشهر المالى');
+            $table->foreignId('finance_cln_periods_id')->references('id')->on('finance_cln_periods')->onUpdate('cascade')->comment('كود الشهر المالى');
             $table->string('financial_year', 10)->comment('السنه المالية ');
             $table->string('year_month', 30)->comment('الشهر المالى المرتب')->nullable();
             $table->integer('employee_code')->comment('كود الموظف');
             $table->string('employee_name', 300)->comment('أسم الموظف لحظة فتح الراتب');
             $table->decimal('salary_employee', 10, 2)->comment('قيمة مرتب الموظف');
             $table->decimal('day_price', 10, 2)->comment('قيمة يوم الموظفمن الراتب');
-            $table->foreignId("branch_id")->comment("كود الفرع لحظة الراتب ")->references("id")->on("branches")->onUpdate("cascade");
-            $table->enum('employee_status', ["Employee", "Unemployed"])->nullable()->default('Employee')->comment('حالة الموظف لحظة الراتب'); //Functional Status
+            $table->foreignId('branch_id')->comment('كود الفرع لحظة الراتب ')->references('id')->on('branches')->onUpdate('cascade');
+            $table->enum('employee_status', ['Employee', 'Unemployed'])->nullable()->default('Employee')->comment('حالة الموظف لحظة الراتب'); //Functional Status
             $table->integer('employee_department_code')->comment('إدارة الموظف لحظة الراتب');
             $table->integer('employee_jobs_id')->comment('وظيفة الموظف لحظة الراتب');
             $table->decimal('total_rewards_salary', 10, 2)->comment('إجمالى الاضافى مكافأت للمرتب')->nullable()->default('0');
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->enum('cash_visa', ['Cach', 'Visa'])->nullable()->default('Cach')->comment('قبض المرتب كاش ام فيزا');
             $table->enum('is_sensitive_manager_data', ['yes', 'no'])->nullable()->default('yes')->comment('هل الموظف بإدارة عليا بها بيانات حساسة');
             $table->enum('is_stopped', ['stopped', 'unstopped'])->nullable()->default('unstopped')->comment('المرتب موقوف ام سارى');
-            $table->integer("com_code")->comment('كود الشركة التابع لها الموظف');
+            $table->integer('com_code')->comment('كود الشركة التابع لها الموظف');
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('admins')->onUpdate('cascade');
             $table->timestamps();

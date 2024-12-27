@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class EmployeeFixedAllowance extends Model
 {
     use HasFactory;
-    protected $table = "employee_fixed_allowances";
+
+    protected $table = 'employee_fixed_allowances';
 
     protected $fillable = [
         'employee_id',
@@ -20,7 +21,6 @@ class EmployeeFixedAllowance extends Model
         'com_code',
     ];
 
-    
     public function createdByAdmin()
     {
         return $this->belongsTo(Admin::class, 'created_by');

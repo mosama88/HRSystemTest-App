@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class JobGradeSeeder extends Seeder
 {
@@ -26,7 +25,6 @@ class JobGradeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('job_grades')->insert([
             [
                 'job_grades_code' => 3,
@@ -39,7 +37,6 @@ class JobGradeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('job_grades')->insert([
             [
                 'job_grades_code' => 2,
@@ -51,7 +48,6 @@ class JobGradeSeeder extends Seeder
                 'created_by' => 1,
             ],
         ]);
-
 
         DB::table('job_grades')->insert([
             [

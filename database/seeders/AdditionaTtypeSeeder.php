@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AdditionaTtypeSeeder extends Seeder
 {
@@ -34,7 +33,6 @@ class AdditionaTtypeSeeder extends Seeder
             ],
         ]);
 
-       
         DB::table('additional_types')->insert([
             [
                 'name' => 'حوافز الإنتاجية',
@@ -45,6 +43,5 @@ class AdditionaTtypeSeeder extends Seeder
             ],
         ]);
 
-        
     }
 }

@@ -8,7 +8,8 @@ use Livewire\WithPagination;
 
 class HolidaysTable extends Component
 {
-    use  WithPagination;
+    use WithPagination;
+
     public $name;
 
     protected $listeners = ['refreshTableHolidays' => 'refresh'];
@@ -18,20 +19,18 @@ class HolidaysTable extends Component
         $this->resetPage();
     }
 
-
     public function render()
     {
 
         $com_code = auth()->user()->com_code;
-        $query = (new Holiday())->query();
+        $query = (new Holiday)->query();
 
         if ($this->name) {
-            $query->where('name', 'like', '%' . $this->name . '%');
+            $query->where('name', 'like', '%'.$this->name.'%');
         }
 
-        $data = $query->orderBy("id", "DESC")->where("com_code", $com_code)->paginate(10);
- 
+        $data = $query->orderBy('id', 'DESC')->where('com_code', $com_code)->paginate(10);
 
-        return view('dashboard.settings.holidays.holidays-table',compact('data'));
+        return view('dashboard.settings.holidays.holidays-table', compact('data'));
     }
 }

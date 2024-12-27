@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -26,10 +26,6 @@ return new class extends Migration
 
     }
 
-
-
-
-
     /**
      * Reverse the migrations.
      */
@@ -38,7 +34,6 @@ return new class extends Migration
         Schema::dropIfExists('finance_calendars');
     }
 };
-
 
 // INSERT INTO `finance_calendars` (`id`, `finance_yr`, `finance_yr_desc`, `start_date`, `end_date`, `is_open`, `com_code`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 // (1, '2024/2025', '2024/2025', '2024-07-01', '2025-06-30', 0, 1, 1, NULL, '2024-07-09 08:32:56', '2024-07-09 08:32:56'),

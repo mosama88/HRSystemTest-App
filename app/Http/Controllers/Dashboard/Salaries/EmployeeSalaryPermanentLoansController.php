@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard\Salaries;
 
-use App\Models\Employee;
-use Illuminate\Http\Request;
-use App\Traits\GeneralTrait;
-use App\Models\AdminPanelSetting;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use function Laravel\Prompts\select;
-use App\Models\PermanentLoansInstallment;
+use App\Models\AdminPanelSetting;
+use App\Models\Employee;
 use App\Models\EmployeeSalaryPermanentLoans;
 use App\Models\MainSalaryEmployee;
+use App\Models\PermanentLoansInstallment;
+use App\Traits\GeneralTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeSalaryPermanentLoansController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('permission:السلف المستديمة', ['only' => ['index']]);
@@ -27,19 +24,19 @@ class EmployeeSalaryPermanentLoansController extends Controller
         $this->middleware('permission:طباعه السلف المستديمة', ['only' => ['print_search']]);
     }
 
-
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new EmployeeSalaryPermanentLoans(), array("*"), array("com_code" => $com_code), "id", "DESC")->paginate(12);
+        $data = getColumnsIndex(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code], 'id', 'DESC')->paginate(12);
 
-        if (!empty($data)) {
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                $info->emp_name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
             }
         }
 
-        $other['employees'] = Employee::select('employee_code', 'name', 'salary', 'day_price', "fp_code")->where('com_code', "=", $com_code)->where("functional_status", "=", "Employee")->orderBy('id', "DESC")->get();
+        $other['employees'] = Employee::select('employee_code', 'name', 'salary', 'day_price', 'fp_code')->where('com_code', '=', $com_code)->where('functional_status', '=', 'Employee')->orderBy('id', 'DESC')->get();
+
         return view('dashboard.salaries.permanentLoan.index', compact('data', 'other'));
     }
 
@@ -57,10 +54,10 @@ class EmployeeSalaryPermanentLoansController extends Controller
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $employeeData = Employee::select("id")
-                ->where("employee_code", $request->employee_code)
+            $employeeData = Employee::select('id')
+                ->where('employee_code', $request->employee_code)
                 ->where('com_code', $com_code)
-                ->where("functional_status", "Employee")
+                ->where('functional_status', 'Employee')
                 ->first();
 
             if ($employeeData) {
@@ -104,14 +101,16 @@ class EmployeeSalaryPermanentLoansController extends Controller
 
                             PermanentLoansInstallment::create($dataToInstallment);
                             $i++;
-                            $effictiveData = date('Y-m', strtotime("+1 months", strtotime($effictiveData)));
+                            $effictiveData = date('Y-m', strtotime('+1 months', strtotime($effictiveData)));
                         }
                     }
 
                     DB::commit();
-                    return response()->json("done");
+
+                    return response()->json('done');
                 } catch (\Exception $e) {
                     DB::rollBack();
+
                     return response()->json(['error' => $e->getMessage()], 500);
                 }
             } else {
@@ -119,7 +118,6 @@ class EmployeeSalaryPermanentLoansController extends Controller
             }
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -152,23 +150,25 @@ class EmployeeSalaryPermanentLoansController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $dataParent = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $id]);
+            $dataParent = get_Columns_where_row(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($dataParent)) {
                 return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة!']);
             }
-            if (!empty($dataParent['has_disbursed_done'] == 1)) {
+            if (! empty($dataParent['has_disbursed_done'] == 1)) {
                 return redirect()->back()->with(['error' => 'عفوا لا يمكن حذف سلفه تم صرفها بالفعل!']);
             }
-            if (!empty($dataParent['is_archived'] == 1)) {
+            if (! empty($dataParent['is_archived'] == 1)) {
                 return redirect()->back()->with(['error' => 'عفوا لا يمكن حذف سلفه تم صرفها وأرشفتها بالفعل!']);
             }
             DB::beginTransaction();
-            destroy(new EmployeeSalaryPermanentLoans(), array("com_code" => $com_code, 'id' => $id));
+            destroy(new EmployeeSalaryPermanentLoans, ['com_code' => $com_code, 'id' => $id]);
             DB::commit();
+
             return redirect()->back()->with(['success' => 'تم الحذف  البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  '.$ex->getMessage()])->withInput();
         }
     }
 
@@ -176,19 +176,17 @@ class EmployeeSalaryPermanentLoansController extends Controller
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $checkExsistsBeforCounter = get_count_where(new EmployeeSalaryPermanentLoans(), array("com_code" => $com_code, "employee_code" => $request->employee_code, "is_archived" => 0));
+            $checkExsistsBeforCounter = get_count_where(new EmployeeSalaryPermanentLoans, ['com_code' => $com_code, 'employee_code' => $request->employee_code, 'is_archived' => 0]);
             if ($checkExsistsBeforCounter > 0) {
-                return json_encode("exsists_befor");
+                return json_encode('exsists_befor');
             } else {
-                return json_encode("no_exsists_befor");
+                return json_encode('no_exsists_befor');
             }
         }
     }
 
-
     public function ajaxSearch(Request $request)
     {
-
 
         if ($request->ajax()) {
             $employee_code = $request->employee_code;
@@ -197,71 +195,70 @@ class EmployeeSalaryPermanentLoansController extends Controller
             $has_disbursed_done = $request->has_disbursed_done;
             if ($employee_code == 'all') {
                 //هنا نعمل شرط دائم التحقق
-                $field1 = "id";
-                $operator1 = ">";
+                $field1 = 'id';
+                $operator1 = '>';
                 $value1 = 0;
             } else {
-                $field1 = "employee_code";
-                $operator1 = "=";
+                $field1 = 'employee_code';
+                $operator1 = '=';
                 $value1 = $employee_code;
             }
 
             if ($is_archived == 'all') {
                 //هنا نعمل شرط دائم التحقق
-                $field3 = "id";
-                $operator3 = ">";
+                $field3 = 'id';
+                $operator3 = '>';
                 $value3 = 0;
             } else {
-                $field3 = "is_archived";
-                $operator3 = "=";
+                $field3 = 'is_archived';
+                $operator3 = '=';
                 $value3 = $is_archived;
             }
             if ($has_disbursed_done == 'all') {
                 //هنا نعمل شرط دائم التحقق
-                $field4 = "id";
-                $operator4 = ">";
+                $field4 = 'id';
+                $operator4 = '>';
                 $value4 = 0;
             } else {
-                $field4 = "has_disbursed_done";
-                $operator4 = "=";
+                $field4 = 'has_disbursed_done';
+                $operator4 = '=';
                 $value4 = $has_disbursed_done;
             }
             $com_code = auth()->user()->com_code;
-            $data = EmployeeSalaryPermanentLoans::select("*")->where($field1, $operator1, $value1)
+            $data = EmployeeSalaryPermanentLoans::select('*')->where($field1, $operator1, $value1)
                 ->where($field3, $operator3, $value3)
                 ->where($field4, $operator4, $value4)
                 ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->paginate(100);
-            if (!empty($data)) {
+            if (! empty($data)) {
                 foreach ($data as $info) {
-                    $info->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $info->emp_name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
                 }
             }
+
             return view('dashboard.salaries.permanentLoan.ajax_search', ['data' => $data]);
         }
     }
-
 
     public function load_installment_details(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $dataParent = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $request->id]);
-            if (!empty($dataParent)) {
+            $dataParent = get_Columns_where_row(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code, 'id' => $request->id]);
+            if (! empty($dataParent)) {
                 $dataParent['installmentDetails'] = PermanentLoansInstallment::where('com_code', $com_code)->where('employee_permanent_loans_id', $request->id)->orderBy('id', 'ASC')->get();
-                if (!empty($dataParent['installmentDetails'])) {
+                if (! empty($dataParent['installmentDetails'])) {
                     foreach ($dataParent['installmentDetails'] as $info) {
                         // 1- التأكد ان القسط له الدور فى الدفع
                         // 2- انه غير مؤرشف
                         // 3- غير مدفوع على الراتب الشهر
                         // 4- و انه ممكن يدفع المبلغ كاش
                         $info->counterBeforeNotPaid = PermanentLoansInstallment::where('com_code', $com_code)
-                            ->where('employee_permanent_loans_id', "=", $request->id)->where('status', "=", 0)->where('id', '<', $info->id)->count();
+                            ->where('employee_permanent_loans_id', '=', $request->id)->where('status', '=', 0)->where('id', '<', $info->id)->count();
                     }
-                    $dataParent->emp_name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                    $dataParent->emp_name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
 
                 }
             }
-
 
             return view('dashboard.salaries.permanentLoan.load_installment_details', ['dataParent' => $dataParent]);
         }
@@ -271,30 +268,29 @@ class EmployeeSalaryPermanentLoansController extends Controller
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $data_row = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), array("*"), array("com_code" => $com_code, 'id' => $request->id));
+            $data_row = get_Columns_where_row(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code, 'id' => $request->id]);
 
             // Check if the data_row exists
-            if (!$data_row) {
+            if (! $data_row) {
                 return response()->json(['error' => 'عفوا، السجل غير موجود!'], 404);
             }
 
-            if (!empty($data_row['has_disbursed_done']) && $data_row['has_disbursed_done'] == 1) {
+            if (! empty($data_row['has_disbursed_done']) && $data_row['has_disbursed_done'] == 1) {
                 return response()->json(['error' => 'عفوا لا يمكن تعديل سلفة تم صرفها بالفعل!']);
             }
-            if (!empty($data_row['is_archived']) && $data_row['is_archived'] == 1) {
+            if (! empty($data_row['is_archived']) && $data_row['is_archived'] == 1) {
                 return response()->json(['error' => 'عفوا لا يمكن تعديل سلفة تم صرفها وأرشفتها بالفعل!']);
             }
 
-            $employees = get_cols_where(new Employee(), array("employee_code", "name", "salary", "day_price"), array("com_code" => $com_code), 'employee_code', 'ASC');
+            $employees = get_cols_where(new Employee, ['employee_code', 'name', 'salary', 'day_price'], ['com_code' => $com_code], 'employee_code', 'ASC');
+
             return response()->json([
-                'html' => view('dashboard.salaries.permanentLoan.load_edit_row', ['data_row' => $data_row, 'employees' => $employees])->render()
+                'html' => view('dashboard.salaries.permanentLoan.load_edit_row', ['data_row' => $data_row, 'employees' => $employees])->render(),
             ]);
         }
+
         return response()->json(['error' => 'Invalid request'], 400);
     }
-
-
-
 
     public function do_edit_row(Request $request)
     {
@@ -305,14 +301,14 @@ class EmployeeSalaryPermanentLoansController extends Controller
             $data_row = EmployeeSalaryPermanentLoans::where([
                 ['com_code', '=', $com_code],
                 ['id', '=', $request->id],
-                ['is_archived', '=', 0]
+                ['is_archived', '=', 0],
             ])->first();
 
             if ($data_row) {
                 $employeeData = Employee::where([
                     ['employee_code', '=', $request->employee_code],
                     ['com_code', '=', $com_code],
-                    ['functional_status', '=', 'Employee']
+                    ['functional_status', '=', 'Employee'],
                 ])->first();
 
                 if ($employeeData) {
@@ -339,7 +335,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
                             // Fetch existing installments
                             $installments = PermanentLoansInstallment::where([
                                 ['com_code', '=', $com_code],
-                                ['employee_permanent_loans_id', '=', $data_row->id]
+                                ['employee_permanent_loans_id', '=', $data_row->id],
                             ])->get();
 
                             $effectiveDate = $dataToUpdate['year_month_start'];
@@ -355,7 +351,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
                                         'updated_by' => auth()->user()->id,
                                     ]);
 
-                                    $effectiveDate = date('Y-m', strtotime("+1 month", strtotime($effectiveDate)));
+                                    $effectiveDate = date('Y-m', strtotime('+1 month', strtotime($effectiveDate)));
                                     $i++;
                                 } else {
                                     // If there are more installments than needed, you can delete the extra ones
@@ -375,15 +371,17 @@ class EmployeeSalaryPermanentLoansController extends Controller
                                     'com_code' => $com_code,
                                 ]);
 
-                                $effectiveDate = date('Y-m', strtotime("+1 month", strtotime($effectiveDate)));
+                                $effectiveDate = date('Y-m', strtotime('+1 month', strtotime($effectiveDate)));
                                 $i++;
                             }
 
                             DB::commit();
+
                             return response()->json(['message' => 'تم التعديل بنجاح']);
                         }
                     } catch (\Exception $e) {
                         DB::rollBack();
+
                         return response()->json(['error' => 'حدث خطأ أثناء تحديث السجل!.'], 500);
                     }
                 } else {
@@ -397,8 +395,6 @@ class EmployeeSalaryPermanentLoansController extends Controller
         return response()->json(['error' => 'الطلب غير صالح.'], 400);
     }
 
-
-
     public function print_search(Request $request)
     {
 
@@ -408,53 +404,51 @@ class EmployeeSalaryPermanentLoansController extends Controller
         $has_disbursed_done = $request->has_disbursed_done;
         if ($employee_code == 'all') {
             //هنا نعمل شرط دائم التحقق
-            $field1 = "id";
-            $operator1 = ">";
+            $field1 = 'id';
+            $operator1 = '>';
             $value1 = 0;
         } else {
-            $field1 = "employee_code";
-            $operator1 = "=";
+            $field1 = 'employee_code';
+            $operator1 = '=';
             $value1 = $employee_code;
         }
 
         if ($is_archived == 'all') {
             //هنا نعمل شرط دائم التحقق
-            $field3 = "id";
-            $operator3 = ">";
+            $field3 = 'id';
+            $operator3 = '>';
             $value3 = 0;
         } else {
-            $field3 = "is_archived";
-            $operator3 = "=";
+            $field3 = 'is_archived';
+            $operator3 = '=';
             $value3 = $is_archived;
         }
         if ($has_disbursed_done == 'all') {
             //هنا نعمل شرط دائم التحقق
-            $field4 = "id";
-            $operator4 = ">";
+            $field4 = 'id';
+            $operator4 = '>';
             $value4 = 0;
         } else {
-            $field4 = "has_disbursed_done";
-            $operator4 = "=";
+            $field4 = 'has_disbursed_done';
+            $operator4 = '=';
             $value4 = $has_disbursed_done;
         }
         $com_code = auth()->user()->com_code;
         $other['total_sum'] = 0;
 
-        $data = EmployeeSalaryPermanentLoans::select("*")->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
+        $data = EmployeeSalaryPermanentLoans::select('*')->where($field1, $operator1, $value1)->where($field3, $operator3, $value3)
             ->where($field4, $operator4, $value4)
             ->where('com_code', '=', $com_code)->orderby('id', 'DESC')->get();
-        if (!empty($data)) {
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->name = get_field_value(new Employee(), "name", array("com_code" => $com_code, "employee_code" => $info->employee_code));
+                $info->name = get_field_value(new Employee, 'name', ['com_code' => $com_code, 'employee_code' => $info->employee_code]);
                 $other['total_sum'] += $info->total;
             }
         }
-        $systemData = get_Columns_where_row(new AdminPanelSetting(), array('phons', 'address', 'image', 'company_name'), array("com_code" => $com_code));
+        $systemData = get_Columns_where_row(new AdminPanelSetting, ['phons', 'address', 'image', 'company_name'], ['com_code' => $com_code]);
+
         return view('dashboard.salaries.permanentLoan.print_search', ['data' => $data, 'systemData' => $systemData, 'other' => $other]);
     }
-
-
-
 
     public function disbursed_done_now($id)
     {
@@ -462,7 +456,7 @@ class EmployeeSalaryPermanentLoansController extends Controller
             $com_code = auth()->user()->com_code;
 
             // الحصول على بيانات القرض الرئيسي باستخدام معرف القرض المحدد
-            $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $id]);
+            $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($dataParentLoan)) {
                 return redirect()->back()->with(['error' => 'عفوا غير قادر للوصول الي البيانات المطلوبة!']);
             }
@@ -472,37 +466,35 @@ class EmployeeSalaryPermanentLoansController extends Controller
             // تحديث حالة القرض الرئيسي ليصبح "تم صرفه"
             $dataToUpdate['has_disbursed_done'] = 1;
             $dataToUpdate['disbursed_by'] = auth()->user()->id;
-            $dataToUpdate['disbursed_at'] = date("Y-m-d H:i:s");
+            $dataToUpdate['disbursed_at'] = date('Y-m-d H:i:s');
             $dataToUpdate['com_code'] = $com_code;
 
             // تحديث القرض المحدد فقط وليس كل القروض
-            $flagParent = update(new EmployeeSalaryPermanentLoans(), $dataToUpdate, array("com_code" => $com_code, 'id' => $id, 'has_disbursed_done' => 0));
+            $flagParent = update(new EmployeeSalaryPermanentLoans, $dataToUpdate, ['com_code' => $com_code, 'id' => $id, 'has_disbursed_done' => 0]);
 
             if ($flagParent) {
                 // تحديث الأقساط الخاصة بالقرض المحدد فقط باستخدام 'employee_permanent_loans_id'
                 $dataToUpdateInstallment['has_parent_disbursed_done'] = 1;
 
                 // هنا نستخدم employee_permanent_loans_id للتحديث
-                update(new PermanentLoansInstallment(), $dataToUpdateInstallment, array("com_code" => $com_code, 'employee_permanent_loans_id' => $id));
+                update(new PermanentLoansInstallment, $dataToUpdateInstallment, ['com_code' => $com_code, 'employee_permanent_loans_id' => $id]);
 
                 // إعادة حساب راتب الموظف إذا كان لديه راتب مفتوح
-                $mainSalaryEmployeeOpen = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, 'employee_code' => $dataParentLoan['employee_code'], 'is_archived' => 0));
-                if (!empty($mainSalaryEmployeeOpen)) {
+                $mainSalaryEmployeeOpen = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'employee_code' => $dataParentLoan['employee_code'], 'is_archived' => 0]);
+                if (! empty($mainSalaryEmployeeOpen)) {
                     $this->recalculateMainSalaryEmployee($mainSalaryEmployeeOpen['id']);
                 }
             }
 
             DB::commit();
+
             return redirect()->back()->with(['success' => 'تم صرف السلفه بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ  '.$ex->getMessage()])->withInput();
         }
     }
-
-
-
-
 
     // public function doSingleCachPayNow(Request $request)
     // {
@@ -552,18 +544,16 @@ class EmployeeSalaryPermanentLoansController extends Controller
     //     }
     // }
 
-
-
     public function doSingleCachPayNow(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans(), ["*"], ["com_code" => $com_code, "id" => $request->idparent, 'is_archived' => 0, 'has_disbursed_done' => 1]);
+            $dataParentLoan = get_Columns_where_row(new EmployeeSalaryPermanentLoans, ['*'], ['com_code' => $com_code, 'id' => $request->idparent, 'is_archived' => 0, 'has_disbursed_done' => 1]);
 
-            if (!empty($dataParentLoan)) {
-                $dataInstallment = get_Columns_where_row(new PermanentLoansInstallment(), ["*"], ["com_code" => $com_code, "id" => $request->id, 'is_archived' => 0, 'status' => 0]);
+            if (! empty($dataParentLoan)) {
+                $dataInstallment = get_Columns_where_row(new PermanentLoansInstallment, ['*'], ['com_code' => $com_code, 'id' => $request->id, 'is_archived' => 0, 'status' => 0]);
 
-                if (!empty($dataInstallment)) {
+                if (! empty($dataInstallment)) {
                     // التحقق من وجود أي أقساط غير مدفوعة قبل القسط الحالي
                     $counterBeforeNotPaid = PermanentLoansInstallment::where('com_code', $com_code)
                         ->where('employee_permanent_loans_id', $request->idparent)
@@ -576,10 +566,10 @@ class EmployeeSalaryPermanentLoansController extends Controller
                         $dataToUpdateInstallmentPayCach['status'] = 2; // الدفع كاش
                         $dataToUpdateInstallmentPayCach['archived_by'] = auth()->user()->id;
                         $dataToUpdateInstallmentPayCach['is_archived'] = 1;
-                        $dataToUpdateInstallmentPayCach['archived_at'] = date("Y-m-d H:i:s");
+                        $dataToUpdateInstallmentPayCach['archived_at'] = date('Y-m-d H:i:s');
                         $dataToUpdateInstallmentPayCach['updated_by'] = auth()->user()->id;
 
-                        $flag = update(new PermanentLoansInstallment(), $dataToUpdateInstallmentPayCach, ["com_code" => $com_code, "id" => $request->id, 'is_archived' => 0, 'status' => 0]);
+                        $flag = update(new PermanentLoansInstallment, $dataToUpdateInstallmentPayCach, ['com_code' => $com_code, 'id' => $request->id, 'is_archived' => 0, 'status' => 0]);
 
                         if ($flag) {
                             // حساب قيمة الأقساط المتبقية بعد تحديث القسط
@@ -601,10 +591,10 @@ class EmployeeSalaryPermanentLoansController extends Controller
                             // إذا تم دفع جميع الأقساط
                             if ($remainingInstallments == 0) {
                                 $dataToUpdateLoanStatus['is_archived'] = 1; // تم دفع جميع الأقساط
-                                update(new EmployeeSalaryPermanentLoans(), $dataToUpdateLoanStatus, ["com_code" => $com_code, "id" => $request->idparent]);
+                                update(new EmployeeSalaryPermanentLoans, $dataToUpdateLoanStatus, ['com_code' => $com_code, 'id' => $request->idparent]);
                             }
 
-                            return json_encode("Done Insert Cash");
+                            return json_encode('Done Insert Cash');
                         }
                     }
                 }

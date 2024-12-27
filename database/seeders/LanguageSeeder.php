@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class LanguageSeeder extends Seeder
 {
@@ -13,7 +12,6 @@ class LanguageSeeder extends Seeder
      */
     public function run(): void
     {
-        
 
         DB::table('languages')->delete();
 
@@ -26,7 +24,6 @@ class LanguageSeeder extends Seeder
                 'com_code' => 1,
             ],
         ]);
-
 
         DB::table('languages')->insert([
             [
@@ -48,7 +45,6 @@ class LanguageSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('languages')->insert([
             [
                 'name' => 'الألمانية',
@@ -59,7 +55,6 @@ class LanguageSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('languages')->insert([
             [
                 'name' => 'الأسبانية',
@@ -69,7 +64,6 @@ class LanguageSeeder extends Seeder
                 'com_code' => 1,
             ],
         ]);
-
 
         DB::table('languages')->insert([
             [

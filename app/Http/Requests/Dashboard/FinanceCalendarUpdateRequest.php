@@ -25,9 +25,10 @@ class FinanceCalendarUpdateRequest extends FormRequest
             'finance_yr' => 'required',
             'finance_yr_desc' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required'
+            'end_date' => 'required',
         ];
     }
+
     public function messages(): array
     {
         return [
@@ -35,7 +36,7 @@ class FinanceCalendarUpdateRequest extends FormRequest
             'finance_yr.unique' => 'كود السنة مسجل من قبل ',
             'finance_yr_desc' => 'وصف السنة المالية مطلوب',
             'start_date' => 'تاريخ بداية السنة المالية مطلوب',
-            'end_date' => 'تاريخ نهاية السنة المالية مطلوب'
+            'end_date' => 'تاريخ نهاية السنة المالية مطلوب',
 
         ];
     }

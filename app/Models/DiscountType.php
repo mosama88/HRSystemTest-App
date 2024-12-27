@@ -9,7 +9,7 @@ class DiscountType extends Model
 {
     use HasFactory;
 
-    protected $table = "discount_types";
+    protected $table = 'discount_types';
 
     protected $fillable = [
         'name',
@@ -18,7 +18,6 @@ class DiscountType extends Model
         'updated_by',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

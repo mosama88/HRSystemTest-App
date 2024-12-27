@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceDeparture extends Model
 {
     use HasFactory;
-    protected $table = "attendance_departures";
+
+    protected $table = 'attendance_departures';
 
     protected $guarded = [];
-
-
 
     public function createdByAdmin()
     {
@@ -24,13 +23,10 @@ class AttendanceDeparture extends Model
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 
-
     public function isUpdatedActiveActionBy()
     {
         return $this->belongsTo(Admin::class, 'is_updated_active_action_by');
     }
-
-
 
     public function branch()
     {
@@ -42,7 +38,6 @@ class AttendanceDeparture extends Model
         return $this->belongsTo(Department::class);
     }
 
-
     public function jobCategories()
     {
         return $this->belongsTo(JobsCategory::class, 'job_categories_id');
@@ -52,7 +47,6 @@ class AttendanceDeparture extends Model
     {
         return $this->belongsTo(Qualification::class);
     }
-
 
     public function country()
     {
@@ -84,12 +78,10 @@ class AttendanceDeparture extends Model
         return $this->belongsTo(ShiftsType::class, 'shift_types_id');
     }
 
-
     public function resignation()
     {
         return $this->belongsTo(Resignation::class);
     }
-
 
     public function language()
     {

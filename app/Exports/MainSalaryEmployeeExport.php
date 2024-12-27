@@ -19,8 +19,6 @@ class MainSalaryEmployeeExport implements FromCollection
         return MainSalaryEmployee::where('finance_cln_periods_id', $this->finance_cln_periods_id)->get();
     }
 
-
-
     // public function collection()
     // {
     //     return MainSalaryEmployee::where('finance_cln_period_id', $this->finance_cln_periods_id)->get([
@@ -55,5 +53,4 @@ class MainSalaryEmployeeExport implements FromCollection
     //     ];
     // }
 
-    
 }

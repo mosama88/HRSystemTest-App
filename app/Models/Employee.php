@@ -2,30 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\City;
-use App\Models\Branch;
-use App\Models\Country;
-use App\Models\Language;
-use App\Models\BloodType;
-use App\Models\Department;
-use App\Models\Governorate;
-use App\Models\Nationality;
-use App\Models\Resignation;
-use App\Models\JobsCategory;
-use App\Models\Qualification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
     use HasFactory;
 
-    protected $table = "employees";
+    protected $table = 'employees';
 
     protected $guarded = [];
-
-
 
     public function createdByAdmin()
     {
@@ -47,12 +34,10 @@ class Employee extends Model
         return $this->belongsTo(Branch::class);
     }
 
- 
-
     public function department()
-{
-    return $this->belongsTo(Department::class, 'department_id');
-}
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 
     public function jobCategories()
     {
@@ -63,7 +48,6 @@ class Employee extends Model
     {
         return $this->belongsTo(Qualification::class);
     }
-
 
     public function country()
     {
@@ -95,12 +79,10 @@ class Employee extends Model
         return $this->belongsTo(ShiftsType::class, 'shift_types_id');
     }
 
-
     public function resignation()
     {
         return $this->belongsTo(Resignation::class);
     }
-
 
     public function language()
     {

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\AdminLoginRequest;
 use App\Models\User;
-
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -36,8 +35,10 @@ class AdminController extends Controller
     {
         if ($request->authenticate()) {
             $request->session()->regenerate();
+
             return redirect()->intended(RouteServiceProvider::ADMIN);
         }
+
         return redirect()->back()->withErrors(['error' => 'خطأ فى بيانات المستخدم']);
     }
 
@@ -79,10 +80,10 @@ class AdminController extends Controller
         return redirect('/');
     }
 
-
     public function editUser($id)
     {
         $user = User::findOrFail($id);
+
         return view('dashboard.user.edit', compact('user'));
     }
 
@@ -94,5 +95,4 @@ class AdminController extends Controller
 
         return redirect()->route('dashboard.admin.edit_user', $user->id)->with('success', 'تم تحديث تاريخ انتهاء الترخيص بنجاح.');
     }
-
 }

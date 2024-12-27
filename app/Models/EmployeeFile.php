@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Admin;
-use App\Models\Employee;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class EmployeeFile extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_files";
+    protected $table = 'employee_files';
 
     protected $fillable = [
         'desc_file',
@@ -23,13 +21,10 @@ class EmployeeFile extends Model
         'updated_by',
     ];
 
-
-
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
-
 
     public function employee()
     {
@@ -40,7 +35,6 @@ class EmployeeFile extends Model
     {
         return $this->belongsTo(Admin::class, 'created_by');
     }
-
 
     public function updatedBy()
     {

@@ -10,14 +10,11 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
-
+    use HasApiTokens, HasFactory, HasRoles,Notifiable;
 
     protected $guardAdmin = 'admin'; // This ensures the model uses the 'admin' guard
 
-    protected $table = "admins";
-
-
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',

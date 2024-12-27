@@ -9,7 +9,7 @@ class EmployeeSalaryAbsenceDay extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_salary_absence_days";
+    protected $table = 'employee_salary_absence_days';
 
     protected $guarded = [];
 
@@ -27,7 +27,6 @@ class EmployeeSalaryAbsenceDay extends Model
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

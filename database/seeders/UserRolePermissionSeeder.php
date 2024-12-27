@@ -5,22 +5,14 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class UserRolePermissionSeeder extends Seeder
 {
-
-
-
-
     public function run(): void
     {
-
-
-
 
         // Define the guard
         $guardAdmin = 'admin';
@@ -41,10 +33,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'create user', 'category' => 'Users', 'guard_name' => $guardAdmin],
             ['name' => 'update user', 'category' => 'Users', 'guard_name' => $guardAdmin],
             ['name' => 'delete user', 'category' => 'Users', 'guard_name' => $guardAdmin],
-
-
-
-
 
             // قائمة الأعدادات
             ['name' => 'قائمة الأعدادات', 'category' => 'Settings', 'guard_name' => $guardAdmin],
@@ -74,13 +62,11 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'تعديل الشفتات', 'category' => 'shiftsTypes', 'guard_name' => $guardAdmin],
             ['name' => 'حذف الشفتات', 'category' => 'shiftsTypes', 'guard_name' => $guardAdmin],
 
-
             //الأدارات
             ['name' => 'الأدارات', 'category' => 'departments', 'guard_name' => $guardAdmin],
             ['name' => 'اضافة الأدارات', 'category' => 'departments', 'guard_name' => $guardAdmin],
             ['name' => 'تعديل الأدارات', 'category' => 'departments', 'guard_name' => $guardAdmin],
             ['name' => 'حذف الأدارات', 'category' => 'departments', 'guard_name' => $guardAdmin],
-
 
             //    الوظائف
             ['name' => 'الوظائف', 'category' => 'jobsCategories', 'guard_name' => $guardAdmin],
@@ -130,7 +116,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'تعديل المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
             ['name' => 'حذف المحافظات', 'category' => 'governorates', 'guard_name' => $guardAdmin],
 
-
             //    المنطقه
             ['name' => 'المنطقه', 'category' => 'cities', 'guard_name' => $guardAdmin],
             ['name' => 'اضافة المنطقه', 'category' => 'cities', 'guard_name' => $guardAdmin],
@@ -175,7 +160,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'تعديل الأضافى للراتب', 'category' => 'additional_types', 'guard_name' => $guardAdmin],
             ['name' => 'حذف الأضافى للراتب', 'category' => 'additional_types', 'guard_name' => $guardAdmin],
 
-
             //    الخصم
             ['name' => 'الخصم', 'category' => 'discount_types', 'guard_name' => $guardAdmin],
             ['name' => 'اضافة الخصم', 'category' => 'discount_types', 'guard_name' => $guardAdmin],
@@ -196,7 +180,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'السجلات الرئيسية للرواتب', 'category' => 'salaryRecords', 'guard_name' => $guardAdmin],
             ['name' => 'ارشفة الشهر المالى', 'category' => 'salaryRecords', 'guard_name' => $guardAdmin],
             ['name' => 'فتح الشهر المالى', 'category' => 'salaryRecords', 'guard_name' => $guardAdmin],
-
 
             //    الجزاءات
             ['name' => 'الجزاءات', 'category' => 'sanctions', 'guard_name' => $guardAdmin],
@@ -272,7 +255,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'حذف السلف المستديمة', 'category' => 'permanentLoan', 'guard_name' => $guardAdmin],
             ['name' => 'طباعه السلف المستديمة', 'category' => 'permanentLoan', 'guard_name' => $guardAdmin],
 
-
             //    رواتب الموظفين المفصلة
             ['name' => 'رواتب الموظفين', 'category' => 'mainSalaryEmployees', 'guard_name' => $guardAdmin],
             ['name' => 'عرض رواتب الموظفين', 'category' => 'mainSalaryEmployees', 'guard_name' => $guardAdmin],
@@ -289,8 +271,6 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'ايقاف المرتب', 'category' => 'mainSalaryEmployees', 'guard_name' => $guardAdmin],
             ['name' => 'ارشفه المرتب يدوى', 'category' => 'mainSalaryEmployees', 'guard_name' => $guardAdmin],
             ['name' => 'حذف المرتب', 'category' => 'mainSalaryEmployees', 'guard_name' => $guardAdmin],
-
-
 
             // ###################################################################################################################
             // قائمة سجلات بصمة الموظفين
@@ -309,11 +289,8 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'طباعه بصمات الموظفين', 'category' => 'attendanceDepartures', 'guard_name' => $guardAdmin],
             ['name' => 'إعادة ضبط بصمات الموظفين', 'category' => 'attendanceDepartures', 'guard_name' => $guardAdmin],
 
-
             //    قائمة المستخدمين
             ['name' => 'قائمة المستخدمين', 'category' => 'UserList', 'guard_name' => $guardAdmin],
-
-
 
             // المستخدمين
             ['name' => 'المستخدمين', 'category' => 'users', 'guard_name' => $guardAdmin],
@@ -321,15 +298,12 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'تعديل المستخدمين', 'category' => 'users', 'guard_name' => $guardAdmin],
             ['name' => 'حذف المستخدمين', 'category' => 'users', 'guard_name' => $guardAdmin],
 
-
-
             // الصلاحيات
             ['name' => 'الصلاحيات', 'category' => 'roles', 'guard_name' => $guardAdmin],
             ['name' => 'اضافة الصلاحيات', 'category' => 'roles', 'guard_name' => $guardAdmin],
             ['name' => 'تعديل الصلاحيات', 'category' => 'roles', 'guard_name' => $guardAdmin],
             ['name' => 'حذف الصلاحيات', 'category' => 'roles', 'guard_name' => $guardAdmin],
             ['name' => 'إضافة وتعديل أذونات الصلاحية', 'category' => 'roles', 'guard_name' => $guardAdmin],
-
 
             // الأذونات
             ['name' => 'الأذونات', 'category' => 'permissions', 'guard_name' => $guardAdmin],
@@ -365,7 +339,6 @@ class UserRolePermissionSeeder extends Seeder
             'update user',
         ];
 
-
         $adminRole->givePermissionTo($adminPermissions);
 
         // Let's Create User and assign Role to it.
@@ -395,7 +368,7 @@ class UserRolePermissionSeeder extends Seeder
         $superAdminUser2->assignRole($superAdminRole);
 
         $adminUser = Admin::firstOrCreate([
-            'username' => 'admin'
+            'username' => 'admin',
         ], [
             'name' => 'Admin',
             'username' => 'admin',

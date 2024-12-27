@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Allowance;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class EmployeeSalaryAllowance extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_salary_allowances";
+    protected $table = 'employee_salary_allowances';
 
     protected $guarded = [];
 
@@ -29,7 +28,6 @@ class EmployeeSalaryAllowance extends Model
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
 
-
     public function financeClnPeriods()
     {
         return $this->belongsTo(FinanceClnPeriod::class, 'finance_cln_periods_id');
@@ -45,6 +43,3 @@ class EmployeeSalaryAllowance extends Model
         return $this->belongsTo(Allowance::class, 'allowance_id');
     }
 }
-
-
-

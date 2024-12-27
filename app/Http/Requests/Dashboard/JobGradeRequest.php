@@ -23,7 +23,7 @@ class JobGradeRequest extends FormRequest
     {
         return [
             'job_grades_code' => 'nullable',
-            'name' => 'required',   
+            'name' => 'required',
             'min_salary' => 'required',
             'max_salary' => 'required|gt:min_salary',
             'notes' => 'nullable',

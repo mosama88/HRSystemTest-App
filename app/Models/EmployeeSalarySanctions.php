@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\FinanceClnPeriod;
-use App\Models\MainSalaryEmployee;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class EmployeeSalarySanctions extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_salary_sanctions";
+    protected $table = 'employee_salary_sanctions';
 
     protected $guarded = [];
 
@@ -29,7 +27,6 @@ class EmployeeSalarySanctions extends Model
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

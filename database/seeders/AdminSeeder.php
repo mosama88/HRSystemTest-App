@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AdminSeeder extends Seeder
 {
@@ -18,7 +17,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'محمد أسامه',
                 'username' => 'mosama',
-                'email' => "mosama@dt.com",
+                'email' => 'mosama@dt.com',
                 'password' => Hash::make('password'), // Hashing the password using bcrypt
                 'created_by' => 1,
                 'updated_by' => 1,

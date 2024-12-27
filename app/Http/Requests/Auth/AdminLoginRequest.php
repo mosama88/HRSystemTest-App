@@ -32,8 +32,6 @@ class AdminLoginRequest extends FormRequest
         ];
     }
 
-
-
     public function messages(): array
     {
         return [
@@ -43,14 +41,12 @@ class AdminLoginRequest extends FormRequest
         ];
     }
 
-
     /**
      * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
 
-     
     // public function authenticate(): void
     // {
     //     $this->ensureIsNotRateLimited();
@@ -71,8 +67,6 @@ class AdminLoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-
-
 
     // public function ensureIsNotRateLimited(): void
     // {
@@ -95,7 +89,6 @@ class AdminLoginRequest extends FormRequest
     /**
      * Get the rate limiting throttle key for the request.
      */
-
 
     // public function throttleKey(): string
     // {

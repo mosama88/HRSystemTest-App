@@ -9,7 +9,7 @@ class AdditionalType extends Model
 {
     use HasFactory;
 
-    protected $table = "additional_types";
+    protected $table = 'additional_types';
 
     protected $fillable = [
         'name',
@@ -18,7 +18,6 @@ class AdditionalType extends Model
         'updated_by',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

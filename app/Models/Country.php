@@ -9,7 +9,7 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $table = "countries";
+    protected $table = 'countries';
 
     protected $fillable = [
         'name',
@@ -18,7 +18,6 @@ class Country extends Model
         'created_by',
         'updated_by',
     ];
-
 
     public function createdByAdmin()
     {
@@ -30,6 +29,3 @@ class Country extends Model
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 }
-
-
-

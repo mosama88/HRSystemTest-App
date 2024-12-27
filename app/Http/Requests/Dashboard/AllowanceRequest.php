@@ -23,7 +23,7 @@ class AllowanceRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'nullable'
+            'active' => 'nullable',
         ];
     }
 

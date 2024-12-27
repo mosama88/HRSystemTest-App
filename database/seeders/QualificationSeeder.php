@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class QualificationSeeder extends Seeder
 {
@@ -24,7 +23,6 @@ class QualificationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('qualifications')->insert([
             [
                 'name' => 'بكالوريوس نظم و معلومات إدارية',
@@ -35,7 +33,6 @@ class QualificationSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('qualifications')->insert([
             [
                 'name' => 'بكالوريوس تجارة',
@@ -45,7 +42,6 @@ class QualificationSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('qualifications')->insert([
             [
@@ -66,7 +62,6 @@ class QualificationSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('qualifications')->insert([
             [

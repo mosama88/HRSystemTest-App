@@ -2,37 +2,32 @@
 
 namespace App\Http\Controllers\Dashboard\Settings;
 
-use App\Models\Branch;
-use App\Models\Employee;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\BranchRequest;
-
+use App\Models\Branch;
+use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class BranchController extends Controller
 {
-    
-    
     public function __construct()
     {
         $this->middleware('permission:الفروع', ['only' => ['index']]);
-        $this->middleware('permission:اضافة الفروع', ['only' => ['create','store']]);
-        $this->middleware('permission:تعديل الفروع', ['only' => ['update','edit']]);
+        $this->middleware('permission:اضافة الفروع', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الفروع', ['only' => ['update', 'edit']]);
         $this->middleware('permission:حذف الفروع', ['only' => ['destroy']]);
     }
-
-
 
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new Branch(), array("*"), array("com_code" => $com_code), "id", "DESC")->get();
-        if (!empty($data)) {
+        $data = getColumnsIndex(new Branch, ['*'], ['com_code' => $com_code], 'id', 'DESC')->get();
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "branch_id" => $info->id));
+                $info->counterUsed = get_count_where(new Employee, ['com_code' => $com_code, 'branch_id' => $info->id]);
             }
         }
+
         return view('dashboard.settings.branches.index', compact('data'));
     }
 
@@ -51,8 +46,8 @@ class BranchController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $checkExists = get_Columns_where_row(new Branch(), array('id'), array("com_code" => $com_code, 'name' => $request->name));
-            if (!empty($checkExists)) {
+            $checkExists = get_Columns_where_row(new Branch, ['id'], ['com_code' => $com_code, 'name' => $request->name]);
+            if (! empty($checkExists)) {
                 return redirect()->back()->withErrors(['error' => 'كود الشركة مسجل بالفعل ']);
             }
             DB::beginTransaction();
@@ -63,13 +58,15 @@ class BranchController extends Controller
             $branch['com_code'] = $com_code;
             $branch['created_by'] = auth()->user()->id;
             $branch['active'] = $request->active;
-            insert(new Branch(), $branch);
+            insert(new Branch, $branch);
             DB::commit();
-            session()->flash('success',  'تم أضافة البيانات بنجاح');
+            session()->flash('success', 'تم أضافة البيانات بنجاح');
+
             return redirect()->route('dashboard.branches.index');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
+
+            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
         }
     }
 
@@ -88,14 +85,14 @@ class BranchController extends Controller
     {
 
         $com_code = auth()->user()->com_code;
-        $info = get_Columns_where_row(new Branch(), array('*'), array("id" => $id, "com_code" => $com_code));
+        $info = get_Columns_where_row(new Branch, ['*'], ['id' => $id, 'com_code' => $com_code]);
         if (empty($info)) {
             return redirect()->route('dashboard.branches.index')->withErrors(['error' => 'عفوآ غير قادر على الوصول للبيانات المطلوبه']);
         }
 
-
         return view('dashboard.settings.branches.edit', compact('info'));
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -103,7 +100,7 @@ class BranchController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Branch(), array('*'), array("id" => $id, "com_code" => $com_code));
+            $data = get_Columns_where_row(new Branch, ['*'], ['id' => $id, 'com_code' => $com_code]);
             if (empty($data)) {
                 return redirect()->route('dashboard.branches.index')->withErrors(['error' => 'عفوآ غير قادر على الوصول للبيانات المطلوبه']);
             }
@@ -115,14 +112,16 @@ class BranchController extends Controller
             $updateBranch['com_code'] = $com_code;
             $updateBranch['updated_by'] = auth()->user()->id;
             $updateBranch['active'] = $request->active;
-            update(new Branch(), $updateBranch, array("id" => $id, "com_code" => $com_code));
+            update(new Branch, $updateBranch, ['id' => $id, 'com_code' => $com_code]);
 
             DB::commit();
             session()->flash('success', 'تم تحديث البيانات بنجاح');
+
             return redirect()->route('dashboard.branches.index');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
+
+            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
         }
     }
 
@@ -133,23 +132,25 @@ class BranchController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Branch(), array('*'), array("id" => $id, "com_code" => $com_code));
+            $data = get_Columns_where_row(new Branch, ['*'], ['id' => $id, 'com_code' => $com_code]);
             if (empty($data)) {
                 return redirect()->route('dashboard.branches.index')->withErrors(['error' => 'عفوآ غير قادر على الوصول للبيانات المطلوبه']);
             }
-            $counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "branch_id" => $id));
+            $counterUsed = get_count_where(new Employee, ['com_code' => $com_code, 'branch_id' => $id]);
             if ($counterUsed > 0) {
                 return redirect()->route('dashboard.branches.index')->with(['error' => 'عفوآ غير قادر على الحذف لانه قد تم أستخدامه من قبل']);
             }
 
-            destroy(new Branch(), array("id" => $id, "com_code" => $com_code));
+            destroy(new Branch, ['id' => $id, 'com_code' => $com_code]);
 
             DB::commit();
             session()->flash('success', 'تم حذف البيانات بنجاح');
+
             return redirect()->route('dashboard.branches.index');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
+
+            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
         }
     }
 }

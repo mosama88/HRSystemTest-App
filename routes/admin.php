@@ -1,44 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AdminController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\Settings\CityController;
-use App\Http\Controllers\Dashboard\Settings\BranchController;
-use App\Http\Controllers\Dashboard\Settings\CountryController;
-use App\Http\Controllers\Dashboard\Settings\HolidayController;
 use App\Http\Controllers\Dashboard\AdminPanelSettingController;
-use App\Http\Controllers\Dashboard\Settings\JobGradeController;
-use App\Http\Controllers\Dashboard\Settings\VacationController;
-use App\Http\Controllers\Dashboard\Settings\BloodTypeController;
-use App\Http\Controllers\Dashboard\Settings\DepartmentController;
-use App\Http\Controllers\Dashboard\Settings\ShiftsTypeController;
-use App\Http\Controllers\Dashboard\Settings\NationalityController;
-use App\Http\Controllers\Dashboard\Settings\ResignationController;
-use App\Http\Controllers\Dashboard\Settings\JobsCategoryController;
-use App\Http\Controllers\Dashboard\Settings\QualificationController;
-use App\Http\Controllers\Dashboard\Salaries\SalarySanctionsController;
-use App\Http\Controllers\Dashboard\Settings\FinanceCalendarController;
 use App\Http\Controllers\Dashboard\AffairsEmployees\EmployeeController;
-use App\Http\Controllers\Dashboard\Salaries\MainSalaryRecordController;
-use App\Http\Controllers\Dashboard\AffairsEmployees\AllowanceController;
-use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryLoanController;
-use App\Http\Controllers\Dashboard\Salaries\MainSalaryEmployeeController;
-use App\Http\Controllers\Dashboard\AffairsEmployees\DiscountTypeController;
 use App\Http\Controllers\Dashboard\Attendance\AttendanceDepartureController;
-use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryRewardsController;
-use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryDiscountController;
-use App\Http\Controllers\Dashboard\AffairsEmployees\AdditionalTypesController;
-use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAllowanceController;
+use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAbsenceDayController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAdditionalController;
+use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryAllowanceController;
+use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryDiscountController;
+use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryLoanController;
 use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryPermanentLoansController;
+use App\Http\Controllers\Dashboard\Salaries\EmployeeSalaryRewardsController;
+use App\Http\Controllers\Dashboard\Salaries\MainSalaryEmployeeController;
+use App\Http\Controllers\Dashboard\Salaries\MainSalaryRecordController;
+use App\Http\Controllers\Dashboard\Salaries\SalarySanctionsController;
+use App\Http\Controllers\Dashboard\Settings\FinanceCalendarController;
 use App\Http\Controllers\Dashboard\Vacations\MainEmployeesVacationBalanceController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,19 +48,15 @@ Route::middleware(['auth:admin', 'verified'])->group(function () {
     Route::get('/dashboard/admin', [HomeController::class, 'admin']);
 });
 
-
 Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(function () {
-
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
     //موعد أنتهاء الترخيص
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.edit_user');
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.update_user');
-
 
     // بداية صلاحيات المستخدمين
     Route::resource('roles', RoleController::class)->middleware(['role:super-admin|admin']);
@@ -96,11 +76,8 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية الفروع
     Route::view('/branches', 'dashboard.settings.branches.index')->name('branches.index');
 
-
-
     // بداية الشفتات
     Route::view('/shiftsTypes', 'dashboard.settings.shiftsTypes.index')->name('shiftsTypes.index');
-
 
     // بداية الأدارات
     Route::view('/departments', 'dashboard.settings.departments.index')->name('departments.index');
@@ -114,7 +91,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية مؤهلات الموظفين
     Route::view('/qualifications', 'dashboard.settings.qualifications.index')->name('qualifications.index');
 
-
     // بداية العظلات الرسمية
     Route::view('/holidays', 'dashboard.settings.holidays.index')->name('holidays.index');
 
@@ -124,14 +100,11 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية الأجازه
     Route::view('/vacationsTypes', 'dashboard.settings.vacationsTypes.index')->name('vacationsTypes.index');
 
-
     // بداية البلاد
     Route::view('/countries', 'dashboard.settings.countries.index')->name('countries.index');
 
-
     // بداية المحافظات
     Route::view('/governorates', 'dashboard.settings.governorates.index')->name('governorates.index');
-
 
     // بداية المدن
     Route::view('/cities', 'dashboard.settings.cities.index')->name('cities.index');
@@ -139,16 +112,14 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية الجنسيات
     Route::view('/nationalities', 'dashboard.settings.nationalities.index')->name('nationalities.index');
 
-
     // بداية فصيلة الدم
     Route::view('/bloodTypes', 'dashboard.settings.bloodTypes.index')->name('bloodTypes.index');
-
 
     // بداية الموظفين
     Route::resource('/employees', EmployeeController::class);
     Route::controller(EmployeeController::class)->prefix('employees')->name('employees.')->group(function () {
-        Route::post("/getcities", 'getcities')->name('getcities');
-        Route::post("/get_governorates", 'get_governorates')->name('get_governorates');
+        Route::post('/getcities', 'getcities')->name('getcities');
+        Route::post('/get_governorates', 'get_governorates')->name('get_governorates');
         Route::post('/ajax_search', 'ajax_search')->name('ajax_search');
         Route::post('/add_files/{id}', 'add_files')->name('add_files');
         Route::delete('/delete_files/{id}', 'destroy_file')->name('destroy_file');
@@ -164,14 +135,11 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     // بداية نوع الأضافة
     Route::view('/additional_types', 'dashboard.affairs_employees.additional_types.index')->name('additional_types.index');
 
-
     // بداية نوع الخصم
     Route::view('/discount_types', 'dashboard.affairs_employees.discount_types.index')->name('discount_types.index');
 
-
     // بداية نوع البدلات
     Route::view('/allowances', 'dashboard.affairs_employees.allowances.index')->name('allowances.index');
-
 
     // بداية السجلات الرئيسية للرواتب
     Route::resource('/salaryRecords', MainSalaryRecordController::class);
@@ -195,7 +163,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/print_search', 'print_search')->name('print_search');
     });
 
-
     // بداية الغيابات الرواتب
     Route::resource('/absences', EmployeeSalaryAbsenceDayController::class);
     Route::view('/absences', 'dashboard.salaries.absences.index')->name('absences.index');
@@ -206,7 +173,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
         Route::post('/print_search', 'print_search')->name('print_search');
     });
-
 
     // بداية الأضافى الرواتب
     Route::resource('/additionals', EmployeeSalaryAdditionalController::class);
@@ -219,7 +185,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/print_search', 'print_search')->name('print_search');
     });
 
-
     // بداية الخصومات الرواتب
     Route::resource('/discounts', EmployeeSalaryDiscountController::class);
     Route::view('/discounts', 'dashboard.salaries.discounts.index')->name('discounts.index');
@@ -230,7 +195,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
         Route::post('/print_search', 'print_search')->name('print_search');
     });
-
 
     // بداية المكافئات الرواتب
     Route::resource('/rewards', EmployeeSalaryRewardsController::class);
@@ -243,7 +207,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/print_search', 'print_search')->name('print_search');
     });
 
-
     // بداية البدلات الرواتب
     Route::resource('/allowancesSalary', EmployeeSalaryAllowanceController::class);
     Route::view('/allowancesSalary', 'dashboard.salaries.allowancesSalary.index')->name('allowancesSalary.index');
@@ -254,7 +217,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/do_edit_row', 'do_edit_row')->name('do_edit_row');
         Route::post('/print_search', 'print_search')->name('print_search');
     });
-
 
     // بداية السلف الشهرية الرواتب
     Route::resource('/loans', EmployeeSalaryLoanController::class);
@@ -279,7 +241,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::put('/disbursed_done_now/{id}', 'disbursed_done_now')->name('disbursed_done_now');
         Route::post('/doSingleCachPayNow', 'doSingleCachPayNow')->name('doSingleCachPayNow');
     });
-
 
     // رواتب الموظفين المفصلة
     Route::resource('/mainSalaryEmployees', MainSalaryEmployeeController::class);
@@ -315,12 +276,11 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/ajax_search/{employee_code}/{finance_cln_periods_id}', 'ajax_search')->name('ajax_search');
     });
 
-
     // بداية الأجازات
     Route::resource('/vacationsBalance', MainEmployeesVacationBalanceController::class);
     Route::controller(MainEmployeesVacationBalanceController::class)->prefix('vacationsBalance')->name('vacationsBalance.')->group(function () {
-        Route::post("/getcities", 'getcities')->name('getcities');
-        Route::post("/get_governorates", 'get_governorates')->name('get_governorates');
+        Route::post('/getcities', 'getcities')->name('getcities');
+        Route::post('/get_governorates', 'get_governorates')->name('get_governorates');
         Route::post('/ajax_search', 'ajax_search')->name('ajax_search');
         Route::post('/add_files/{id}', 'add_files')->name('add_files');
         Route::delete('/delete_files/{id}', 'destroy_file')->name('destroy_file');
@@ -331,11 +291,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         Route::post('/showSalaryArchived', 'showSalaryArchived')->name('showSalaryArchived');
     });
 
-
-
-
-
-
 });
 
 // بداية صلاحيات المستخدمين
@@ -345,7 +300,6 @@ Route::group(['middleware' => ['auth:admin', 'role:super-admin|admin']], functio
     Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 });
 
-
 // Route::view('admin/login', 'dashboard.auth.login')->middleware('guest')->name('admin.login');
 Route::view('admin/login', 'dashboard.auth.login')->middleware('guest')->name('admin.login');
 Route::middleware('auth:admin')->group(function () {
@@ -353,10 +307,8 @@ Route::middleware('auth:admin')->group(function () {
         ->name('logout.admin');
 });
 
-
 Route::get('/{page}', [PageController::class, 'index']);
 
-Route::middleware('auth')->group(function () { });
-
+Route::middleware('auth')->group(function () {});
 
 // require __DIR__ . '/auth.php';

@@ -9,7 +9,7 @@ class EmployeeSalaryPermanentLoans extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_salary_permanent_loans";
+    protected $table = 'employee_salary_permanent_loans';
 
     protected $guarded = [];
 
@@ -23,18 +23,15 @@ class EmployeeSalaryPermanentLoans extends Model
         return $this->belongsTo(Admin::class, 'disbursed_by');
     }
 
-
     public function updatedByAdmin()
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 
-
     public function mainSalaryEmployees()
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

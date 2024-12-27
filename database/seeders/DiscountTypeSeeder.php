@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DiscountTypeSeeder extends Seeder
 {
@@ -24,7 +23,6 @@ class DiscountTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('discount_types')->insert([
             [
                 'name' => 'التأمين الاجتماعي',
@@ -35,7 +33,6 @@ class DiscountTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('discount_types')->insert([
             [
                 'name' => 'التأمين الصحي',
@@ -45,7 +42,6 @@ class DiscountTypeSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('discount_types')->insert([
             [
@@ -107,7 +103,6 @@ class DiscountTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('discount_types')->insert([
             [
                 'name' => ' خصم سلف',
@@ -117,7 +112,6 @@ class DiscountTypeSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('discount_types')->insert([
             [
@@ -129,7 +123,6 @@ class DiscountTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('discount_types')->insert([
             [
                 'name' => 'خصم نفقات تدريب',
@@ -139,7 +132,6 @@ class DiscountTypeSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('discount_types')->insert([
             [

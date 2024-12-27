@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('employee_salary_discounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('main_salary_employees_id')->references('id')->on('main_salary_employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId("finance_cln_periods_id")->references("id")->on("finance_cln_periods")->onUpdate("cascade")->comment('كود الشهر المالى');
+            $table->foreignId('finance_cln_periods_id')->references('id')->on('finance_cln_periods')->onUpdate('cascade')->comment('كود الشهر المالى');
             $table->integer('is_auto')->nullable()->default(0)->comment('هل تلقائى من النظام أم بشكل يدوى');
             $table->bigInteger('employee_code')->comment('كود الموظف');
             $table->decimal('day_price', 10, 2)->comment('أجر يوم الموظف');

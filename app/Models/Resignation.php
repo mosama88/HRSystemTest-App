@@ -9,8 +9,7 @@ class Resignation extends Model
 {
     use HasFactory;
 
-
-    protected $table = "resignations";
+    protected $table = 'resignations';
 
     protected $fillable = [
         'name',
@@ -19,7 +18,6 @@ class Resignation extends Model
         'active',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

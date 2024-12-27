@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SalaryArchive extends Model
 {
     use HasFactory;
-    protected $table = "salary_archives";
+
+    protected $table = 'salary_archives';
 
     protected $guarded = [];
 
@@ -21,7 +22,6 @@ class SalaryArchive extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
 
     public function employee()
     {

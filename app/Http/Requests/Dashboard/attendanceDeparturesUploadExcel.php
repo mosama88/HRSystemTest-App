@@ -25,11 +25,12 @@ class attendanceDeparturesUploadExcel extends FormRequest
             'excel_file' => 'required|mimes:xls,xlsx',
         ];
     }
+
     public function messages()
     {
         return [
             'excel_file.required' => 'برجاء أرفاق الملف',
-            'excel_file.mimes' => 'يجب ان يكون نوع الملف من نوع xls,xlsx '
+            'excel_file.mimes' => 'يجب ان يكون نوع الملف من نوع xls,xlsx ',
         ];
     }
 }

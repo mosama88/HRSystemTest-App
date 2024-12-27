@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CitySeeder extends Seeder
 {
@@ -13,11 +12,11 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         DB::table('cities')->delete();
 
-      DB::table('cities')->insert([
-        ['id' => 1, 'name' => 'المعادي', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
+        DB::table('cities')->insert([
+            ['id' => 1, 'name' => 'المعادي', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
             ['id' => 2, 'name' => 'مدينة نصر', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
             ['id' => 3, 'name' => 'سيدي بشر', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => '2024-12-18 08:08:05'],
             ['id' => 4, 'name' => 'الزقازيق', 'active' => 1, 'governorate_id' => 27, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => '2024-12-18 08:07:59'],
@@ -88,18 +87,18 @@ class CitySeeder extends Seeder
             ['id' => 69, 'name' => 'أبوزنيمة', 'active' => 1, 'governorate_id' => 21, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => '2024-12-18 07:41:48'],
             ['id' => 70, 'name' => 'أبو رديس', 'active' => 1, 'governorate_id' => 21, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => '2024-12-18 07:41:26'],
             ['id' => 71, 'name' => 'سهل حشيش', 'active' => 1, 'governorate_id' => 18, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:54', 'updated_at' => '2024-12-18 07:40:54'],
-            ['id' => 72, 'name' => 'حوش عيسى', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 73, 'name' => 'القنطرة شرق', 'active' => 1, 'governorate_id' => 4, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 74, 'name' => 'المطرية', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 75, 'name' => 'البدرشين', 'active' => 1, 'governorate_id' => 2, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:12', 'updated_at' => NULL],
-            ['id' => 76, 'name' => 'المنيب', 'active' => 1, 'governorate_id' => 2, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:07', 'updated_at' => NULL],
-            ['id' => 77, 'name' => 'مينا البصل', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:00', 'updated_at' => NULL],
-            ['id' => 78, 'name' => 'الشروق', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 77, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 79, 'name' => 'طلخا', 'active' => 1, 'governorate_id' => 4, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 78, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 80, 'name' => 'كفر شكر', 'active' => 1, 'governorate_id' => 18, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 79, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 81, 'name' => 'الخانكة', 'active' => 1, 'governorate_id' => 18, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 80, 'created_at' => NULL, 'updated_at' => NULL],
-            ['id' => 82, 'name' => 'مركز دمياط', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 81, 'created_at' => NULL, 'updated_at' => NULL],
-]);
+            ['id' => 72, 'name' => 'حوش عيسى', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
+            ['id' => 73, 'name' => 'القنطرة شرق', 'active' => 1, 'governorate_id' => 4, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
+            ['id' => 74, 'name' => 'المطرية', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => null, 'updated_at' => null],
+            ['id' => 75, 'name' => 'البدرشين', 'active' => 1, 'governorate_id' => 2, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:12', 'updated_at' => null],
+            ['id' => 76, 'name' => 'المنيب', 'active' => 1, 'governorate_id' => 2, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:07', 'updated_at' => null],
+            ['id' => 77, 'name' => 'مينا البصل', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 1, 'created_at' => '2024-12-18 07:40:00', 'updated_at' => null],
+            ['id' => 78, 'name' => 'الشروق', 'active' => 1, 'governorate_id' => 1, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 77, 'created_at' => null, 'updated_at' => null],
+            ['id' => 79, 'name' => 'طلخا', 'active' => 1, 'governorate_id' => 4, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 78, 'created_at' => null, 'updated_at' => null],
+            ['id' => 80, 'name' => 'كفر شكر', 'active' => 1, 'governorate_id' => 18, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 79, 'created_at' => null, 'updated_at' => null],
+            ['id' => 81, 'name' => 'الخانكة', 'active' => 1, 'governorate_id' => 18, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 80, 'created_at' => null, 'updated_at' => null],
+            ['id' => 82, 'name' => 'مركز دمياط', 'active' => 1, 'governorate_id' => 3, 'created_by' => 1, 'updated_by' => 1, 'com_code' => 81, 'created_at' => null, 'updated_at' => null],
+        ]);
 
     }
 }

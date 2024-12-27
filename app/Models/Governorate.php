@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Country;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Governorate extends Model
 {
     use HasFactory;
-    protected $table = "governorates";
+
+    protected $table = 'governorates';
 
     protected $fillable = [
         'name',
@@ -20,7 +20,6 @@ class Governorate extends Model
         'updated_by',
     ];
 
-
     public function createdByAdmin()
     {
         return $this->belongsTo(Admin::class, 'created_by');
@@ -30,8 +29,6 @@ class Governorate extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
-
 
     public function country()
     {

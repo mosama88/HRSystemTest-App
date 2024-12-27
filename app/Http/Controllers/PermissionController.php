@@ -10,14 +10,15 @@ class PermissionController extends Controller
     public function __construct()
     {
         $this->middleware('permission:الأذونات', ['only' => ['index']]);
-        $this->middleware('permission:اضافة الأذونات', ['only' => ['create','store']]);
-        $this->middleware('permission:تعديل الأذونات', ['only' => ['update','edit']]);
+        $this->middleware('permission:اضافة الأذونات', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الأذونات', ['only' => ['update', 'edit']]);
         $this->middleware('permission:حذف الأذونات', ['only' => ['destroy']]);
     }
 
     public function index()
     {
         $permissions = Permission::get();
+
         return view('role-permission.permission.index', ['permissions' => $permissions]);
     }
 
@@ -32,11 +33,11 @@ class PermissionController extends Controller
             'name' => [
                 'required',
                 'string',
-                'unique:permissions,name'
+                'unique:permissions,name',
             ],
             'category' => [
                 'required',
-                'string'
+                'string',
             ],
 
         ]);
@@ -44,12 +45,11 @@ class PermissionController extends Controller
         Permission::create([
             'name' => $request->name,
             'category' => $request->category,
-            'guard_name' => $request->guard_name
+            'guard_name' => $request->guard_name,
         ]);
 
         return redirect('permissions')->with('status', 'تم إنشاء الأذونات بنجاح');
     }
-
 
     public function edit(Permission $permission)
     {
@@ -62,21 +62,22 @@ class PermissionController extends Controller
             'name' => [
                 'required',
                 'string',
-                'unique:permissions,name,'.$permission->id
-            ]
+                'unique:permissions,name,'.$permission->id,
+            ],
         ]);
 
         $permission->update([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
-        return redirect('permissions')->with('status','تم تعديل الاذونات بنجاح');
+        return redirect('permissions')->with('status', 'تم تعديل الاذونات بنجاح');
     }
 
     public function destroy($permissionId)
     {
         $permission = Permission::find($permissionId);
         $permission->delete();
-        return redirect('permissions')->with('status','تم حذف الأذونات بنجاح');
+
+        return redirect('permissions')->with('status', 'تم حذف الأذونات بنجاح');
     }
 }

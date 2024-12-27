@@ -9,7 +9,7 @@ class Branch extends Model
 {
     use HasFactory;
 
-    protected $table = "branches";
+    protected $table = 'branches';
 
     protected $fillable = [
         'name',
@@ -22,12 +22,10 @@ class Branch extends Model
         'com_code',
     ];
 
-
     public function createdBy()
     {
         return $this->belongsTo(Admin::class, 'created_by');
     }
-
 
     public function updatedBy()
     {

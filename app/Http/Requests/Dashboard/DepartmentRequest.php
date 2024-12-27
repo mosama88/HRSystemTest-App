@@ -28,6 +28,7 @@ class DepartmentRequest extends FormRequest
             'active' => 'nullable|in:2,1',
         ];
     }
+
     public function messages()
     {
         return [

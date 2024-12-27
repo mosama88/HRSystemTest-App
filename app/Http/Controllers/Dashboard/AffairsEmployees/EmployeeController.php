@@ -2,72 +2,68 @@
 
 namespace App\Http\Controllers\Dashboard\AffairsEmployees;
 
-use App\Models\City;
-use App\Models\Branch;
-use App\Models\Country;
-use App\Models\Employee;
-use App\Models\JobGrade;
-use App\Models\Language;
-use App\Models\Allowance;
-use App\Models\BloodType;
-use App\Models\Department;
-use App\Models\ShiftsType;
-use App\Models\Governorate;
-use App\Models\Nationality;
-use App\Traits\UploadTrait;
-use App\Models\EmployeeFile;
-use App\Models\JobsCategory;
-use App\Traits\GeneralTrait;
-use Illuminate\Http\Request;
-use App\Models\Qualification;
-use App\Models\SalaryArchive;
-use App\Models\MainSalaryEmployee;
-use Illuminate\Support\Facades\DB;
+use App\Exports\EmployeeExport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Models\EmployeeFixedAllowance;
 use App\Http\Requests\Dashboard\EmployeeRequest;
 use App\Http\Requests\Dashboard\EmployeeUpdateRequest;
-use App\Exports\EmployeeExport;
+use App\Models\Allowance;
+use App\Models\BloodType;
+use App\Models\Branch;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\EmployeeFile;
+use App\Models\EmployeeFixedAllowance;
+use App\Models\Governorate;
+use App\Models\JobGrade;
+use App\Models\JobsCategory;
+use App\Models\Language;
+use App\Models\MainSalaryEmployee;
+use App\Models\Nationality;
+use App\Models\Qualification;
+use App\Models\SalaryArchive;
+use App\Models\ShiftsType;
+use App\Traits\GeneralTrait;
+use App\Traits\UploadTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
-
-
-    use UploadTrait;
     use GeneralTrait;
-
-
+    use UploadTrait;
 
     public function index()
     {
         $com_code = auth()->user()->com_code;
         $data = getColumnsIndex(
             new Employee,
-            array("id", "employee_code", "fp_code", "name", "branch_id", "job_grade_id", "job_categories_id", "work_start_date", "functional_status", "gender", "created_by", "updated_by"),
-            array("com_code" => $com_code),
-            "id",
-            "DESC"
+            ['id', 'employee_code', 'fp_code', 'name', 'branch_id', 'job_grade_id', 'job_categories_id', 'work_start_date', 'functional_status', 'gender', 'created_by', 'updated_by'],
+            ['com_code' => $com_code],
+            'id',
+            'DESC'
         )->get();
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['nationalities'] = Nationality::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['countires'] = Country::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
         $other['governorates'] = Governorate::orderBy('id', 'ASC')->get();
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['jobs'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
-
-        if (!empty($data)) {
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $info['employee_code']));
+                $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, ['com_code' => $com_code, 'employee_code' => $info['employee_code']]);
             }
         }
+
         return view('dashboard.affairs_employees.employees.index', compact('data', 'other'));
     }
 
@@ -77,19 +73,18 @@ class EmployeeController extends Controller
     public function create()
     {
         $com_code = auth()->user()->com_code;
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['nationalities'] = Nationality::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['countires'] = Country::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
         $other['governorates'] = Governorate::orderBy('id', 'ASC')->get();
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
-
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['jobs'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
         return view('dashboard.affairs_employees.employees.create', compact('other'));
     }
@@ -97,18 +92,16 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
     public function store(EmployeeRequest $request)
     {
         try {
             $com_code = auth()->user()->com_code;
             DB::beginTransaction();
-            $last_employee = get_cols_where_row_orderby(new Employee(), array("employee_code"), array("com_code" => $com_code), "employee_code", "DESC");
+            $last_employee = get_cols_where_row_orderby(new Employee, ['employee_code'], ['com_code' => $com_code], 'employee_code', 'DESC');
 
-            if (!empty($last_employee)) {  // لو القيم مش فاضية
-                $dataToInsert['employee_code'] =  $last_employee['employee_code'] + 1;          //هيزود رقم على كل موظف
-            } else //أول موظف يتم تسجيلة
-            {
+            if (! empty($last_employee)) {  // لو القيم مش فاضية
+                $dataToInsert['employee_code'] = $last_employee['employee_code'] + 1;          //هيزود رقم على كل موظف
+            } else { //أول موظف يتم تسجيلة
                 $dataToInsert['employee_code'] = 1; //بداية الترقيم
             }
 
@@ -120,7 +113,7 @@ class EmployeeController extends Controller
             if ($jobGrade) {
                 // التحقق مما إذا كان الراتب ضمن النطاق المسموح به
                 if ($request->salary < $jobGrade->min_salary || $request->salary > $jobGrade->max_salary) {
-                    return redirect()->back()->with(['error' => 'عفوا، يجب أن يكون المرتب بين الحد الأدنى والحد الأقصى للدرجة الوظيفية (' . $jobGrade->min_salary . ' - ' . $jobGrade->max_salary . ')'])->withInput();
+                    return redirect()->back()->with(['error' => 'عفوا، يجب أن يكون المرتب بين الحد الأدنى والحد الأقصى للدرجة الوظيفية ('.$jobGrade->min_salary.' - '.$jobGrade->max_salary.')'])->withInput();
                 } elseif (empty($dataToInsert['salary'])) {
                     $dataToInsert['salary'] = $request->salary;
                 } else {
@@ -185,9 +178,9 @@ class EmployeeController extends Controller
                 $dataToInsert['has_attendance'] = $request->has_attendance;
                 $dataToInsert['has_fixed_shift'] = $request->has_fixed_shift;
                 $dataToInsert['shift_types_id'] = $request->shift_types_id;
-                if ($request->has_fixed_shift == "Yes") {
-                    $shiftData = get_Columns_where_row(new ShiftsType(), "total_hours", array("com_code" => $com_code, "id" => $request->shift_types_id));
-                    if (!empty($shiftData)) {
+                if ($request->has_fixed_shift == 'Yes') {
+                    $shiftData = get_Columns_where_row(new ShiftsType, 'total_hours', ['com_code' => $com_code, 'id' => $request->shift_types_id]);
+                    if (! empty($shiftData)) {
                         $dataToInsert['daily_work_hour'] = $shiftData['total_hours'];
                     } else {
                         return redirect()->back()->with(['error' => 'عفوآ غير قادر على الوصول الى بيانات الشيفت المحدد للموظف'])->withInput();
@@ -195,7 +188,6 @@ class EmployeeController extends Controller
                 } else {
                     $dataToInsert['daily_work_hour'] = $request->daily_work_hour;
                 }
-
 
                 $dataToInsert['day_price'] = $request->day_price;
                 $dataToInsert['motivation_type'] = $request->motivation_type;
@@ -227,14 +219,13 @@ class EmployeeController extends Controller
                 $dataToInsert['years_service'] = $request->years_service;
                 $dataToInsert['is_Sensitive_manager_data'] = $request->is_Sensitive_manager_data;
 
-                if (!empty($request->salary)) {
+                if (! empty($request->salary)) {
 
                     $dataToInsert['day_price'] = $request->day_price;
                 }
 
                 $dataToInsert['created_by'] = auth()->user()->id;
                 $dataToInsert['com_code'] = $com_code;
-
 
                 if ($request->has('cv')) {
 
@@ -249,28 +240,27 @@ class EmployeeController extends Controller
                     $dataToInsert['cv'] = $the_file_path;
                 }
 
-                $employee = insert(new Employee(), $dataToInsert, true);
+                $employee = insert(new Employee, $dataToInsert, true);
                 if ($employee) {
                     if ($dataToInsert['salary'] > 0) {
                         $dataToInsertSalaryArchive['employee_id'] = $employee['id'];
                         $dataToInsertSalaryArchive['value'] = $dataToInsert['salary'];
                         $dataToInsertSalaryArchive['created_by'] = auth()->user()->id;
                         $dataToInsertSalaryArchive['com_code'] = $com_code;
-                        insert(new SalaryArchive(), $dataToInsertSalaryArchive);
+                        insert(new SalaryArchive, $dataToInsertSalaryArchive);
                     }
                 }
                 // Upload Photo
                 $this->verifyAndStoreImage($request, 'photo', 'employees/photo/', 'upload_image', $employee->id, 'App\Models\Employee');
 
-
-
-
                 DB::commit();
+
                 return redirect()->route('dashboard.employees.index')->with('success', 'تم أضافة بيانات الموظف بنجاح');
             }
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()])->withInput();
         }
     }
 
@@ -280,29 +270,28 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $com_code = auth()->user()->com_code;
-        $data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "id" => $id));
+        $data = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'id' => $id]);
         if (empty($data)) {
             return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !'])->withInput();
         }
 
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['branch_id']]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['qualification_id']]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['blood_types_id']]);
+        $other['nationalities'] = get_cols_where(new Nationality, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['nationality_id']]);
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['language_id']]);
+        $other['countires'] = get_cols_where(new Country, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['country_id']]);
+        $other['governorates'] = get_cols_where(new Governorate, ['id', 'name'], ['id' => $data['governorate_id']]);
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['city_id']]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['departement_id']]);
+        $other['jobs_categories'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'id' => $data['job_categories_id']]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "id" => $data['branch_id']));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "id" => $data['qualification_id']));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "id" => $data['blood_types_id']));
-        $other['nationalities'] = get_cols_where(new Nationality, array('id', 'name'), array('com_code' => $com_code, "id" => $data['nationality_id']));
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "id" => $data['language_id']));
-        $other['countires'] = get_cols_where(new Country, array('id', 'name'), array('com_code' => $com_code, "id" => $data['country_id']));
-        $other['governorates'] = get_cols_where(new Governorate, array('id', 'name'), array("id" => $data['governorate_id']));
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "id" => $data['city_id']));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "id" => $data['departement_id']));
-        $other['jobs_categories'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "id" => $data['job_categories_id']));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
-
-        $other['employee_files'] = get_cols_where(new EmployeeFile(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
+        $other['employee_files'] = get_cols_where(new EmployeeFile, ['*'], ['com_code' => $com_code, 'employee_id' => $id]);
         if ($data['fixed_allowances'] == 1) {
-            $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
-            $other['allowances'] = get_cols_where(new Allowance(), array('id', 'name'), array('active' => 1, 'com_code' => $com_code), 'id', 'ASC');
+            $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance, ['*'], ['com_code' => $com_code, 'employee_id' => $id]);
+            $other['allowances'] = get_cols_where(new Allowance, ['id', 'name'], ['active' => 1, 'com_code' => $com_code], 'id', 'ASC');
         }
 
         return view('dashboard.affairs_employees.employees.show', compact('data', 'other'));
@@ -314,25 +303,23 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $com_code = auth()->user()->com_code;
-        $data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "id" => $id));
+        $data = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'id' => $id]);
         if (empty($data)) {
             return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !'])->withInput();
         }
 
-
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['nationalities'] = Nationality::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['countires'] = Country::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
         $other['governorates'] = Governorate::orderBy('id', 'ASC')->get();
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
-
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['jobs'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
         return view('dashboard.affairs_employees.employees.edit', compact('data', 'other'));
     }
@@ -344,17 +331,16 @@ class EmployeeController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $employee = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "id" => $id));
+            $employee = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'id' => $id]);
 
             if (empty($employee)) {
                 return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !']);
             }
 
-            $CheckExsists_fb_code = Employee::select("id")->where("com_code", "=", $com_code)->where("fp_code", "=", $request->fp_code)->where('id', '!=', $id)->first();
-            if (!empty($CheckExsists_fb_code)) {
+            $CheckExsists_fb_code = Employee::select('id')->where('com_code', '=', $com_code)->where('fp_code', '=', $request->fp_code)->where('id', '!=', $id)->first();
+            if (! empty($CheckExsists_fb_code)) {
                 return redirect()->back()->with(['error' => 'عفوا هذا الكود مسجل من قبل '])->withInput();
             }
-
 
             // جلب الدرجة الوظيفية بناءً على com_code و job_grade_id
             $jobGrade = JobGrade::where('com_code', $com_code)
@@ -364,13 +350,12 @@ class EmployeeController extends Controller
             if ($jobGrade) {
                 // التحقق مما إذا كان الراتب ضمن النطاق المسموح به
                 if ($request->salary < $jobGrade->min_salary || $request->salary > $jobGrade->max_salary) {
-                    return redirect()->back()->with(['error' => 'عفوا، يجب أن يكون المرتب بين الحد الأدنى والحد الأقصى للدرجة الوظيفية (' . $jobGrade->min_salary . ' - ' . $jobGrade->max_salary . ')'])->withInput();
+                    return redirect()->back()->with(['error' => 'عفوا، يجب أن يكون المرتب بين الحد الأدنى والحد الأقصى للدرجة الوظيفية ('.$jobGrade->min_salary.' - '.$jobGrade->max_salary.')'])->withInput();
                 } elseif (empty($dataToInsert['salary'])) {
                     $dataToUpdate['salary'] = $request->salary;
                 } else {
                     return redirect()->back()->with(['error' => 'الدرجة الوظيفية غير موجودة.'])->withInput();
                 }
-
 
                 DB::beginTransaction();
 
@@ -398,9 +383,6 @@ class EmployeeController extends Controller
                 $dataToUpdate['work_telephone'] = $request->work_telephone;
                 $dataToUpdate['mobile'] = $request->mobile;
 
-
-
-
                 $military = $request->military;
 
                 if (in_array($military, ['Complete', 'Exemption', 'Exemption_Temporary'])) {
@@ -420,7 +402,6 @@ class EmployeeController extends Controller
                     $dataToUpdate['military'] = null;
                 }
 
-
                 $dataToUpdate['date_resignation'] = $request->date_resignation;
                 $dataToUpdate['resignation_reason'] = $request->resignation_reason;
                 $dataToUpdate['driving_license'] = $request->driving_license;
@@ -436,9 +417,9 @@ class EmployeeController extends Controller
                 $dataToUpdate['has_attendance'] = $request->has_attendance;
                 $dataToUpdate['has_fixed_shift'] = $request->has_fixed_shift;
                 $dataToUpdate['shift_types_id'] = $request->shift_types_id;
-                if ($request->has_fixed_shift == "Yes") {
-                    $shiftData = get_Columns_where_row(new ShiftsType(), "total_hours", array("com_code" => $com_code, "id" => $request->shift_types_id));
-                    if (!empty($shiftData)) {
+                if ($request->has_fixed_shift == 'Yes') {
+                    $shiftData = get_Columns_where_row(new ShiftsType, 'total_hours', ['com_code' => $com_code, 'id' => $request->shift_types_id]);
+                    if (! empty($shiftData)) {
                         $dataToUpdate['daily_work_hour'] = $shiftData['total_hours'];
                     } else {
                         return redirect()->back()->with(['error' => 'عفوآ غير قادر على الوصول الى بيانات الشيفت المحدد للموظف'])->withInput();
@@ -449,12 +430,9 @@ class EmployeeController extends Controller
                 $dataToUpdate['salary'] = $request->salary;
                 $dataToUpdate['day_price'] = $request->day_price;
 
-
                 $dataToUpdate['num_vacation_days'] = $request->num_vacation_days;
                 $dataToUpdate['add_service'] = $request->add_service;
                 $dataToUpdate['years_service'] = $request->years_service;
-
-
 
                 $dataToUpdate['motivation_type'] = $request->motivation_type;
                 $dataToUpdate['motivation'] = $request->motivation;
@@ -484,22 +462,17 @@ class EmployeeController extends Controller
                 $dataToUpdate['updated_by'] = auth()->user()->id;
                 $dataToUpdate['com_code'] = $com_code;
 
-
-
-
                 // التحقق من وجود الصورة وتحديثها إذا لزم الأمر
                 if ($request->has('photo')) {
                     // حذف الصورة القديمة
                     if ($employee->image) {
                         $old_img = $employee->image->filename;
-                        $this->Delete_attachment('upload_image', 'employees/photo/' . $old_img, $request->id);
+                        $this->Delete_attachment('upload_image', 'employees/photo/'.$old_img, $request->id);
                         $employee->image()->delete(); // حذف السجل القديم للصورة من قاعدة البيانات
                     }
                     // رفع الصورة الجديدة وتخزينها في قاعدة البيانات
                     $this->verifyAndStoreImage($request, 'photo', 'employees/photo/', 'upload_image', $employee->id, 'App\Models\Employee');
                 }
-
-
 
                 // التحقق من وجود CV جديد وتحديثه إذا لزم الأمر
                 if ($request->has('cv')) {
@@ -512,7 +485,7 @@ class EmployeeController extends Controller
 
                     // حذف ال CV القديم
                     if ($employee->cv) {
-                        $old_cv_path = 'dashboard/assets/uploads/employees/cv/' . $employee->cv;
+                        $old_cv_path = 'dashboard/assets/uploads/employees/cv/'.$employee->cv;
                         if (file_exists(public_path($old_cv_path))) {
                             unlink(public_path($old_cv_path));
                         }
@@ -523,49 +496,45 @@ class EmployeeController extends Controller
                     $employee->update(['cv' => $the_file_path]);
                 }
 
-
-
-
-
                 // تحديث بيانات الموظف
-                $flag = update(new Employee(), $dataToUpdate, array("com_code" => $com_code, "id" => $id));
+                $flag = update(new Employee, $dataToUpdate, ['com_code' => $com_code, 'id' => $id]);
 
                 if ($flag) {
 
                     //إذا كان فى اختلاف فى الراتب قيمة الراتب الحديث عن الراتب القديم ينزل له أرشيف
-
 
                     if ($dataToUpdate['salary'] != $employee['salary']) {
                         $dataToInsertSalaryArchive['employee_id'] = $id;
                         $dataToInsertSalaryArchive['value'] = $dataToUpdate['salary'];
                         $dataToInsertSalaryArchive['created_by'] = auth()->user()->id;
                         $dataToInsertSalaryArchive['com_code'] = $com_code;
-                        insert(new SalaryArchive(), $dataToInsertSalaryArchive);
+                        insert(new SalaryArchive, $dataToInsertSalaryArchive);
                     }
 
                     // استدعاء إعادة حساب المرتب بعد أي تحديث
-                    $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, "employee_code" => $employee['employee_code'], 'is_archived' => 0));
+                    $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'employee_code' => $employee['employee_code'], 'is_archived' => 0]);
 
-                    if (!empty($currentSalaryData)) {
+                    if (! empty($currentSalaryData)) {
                         $this->recalculateMainSalaryEmployee($currentSalaryData['id']);
                     }
                 }
 
-
                 DB::commit();
             }
-            return  redirect()->route('dashboard.employees.index')->with(['success' => 'تم تحديث بيانات الموظف بنجاح']);
+
+            return redirect()->route('dashboard.employees.index')->with(['success' => 'تم تحديث بيانات الموظف بنجاح']);
         } catch (\Exception $ex) {
 
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()])->withInput();
         }
     }
 
     public function destroy(Request $request, $id)
     {
         $com_code = auth()->user()->com_code;
-        $data = get_Columns_where_row(new Employee(), ['*'], ['com_code' => $com_code, 'id' => $id]);
+        $data = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'id' => $id]);
 
         if (empty($data)) {
             return redirect()->back()->with(['error' => 'عفوا، اسم الموظف مسجل من قبل!'])->withInput();
@@ -576,38 +545,37 @@ class EmployeeController extends Controller
             // التحقق من وجود صورة
             if ($data->image) {
                 $filename = $data->image->filename;
-                $path = 'employees/photo/' . $filename;
+                $path = 'employees/photo/'.$filename;
 
                 // حذف الصورة
                 $this->Delete_attachment('upload_image', $path, $data->image->id);
             }
 
-
-
-            $CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $data['employee_code']));
+            $CounterUsedBefore = get_count_where(new MainSalaryEmployee, ['com_code' => $com_code, 'employee_code' => $data['employee_code']]);
             if ($CounterUsedBefore != 0) {
                 return redirect()->back()->with('error', 'عفوآ . هذا الموظف له سجلات للراوتب من قبل  ومتاح فقط تعطيلة لخارج الخدمه');
             }
-
 
             // حذف الموظف
             Employee::destroy($id);
 
             session()->flash('success', 'تم حذف الموظف بنجاح');
+
             return back();
         }
 
         // العودة مع رسالة خطأ إذا لم يكن $request->page_id يساوي 1
         session()->flash('error', 'خطأ في عملية الحذف');
+
         return back();
     }
-
 
     public function getcities(Request $request)
     {
         if ($request->ajax()) {
             $governorate_id = $request->governorate_id;
-            $other['cities'] = get_cols_where(new City(), array("id", "name"), array("com_code" => auth()->user()->com_code, 'governorate_id' => $governorate_id), 'id', 'ASC');
+            $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => auth()->user()->com_code, 'governorate_id' => $governorate_id], 'id', 'ASC');
+
             return view('dashboard.affairs_employees.employees.get_cities', ['other' => $other]);
         }
     }
@@ -616,11 +584,11 @@ class EmployeeController extends Controller
     {
         if ($request->ajax()) {
             $country_id = $request->country_id;
-            $other['governorates'] = get_cols_where(new Governorate(), array("id", "name"), array('country_id' => $country_id), 'id', 'ASC');
+            $other['governorates'] = get_cols_where(new Governorate, ['id', 'name'], ['country_id' => $country_id], 'id', 'ASC');
+
             return view('dashboard.affairs_employees.employees.get_governorates', ['other' => $other]);
         }
     }
-
 
     public function ajax_search(Request $request)
     {
@@ -650,11 +618,11 @@ class EmployeeController extends Controller
             // اضف باقي شروط البحث هنا
             // مثال:
             if ($request->filled('name')) {
-                $query->where('name', 'like', '%' . $request->name . '%');
+                $query->where('name', 'like', '%'.$request->name.'%');
             }
 
             if ($name != '') {
-                $query->where('name', 'like', '%' . $name . '%');
+                $query->where('name', 'like', '%'.$name.'%');
             }
 
             if ($branch_id != 'all') {
@@ -685,10 +653,9 @@ class EmployeeController extends Controller
                 $query->where('gender', $gender);
             }
 
-
-            if (!empty($data)) {
+            if (! empty($data)) {
                 foreach ($data as $info) {
-                    $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $info['employee_code']));
+                    $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, ['com_code' => $com_code, 'employee_code' => $info['employee_code']]);
                 }
             }
 
@@ -698,18 +665,17 @@ class EmployeeController extends Controller
         }
     }
 
-
     public function add_files(Request $request, $id)
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Employee(), array("id"), array("com_code" => $com_code, "id" => $id));
+            $data = get_Columns_where_row(new Employee, ['id'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($data)) {
                 return redirect()->back()->with(['error' => 'عفوا اغير قادر للوصول على البيانات المطلوبة !']);
             }
 
-            $checkExists = EmployeeFile::select("id")->where('com_code', "=", $com_code)->where("desc_file", "=", $request->desc_file)->where("employee_id", "=", $id)->first();
-            if (!empty($checkExists)) {
+            $checkExists = EmployeeFile::select('id')->where('com_code', '=', $com_code)->where('desc_file', '=', $request->desc_file)->where('employee_id', '=', $id)->first();
+            if (! empty($checkExists)) {
                 return redirect()->back()->with(['error' => 'عفوا اسم الملف موجود من قبل!']);
             }
             DB::beginTransaction();
@@ -735,22 +701,22 @@ class EmployeeController extends Controller
                 $dataToInsert['file_path'] = $the_file_path;
             }
 
-            insert(new EmployeeFile(), $dataToInsert);
-
+            insert(new EmployeeFile, $dataToInsert);
 
             DB::commit();
-            return  redirect()->back()->with(['success' => 'تم أضافة المرفقات بنجاح']);
+
+            return redirect()->back()->with(['success' => 'تم أضافة المرفقات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()]);
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()]);
         }
     }
-
 
     public function destroy_file(Request $request, $id)
     {
         $com_code = auth()->user()->com_code;
-        $employee_files = get_Columns_where_row(new EmployeeFile(), ['*'], ['com_code' => $com_code, 'id' => $id]);
+        $employee_files = get_Columns_where_row(new EmployeeFile, ['*'], ['com_code' => $com_code, 'id' => $id]);
 
         if (empty($employee_files)) {
             return redirect()->back()->with(['error' => 'عفوا، اسم الموظف مسجل من قبل!'])->withInput();
@@ -761,7 +727,7 @@ class EmployeeController extends Controller
             // التحقق من وجود صورة
             if ($employee_files['file_path']) {
                 $filename = $employee_files['file_path'];
-                $path = 'dashboard/assets/uploads/employees/new/' . $filename;
+                $path = 'dashboard/assets/uploads/employees/new/'.$filename;
 
                 // التحقق من وجود الملف على الخادم وحذفه
                 if (file_exists(public_path($path))) {
@@ -773,25 +739,26 @@ class EmployeeController extends Controller
             EmployeeFile::destroy($id);
 
             session()->flash('success', 'تم حذف الملف بنجاح');
+
             return back();
         }
 
         // العودة مع رسالة خطأ إذا لم يكن $request->page_id يساوي 1
         session()->flash('error', 'خطأ في عملية الحذف');
+
         return back();
     }
-
 
     public function add_allowance(Request $request, $id)
     {
         try {
             $com_code = auth()->user()->com_code;
-            $dataEmployee = get_Columns_where_row(new Employee(), array("id", "employee_code"), array("com_code" => $com_code, "id" => $id));
+            $dataEmployee = get_Columns_where_row(new Employee, ['id', 'employee_code'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($dataEmployee)) {
                 return redirect()->back()->with(['error' => 'عفوا اغير قادر للوصول على البيانات المطلوبة !']);
             }
-            $checkExists = EmployeeFixedAllowance::select("id")->where('com_code', "=", $com_code)->where("allowance_id", "=", $request->allowance_id)->where("employee_id", "=", $id)->first();
-            if (!empty($checkExists)) {
+            $checkExists = EmployeeFixedAllowance::select('id')->where('com_code', '=', $com_code)->where('allowance_id', '=', $request->allowance_id)->where('employee_id', '=', $id)->first();
+            if (! empty($checkExists)) {
                 return redirect()->back()->with(['error' => 'عفوا البدل الثابت موجود من قبل!']);
             }
             DB::beginTransaction();
@@ -803,38 +770,38 @@ class EmployeeController extends Controller
             $dataToInsert['created_by'] = auth()->user()->id;
             $dataToInsert['updated_by'] = auth()->user()->id;
             $dataToInsert['com_code'] = $com_code;
-            $flag = insert(new EmployeeFixedAllowance(), $dataToInsert);
+            $flag = insert(new EmployeeFixedAllowance, $dataToInsert);
 
             if ($flag) {
                 // إذا كان حدث تعديل على المرتب يتم أحتسابة
-                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, "employee_code" => $dataEmployee['employee_code'], 'is_archived' => 0));
+                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'employee_code' => $dataEmployee['employee_code'], 'is_archived' => 0]);
 
-                if (!empty($currentSalaryData)) {
+                if (! empty($currentSalaryData)) {
                     $this->recalculateMainSalaryEmployee($currentSalaryData['id']);
                 }
             }
 
             DB::commit();
-            return  redirect()->back()->with(['success' => 'تم أضافة البدلات بنجاح']);
+
+            return redirect()->back()->with(['success' => 'تم أضافة البدلات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()]);
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()]);
         }
     }
-
 
     public function load_edit_allowances(Request $request)
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
 
-            $data = get_Columns_where_row(new EmployeeFixedAllowance(), array("*"), array("com_code" => $com_code, 'id' => $request->id));
-            $other['allowances'] = get_cols_where(new Allowance(), array('id', 'name'), array('active' => 1, 'com_code' => $com_code), 'id', 'ASC');
+            $data = get_Columns_where_row(new EmployeeFixedAllowance, ['*'], ['com_code' => $com_code, 'id' => $request->id]);
+            $other['allowances'] = get_cols_where(new Allowance, ['id', 'name'], ['active' => 1, 'com_code' => $com_code], 'id', 'ASC');
 
             return view('dashboard.affairs_employees.employees.load_edit_allowances', ['data' => $data, 'other' => $other]);
         }
     }
-
 
     public function do_edit_allowances(Request $request)
     {
@@ -842,12 +809,12 @@ class EmployeeController extends Controller
             $com_code = auth()->user()->com_code;
 
             // تحقق من وجود السماح الثابت
-            $allowance = EmployeeFixedAllowance::select("id", "employee_id")->where('com_code', $com_code)->where('id', $request->id)->first();
-            if (!$allowance) {
+            $allowance = EmployeeFixedAllowance::select('id', 'employee_id')->where('com_code', $com_code)->where('id', $request->id)->first();
+            if (! $allowance) {
                 return redirect()->back()->with(['error' => 'عفوا، البدل الثابت غير موجود!']);
             }
-            $dataEmployee = get_Columns_where_row(new Employee(), array("employee_code"), array("com_code" => $com_code, "id" => $allowance['employee_id']));
-            if (!$dataEmployee) {
+            $dataEmployee = get_Columns_where_row(new Employee, ['employee_code'], ['com_code' => $com_code, 'id' => $allowance['employee_id']]);
+            if (! $dataEmployee) {
                 return redirect()->back()->with(['error' => 'عفوا، البدل الثابت غير موجود!']);
             }
             DB::beginTransaction();
@@ -861,30 +828,31 @@ class EmployeeController extends Controller
 
             if ($flag) {
                 // إذا كان حدث تعديل على المرتب يتم أحتسابة
-                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, "employee_code" => $dataEmployee['employee_code'], 'is_archived' => 0));
+                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'employee_code' => $dataEmployee['employee_code'], 'is_archived' => 0]);
 
-                if (!empty($currentSalaryData)) {
+                if (! empty($currentSalaryData)) {
                     $this->recalculateMainSalaryEmployee($currentSalaryData['id']);
                 }
             }
 
             DB::commit();
+
             return redirect()->back()->with(['success' => 'تم تحديث البدل الثابت بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا، حدث خطأ ما: ' . $ex->getMessage()]);
+
+            return redirect()->back()->with(['error' => 'عفوا، حدث خطأ ما: '.$ex->getMessage()]);
         }
     }
-
 
     public function destroy_allowance(Request $request, $id)
     {
         try {
             $com_code = auth()->user()->com_code;
-            $allowance = EmployeeFixedAllowance::select("id", "employee_id")->where('com_code', $com_code)->where('id', $id)->first();
+            $allowance = EmployeeFixedAllowance::select('id', 'employee_id')->where('com_code', $com_code)->where('id', $id)->first();
 
-            $dataEmployee = get_Columns_where_row(new Employee(), array("employee_code"), array("com_code" => $com_code, "id" => $allowance['employee_id']));
-            if (!$dataEmployee) {
+            $dataEmployee = get_Columns_where_row(new Employee, ['employee_code'], ['com_code' => $com_code, 'id' => $allowance['employee_id']]);
+            if (! $dataEmployee) {
                 return redirect()->back()->with(['error' => 'عفوا، البدل الثابت غير موجود!']);
             }
             DB::beginTransaction();
@@ -893,25 +861,28 @@ class EmployeeController extends Controller
             $flag = EmployeeFixedAllowance::destroy($id);
             if ($flag) {
                 // إذا كان حدث تعديل على المرتب يتم أحتسابة
-                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee(), array("id"), array("com_code" => $com_code, "employee_code" => $dataEmployee['employee_code'], 'is_archived' => 0));
+                $currentSalaryData = get_Columns_where_row(new MainSalaryEmployee, ['id'], ['com_code' => $com_code, 'employee_code' => $dataEmployee['employee_code'], 'is_archived' => 0]);
 
-                if (!empty($currentSalaryData)) {
+                if (! empty($currentSalaryData)) {
                     $this->recalculateMainSalaryEmployee($currentSalaryData['id']);
                 }
             }
             // التحقق مما إذا كان page_id لا يساوي 1
             if ($request->page_id != 1) {
                 session()->flash('error', 'خطأ في عملية الحذف');
+
                 return back();
             }
 
             // العودة مع رسالة نجاح إذا كانت العملية ناجحة
             DB::commit();
             session()->flash('success', 'تم حذف البدل الثابت للموظف بنجاح');
+
             return redirect()->back()->with(['success' => 'تم تحديث البدل الثابت بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا، حدث خطأ ما: ' . $ex->getMessage()]);
+
+            return redirect()->back()->with(['error' => 'عفوا، حدث خطأ ما: '.$ex->getMessage()]);
         }
     }
 
@@ -919,12 +890,11 @@ class EmployeeController extends Controller
     {
         if ($request->ajax()) {
             $com_code = auth()->user()->com_code;
-            $data = get_cols_where(new SalaryArchive(), array("*"), array("com_code" => $com_code, "employee_id" => $request->id));
+            $data = get_cols_where(new SalaryArchive, ['*'], ['com_code' => $com_code, 'employee_id' => $request->id]);
+
             return view('dashboard.affairs_employees.employees.showSalaryArchived', compact('data'));
         }
     }
-
-
 
     public function checkExsistsSalaryMax(Request $request)
     {
@@ -940,19 +910,20 @@ class EmployeeController extends Controller
 
             // تحقق مما إذا كان قد تم العثور على الدرجة الوظيفية
             if ($jobGrade) {
-                return response()->json("لقد تخطيت المرتب", 200);
+                return response()->json('لقد تخطيت المرتب', 200);
             } else {
-                return response()->json("no_exsists_befor", 200);
+                return response()->json('no_exsists_befor', 200);
             }
         }
     }
 
-
-    public function export(){
-        return Excel::download(new EmployeeExport(), 'employees.xlsx');
+    public function export()
+    {
+        return Excel::download(new EmployeeExport, 'employees.xlsx');
     }
 
-    public function import(){
+    public function import()
+    {
         //
     }
 }

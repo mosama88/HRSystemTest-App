@@ -9,7 +9,7 @@ class EmployeeSalaryLoan extends Model
 {
     use HasFactory;
 
-    protected $table = "employee_salary_loans";
+    protected $table = 'employee_salary_loans';
 
     protected $guarded = [];
 
@@ -27,7 +27,6 @@ class EmployeeSalaryLoan extends Model
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

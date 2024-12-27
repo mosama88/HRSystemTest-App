@@ -32,7 +32,6 @@ class LoginRequest extends FormRequest
         ];
     }
 
-
     public function messages(): array
     {
         return [
@@ -41,8 +40,6 @@ class LoginRequest extends FormRequest
             'password.required' => 'كلمة المرور مطلوبه',
         ];
     }
-
-
 
     /**
      * Attempt to authenticate the request's credentials.

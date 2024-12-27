@@ -2,75 +2,223 @@
 
 namespace App\Livewire\Dashboard\AffairsEmployees\Employees;
 
-use App\Models\City;
-use App\Models\Branch;
-use App\Models\Country;
-use Livewire\Component;
-use App\Models\Employee;
-use App\Models\JobGrade;
-use App\Models\Language;
-use App\Models\BloodType;
-use App\Models\Department;
-use App\Models\ShiftsType;
-use App\Models\Governorate;
-use App\Models\Nationality;
-use App\Traits\UploadTrait;
-use App\Models\JobsCategory;
-use App\Traits\GeneralTrait;
-use App\Models\Qualification;
-use Livewire\WithFileUploads;
 use App\Http\Requests\Dashboard\EmployeeRequest;
+use App\Models\BloodType;
+use App\Models\Branch;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Department;
+use App\Models\Governorate;
+use App\Models\JobGrade;
+use App\Models\JobsCategory;
+use App\Models\Language;
+use App\Models\Nationality;
+use App\Models\Qualification;
+use App\Models\ShiftsType;
+use App\Traits\GeneralTrait;
+use App\Traits\UploadTrait;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EmployeesCreate extends Component
 {
+    use GeneralTrait;
+    use UploadTrait;
     use WithFileUploads;
 
-    use UploadTrait;
-    use GeneralTrait;
+    public $employee_code;
 
+    public $fp_code;
 
+    public $name;
 
-    public 
-    $employee_code,$fp_code,$name ,$gender,$branch_id ,$job_grade_id ,$qualification_id ,$qualification_year,$major,$graduation_estimate,$birth_date,$national_id ,$end_national_id,$national_id_place,$blood_types_id ,$religion,$language_id ,
-    $email ,$country_id ,$governorate_id ,$city_id ,$home_telephone,$work_telephone,
-    $mobile,$military,$military_date_from,$military_date_to,$military_wepon,$military_exemption_date,$military_exemption_reason,$military_postponement_reason,
-    $date_resignation,$resignation_reason,$driving_license,$driving_license_type,
-    $driving_License_id,$has_relatives,$relatives_details,$notes,$work_start_date,$functional_status,$department_id ,$job_categories_id ,$has_attendance,$has_fixed_shift,$shift_types_id ,
-    $daily_work_hour,$salary,$day_price,$motivation_type,$motivation,$social_insurance,$social_insurance_cut_monthely,$social_insurance_number,$medical_insurance,$medical_insurance_cut_monthely,
-    $medical_insurance_number,$Type_salary_receipt,$active_vacation,$urgent_person_details,$staies_address,$children_number,$social_status,$resignation_id ,$bank_number_account,$disabilities,$disabilities_type,
-    $nationality_id ,$name_sponsor,$pasport_identity,$pasport_from_place,$pasport_exp_date,$num_vacation_days,$add_service,$years_service,$cv,$basic_address_country,$fixed_allowances,$is_done_Vacation_formula,$is_Sensitive_manager_data,$photo;
+    public $gender;
+
+    public $branch_id;
+
+    public $job_grade_id;
+
+    public $qualification_id;
+
+    public $qualification_year;
+
+    public $major;
+
+    public $graduation_estimate;
+
+    public $birth_date;
+
+    public $national_id;
+
+    public $end_national_id;
+
+    public $national_id_place;
+
+    public $blood_types_id;
+
+    public $religion;
+
+    public $language_id;
+
+    public $email;
+
+    public $country_id;
+
+    public $governorate_id;
+
+    public $city_id;
+
+    public $home_telephone;
+
+    public $work_telephone;
+
+    public $mobile;
+
+    public $military;
+
+    public $military_date_from;
+
+    public $military_date_to;
+
+    public $military_wepon;
+
+    public $military_exemption_date;
+
+    public $military_exemption_reason;
+
+    public $military_postponement_reason;
+
+    public $date_resignation;
+
+    public $resignation_reason;
+
+    public $driving_license;
+
+    public $driving_license_type;
+
+    public $driving_License_id;
+
+    public $has_relatives;
+
+    public $relatives_details;
+
+    public $notes;
+
+    public $work_start_date;
+
+    public $functional_status;
+
+    public $department_id;
+
+    public $job_categories_id;
+
+    public $has_attendance;
+
+    public $has_fixed_shift;
+
+    public $shift_types_id;
+
+    public $daily_work_hour;
+
+    public $salary;
+
+    public $day_price;
+
+    public $motivation_type;
+
+    public $motivation;
+
+    public $social_insurance;
+
+    public $social_insurance_cut_monthely;
+
+    public $social_insurance_number;
+
+    public $medical_insurance;
+
+    public $medical_insurance_cut_monthely;
+
+    public $medical_insurance_number;
+
+    public $Type_salary_receipt;
+
+    public $active_vacation;
+
+    public $urgent_person_details;
+
+    public $staies_address;
+
+    public $children_number;
+
+    public $social_status;
+
+    public $resignation_id;
+
+    public $bank_number_account;
+
+    public $disabilities;
+
+    public $disabilities_type;
+
+    public $nationality_id;
+
+    public $name_sponsor;
+
+    public $pasport_identity;
+
+    public $pasport_from_place;
+
+    public $pasport_exp_date;
+
+    public $num_vacation_days;
+
+    public $add_service;
+
+    public $years_service;
+
+    public $cv;
+
+    public $basic_address_country;
+
+    public $fixed_allowances;
+
+    public $is_done_Vacation_formula;
+
+    public $is_Sensitive_manager_data;
+
+    public $photo;
+
     public function rules()
     {
-        return (new EmployeeRequest())->rules();
+        return (new EmployeeRequest)->rules();
     }
-
 
     public function messages()
     {
-        return (new EmployeeRequest())->messages();
+        return (new EmployeeRequest)->messages();
     }
 
- public function submit()
+    public function submit()
     {
-    $this->validate();
+        $this->validate();
     }
 
     public function render()
     {
         $com_code = auth()->user()->com_code;
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['nationalities'] = Nationality::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['countires'] = Country::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
         $other['governorates'] = Governorate::orderBy('id', 'ASC')->get();
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['jobs'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
-        return view('dashboard.affairs_employees.employees.employees-create',compact('other'));
+        return view('dashboard.affairs_employees.employees.employees-create', compact('other'));
     }
 }

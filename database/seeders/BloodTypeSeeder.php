@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class BloodTypeSeeder extends Seeder
 {
@@ -13,7 +12,7 @@ class BloodTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         DB::table('blood_types')->delete();
         DB::table('blood_types')->insert([
             [
@@ -25,7 +24,6 @@ class BloodTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('blood_types')->insert([
             [
                 'name' => 'A -',
@@ -35,8 +33,6 @@ class BloodTypeSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
-
 
         DB::table('blood_types')->insert([
             [
@@ -48,7 +44,6 @@ class BloodTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('blood_types')->insert([
             [
                 'name' => 'B +',
@@ -59,7 +54,6 @@ class BloodTypeSeeder extends Seeder
             ],
         ]);
 
-
         DB::table('blood_types')->insert([
             [
                 'name' => 'B -',
@@ -69,7 +63,6 @@ class BloodTypeSeeder extends Seeder
                 'updated_by' => 1,
             ],
         ]);
-
 
         DB::table('blood_types')->insert([
             [

@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers\Dashboard\Vacations;
 
-use App\Models\City;
-use App\Models\Branch;
-use App\Models\Country;
-use App\Models\Employee;
-use App\Models\JobGrade;
-use App\Models\Language;
-use App\Models\Allowance;
-use App\Models\BloodType;
-use App\Models\Department;
-use App\Models\ShiftsType;
-use App\Models\Governorate;
-use App\Models\Nationality;
-use App\Models\EmployeeFile;
-use App\Models\JobsCategory;
-use Illuminate\Http\Request;
-use App\Models\Qualification;
-use App\Models\MainSalaryEmployee;
 use App\Http\Controllers\Controller;
 use App\Models\AdminPanelSetting;
+use App\Models\Allowance;
+use App\Models\BloodType;
+use App\Models\Branch;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\EmployeeFile;
 use App\Models\EmployeeFixedAllowance;
 use App\Models\FinanceClnPeriod;
+use App\Models\Governorate;
+use App\Models\JobGrade;
+use App\Models\JobsCategory;
+use App\Models\Language;
 use App\Models\MainEmployeesVacationBalance;
+use App\Models\MainSalaryEmployee;
+use App\Models\Nationality;
+use App\Models\Qualification;
+use App\Models\ShiftsType;
+use Illuminate\Http\Request;
 
 class MainEmployeesVacationBalanceController extends Controller
 {
@@ -33,26 +33,26 @@ class MainEmployeesVacationBalanceController extends Controller
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new Employee(), array("*"), array("com_code" => $com_code), "id", "DESC")->get();
-        $other['branches'] = get_cols_where(new Branch, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['qualifications'] = get_cols_where(new Qualification, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['blood_types'] = get_cols_where(new BloodType, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $data = getColumnsIndex(new Employee, ['*'], ['com_code' => $com_code], 'id', 'DESC')->get();
+        $other['branches'] = get_cols_where(new Branch, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['qualifications'] = get_cols_where(new Qualification, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['blood_types'] = get_cols_where(new BloodType, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['nationalities'] = Nationality::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
-        $other['languages'] = get_cols_where(new Language, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
+        $other['languages'] = get_cols_where(new Language, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
         $other['countires'] = Country::orderBy('id', 'ASC')->where(['com_code' => $com_code, 'active' => 1])->get();
         $other['governorates'] = Governorate::orderBy('id', 'ASC')->get();
-        $other['cities'] = get_cols_where(new City, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['departements'] = get_cols_where(new Department, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['jobs'] = get_cols_where(new JobsCategory, array('id', 'name'), array('com_code' => $com_code, "active" => 1));
-        $other['shifts_types'] = get_cols_where(new ShiftsType, array('id', 'type', 'from_time', 'to_time', 'total_hours'), array('com_code' => $com_code, "active" => 1));
-        $other['job_grades'] = get_cols_where(new JobGrade(), array('id', 'job_grades_code', 'name', 'min_salary', 'max_salary'), array('com_code' => $com_code, "active" => 1));
+        $other['cities'] = get_cols_where(new City, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['departements'] = get_cols_where(new Department, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['jobs'] = get_cols_where(new JobsCategory, ['id', 'name'], ['com_code' => $com_code, 'active' => 1]);
+        $other['shifts_types'] = get_cols_where(new ShiftsType, ['id', 'type', 'from_time', 'to_time', 'total_hours'], ['com_code' => $com_code, 'active' => 1]);
+        $other['job_grades'] = get_cols_where(new JobGrade, ['id', 'job_grades_code', 'name', 'min_salary', 'max_salary'], ['com_code' => $com_code, 'active' => 1]);
 
-
-        if (!empty($data)) {
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $info['employee_code']));
+                $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, ['com_code' => $com_code, 'employee_code' => $info['employee_code']]);
             }
         }
+
         return view('dashboard.vacationsBalance.index', compact('data', 'other'));
     }
 
@@ -78,17 +78,18 @@ class MainEmployeesVacationBalanceController extends Controller
     public function show($id)
     {
         $com_code = auth()->user()->com_code;
-        $data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "id" => $id));
+        $data = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'id' => $id]);
         if (empty($data)) {
             return redirect()->back()->with(['error' => 'عفوا اسم الموظف مسجل من قبل !'])->withInput();
         }
 
-        $other['employee_files'] = get_cols_where(new EmployeeFile(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
+        $other['employee_files'] = get_cols_where(new EmployeeFile, ['*'], ['com_code' => $com_code, 'employee_id' => $id]);
         if ($data['fixed_allowances'] == 1) {
-            $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance(), array('*'), array('com_code' => $com_code, "employee_id" => $id));
-            $other['allowances'] = get_cols_where(new Allowance(), array('id', 'name'), array('active' => 1, 'com_code' => $com_code), 'id', 'ASC');
+            $data['employee_fixed_allowances'] = get_cols_where(new EmployeeFixedAllowance, ['*'], ['com_code' => $com_code, 'employee_id' => $id]);
+            $other['allowances'] = get_cols_where(new Allowance, ['id', 'name'], ['active' => 1, 'com_code' => $com_code], 'id', 'ASC');
         }
         $this->calculate_employees_vacations_balance($data['employee_code']);
+
         return view('dashboard.vacationsBalance.show', compact('data', 'other'));
     }
 
@@ -104,26 +105,25 @@ class MainEmployeesVacationBalanceController extends Controller
     5- فى حالة انه تم تنفيذ الدالة سابقآ سيكون فقط الرصيد المرحل من الشهر السابق على رصيد الشهر الحالى
   */
 
-
         //   بداية دالة أحتساب رصيد أجازات السنوى والشهرى
-        $employee_data = get_Columns_where_row(new Employee(), array("*"), array("com_code" => $com_code, "employee_code" => $employee_code, 'functional_status' => 'Employee', 'active_vacation' => 'Yes'));
-        $admin_panel_settingsData = get_Columns_where_row(new AdminPanelSetting(), array("*"), array("com_code" => $com_code));
-        if (!empty($employee_data) && !empty($admin_panel_settingsData)) {
+        $employee_data = get_Columns_where_row(new Employee, ['*'], ['com_code' => $com_code, 'employee_code' => $employee_code, 'functional_status' => 'Employee', 'active_vacation' => 'Yes']);
+        $admin_panel_settingsData = get_Columns_where_row(new AdminPanelSetting, ['*'], ['com_code' => $com_code]);
+        if (! empty($employee_data) && ! empty($admin_panel_settingsData)) {
             // التحقق من وجود شهر مالى مفتوج مع سنه مالية مفتوحة
-            $currentOpenMonth = get_Columns_where_row(new FinanceClnPeriod(), array("id", "finance_yr", "year_and_month"), array("com_code" => $com_code, "is_open" => 1));
-            if (!empty($currentOpenMonth)) {
+            $currentOpenMonth = get_Columns_where_row(new FinanceClnPeriod, ['id', 'finance_yr', 'year_and_month'], ['com_code' => $com_code, 'is_open' => 1]);
+            if (! empty($currentOpenMonth)) {
                 if ($employee_data['is_done_Vacation_formula'] == 0) {
                     //أول مره ينزل له رصيد
                     $now = time();
                     $yourDate = strtotime($employee_data['work_start_date']);
-                    $dateDiff =  $now  - $yourDate;
+                    $dateDiff = $now - $yourDate;
                     $difference_days = round($dateDiff / (60 * 60 * 24));
                     //لو عدد الايام يساوى او اكبر من الضبط العام سوف ينزل له رصيد اول المده
                     if ($difference_days >= $admin_panel_settingsData['after_days_begin_vacation']) {
                         $activeDays = $admin_panel_settingsData['after_days_begin_vacation'];
                         $current_year = $currentOpenMonth['finance_yr'];
                         $workYear = date('Y', strtotime($employee_data['work_start_date']));
-                        $dateActiveFormula = date('Y-m-d', strtotime($employee_data['work_start_date'] . ' + ' . $activeDays . ' days'));
+                        $dateActiveFormula = date('Y-m-d', strtotime($employee_data['work_start_date'].' + '.$activeDays.' days'));
                         if ($workYear == $current_year) {
                             $dataToInsert['current_month_balance'] = $admin_panel_settingsData['first_balance_begin_vacation'];
                             $dataToInsert['total_available_balance'] = $admin_panel_settingsData['first_balance_begin_vacation'];
@@ -137,21 +137,21 @@ class MainEmployeesVacationBalanceController extends Controller
                         if ($difference_days <= 360) {
                             $dataToInsert['year_month'] = date('Y-m', strtotime($dateActiveFormula));
                         } else {
-                            $dataToInsert['year_month'] = $current_year . '-01';
+                            $dataToInsert['year_month'] = $current_year.'-01';
                         }
                         $dataToInsert['financial_year'] = $current_year;
                         $dataToInsert['employee_code'] = $employee_code;
                         $dataToInsert['created_at'] = date('Y-m-d H:i:s');
                         $dataToInsert['created_by'] = auth()->user()->id;
                         $dataToInsert['com_code'] = $com_code;
-                        $checkExists = get_Columns_where_row(new MainEmployeesVacationBalance(), array("id"), array("com_code" => $com_code, "employee_code" => $employee_code, "financial_year" => $current_year, "year_month" => $dataToInsert['year_month']));
+                        $checkExists = get_Columns_where_row(new MainEmployeesVacationBalance, ['id'], ['com_code' => $com_code, 'employee_code' => $employee_code, 'financial_year' => $current_year, 'year_month' => $dataToInsert['year_month']]);
                         if (empty($checkExists)) {
-                            $flag = insert(new MainEmployeesVacationBalance(), $dataToInsert);
+                            $flag = insert(new MainEmployeesVacationBalance, $dataToInsert);
                             if ($flag) {
                                 $dataToUpdate['is_done_Vacation_formula'] = 1;
                                 // $dataToUpdate['last_update'] = date('Y-m-d');
                                 $dataToUpdate['updated_by '] = auth()->user()->id;
-                                update(new Employee(), $dataToUpdate, array("com_code" => $com_code, "employee_code" => $employee_code));
+                                update(new Employee, $dataToUpdate, ['com_code' => $com_code, 'employee_code' => $employee_code]);
                             }
                         }
                     }
@@ -186,7 +186,6 @@ class MainEmployeesVacationBalanceController extends Controller
         //
     }
 
-
     public function ajax_search(Request $request)
     {
         if ($request->ajax()) {
@@ -215,11 +214,11 @@ class MainEmployeesVacationBalanceController extends Controller
             // اضف باقي شروط البحث هنا
             // مثال:
             if ($request->filled('name')) {
-                $query->where('name', 'like', '%' . $request->name . '%');
+                $query->where('name', 'like', '%'.$request->name.'%');
             }
 
             if ($name != '') {
-                $query->where('name', 'like', '%' . $name . '%');
+                $query->where('name', 'like', '%'.$name.'%');
             }
 
             if ($branch_id != 'all') {
@@ -250,10 +249,9 @@ class MainEmployeesVacationBalanceController extends Controller
                 $query->where('gender', $gender);
             }
 
-
-            if (!empty($data)) {
+            if (! empty($data)) {
                 foreach ($data as $info) {
-                    $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, array('com_code' => $com_code, 'employee_code' => $info['employee_code']));
+                    $info->CounterUsedBefore = get_count_where(new MainSalaryEmployee, ['com_code' => $com_code, 'employee_code' => $info['employee_code']]);
                 }
             }
 

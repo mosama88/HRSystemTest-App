@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('desc_file', 225)->nullable();
             $table->string('file_path', 225)->nullable();
-            $table->foreignId("employee_id")->nullable()->references("id")->on("employees")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreignId('employee_id')->nullable()->references('id')->on('employees')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('com_code');
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('admins')->onUpdate('cascade');

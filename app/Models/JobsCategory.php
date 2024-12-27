@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Admin;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class JobsCategory extends Model
 {
     use HasFactory;
 
-    protected $table = "jobs_categories";
+    protected $table = 'jobs_categories';
 
     protected $fillable = [
         'name',
@@ -19,7 +18,6 @@ class JobsCategory extends Model
         'updated_by',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

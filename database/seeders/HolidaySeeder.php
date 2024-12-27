@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class HolidaySeeder extends Seeder
 {
@@ -23,7 +22,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد الشرطة',
@@ -34,8 +33,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
-
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد الفطر المبارك',
@@ -46,8 +44,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
-
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد تحرير سيناء',
@@ -58,8 +55,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
-
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد العمال',
@@ -70,7 +66,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد شم النسيم',
@@ -81,7 +77,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'وقفة عيد الأضحى',
@@ -92,7 +88,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'عيد الأضحى المبارك',
@@ -103,7 +99,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'ثورة ٣٠ يونيو',
@@ -114,8 +110,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
-
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'رأس السنة الهجرية',
@@ -126,8 +121,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
-
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'ثورة ٢٣ يوليو ١٩٥٢',
@@ -138,7 +132,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => 'المولد النبوي الشريف',
@@ -149,7 +143,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
         DB::table('holidays')->insert([
             'name' => '٦ أكتوبر',
@@ -160,7 +154,7 @@ class HolidaySeeder extends Seeder
             'com_code' => 1,
             'created_by' => 1,
             'updated_by' => 1,
-        ],);
+        ], );
 
     }
 }

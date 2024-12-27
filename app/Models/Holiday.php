@@ -9,8 +9,7 @@ class Holiday extends Model
 {
     use HasFactory;
 
-
-    protected $table = "holidays";
+    protected $table = 'holidays';
 
     protected $fillable = [
         'name',
@@ -22,7 +21,6 @@ class Holiday extends Model
         'updated_by',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_departure_action_excels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("finance_cln_periods_id")->comment('كود الشهر المالى');
+            $table->foreignId('finance_cln_periods_id')->comment('كود الشهر المالى');
             $table->bigInteger('employee_code')->comment('كود الموظف');
             $table->dateTime('date_time_action')->comment('توقيت البصمه من جهاز البصمة');
             $table->tinyInteger('action_type')->comment('(1 حضور) - (2 انصراف)نوع حركة البصمة');

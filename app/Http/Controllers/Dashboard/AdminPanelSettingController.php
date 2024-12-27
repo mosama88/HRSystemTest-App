@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
-use App\Models\AdminPanelSetting;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\AdminPanelSettingRequest;
+use App\Models\AdminPanelSetting;
 use App\Traits\UploadTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminPanelSettingController extends Controller
 {
-
     use UploadTrait;
 
     public function __construct()
@@ -20,11 +18,11 @@ class AdminPanelSettingController extends Controller
         $this->middleware('permission:تعديل الضبط العام', ['only' => ['update', 'edit']]);
     }
 
-
     public function index()
     {
         $com_code = auth()->user()->com_code;
         $data = AdminPanelSetting::select('*')->where('com_code', $com_code)->first();
+
         return view('dashboard.settings.generalSetting.index', compact('data'));
     }
 
@@ -59,6 +57,7 @@ class AdminPanelSettingController extends Controller
     {
         $com_code = auth()->user()->com_code;
         $data = AdminPanelSetting::select('*')->where('com_code', $com_code)->first();
+
         return view('dashboard.settings.generalSetting.edit', compact('data'));
     }
 
@@ -105,7 +104,7 @@ class AdminPanelSettingController extends Controller
 
                 // حذف الصورة القديمة إذا كانت موجودة
                 if ($admin_setting->image) {
-                    $old_image_path = public_path('dashboard/assets/uploads/admin_setting/' . $admin_setting->image);
+                    $old_image_path = public_path('dashboard/assets/uploads/admin_setting/'.$admin_setting->image);
                     if (file_exists($old_image_path)) {
                         unlink($old_image_path);
                     }
@@ -128,7 +127,7 @@ class AdminPanelSettingController extends Controller
 
                 // حذف الصورة القديمة إذا كانت موجودة
                 if ($admin_setting->photo_cover) {
-                    $old_image_path = public_path('dashboard/assets/uploads/company/photo/' . $admin_setting->photo_cover);
+                    $old_image_path = public_path('dashboard/assets/uploads/company/photo/'.$admin_setting->photo_cover);
                     if (file_exists($old_image_path)) {
                         unlink($old_image_path);
                     }
@@ -139,18 +138,18 @@ class AdminPanelSettingController extends Controller
                 $dataToUpdate['photo_cover'] = $the_file_path;
             }
 
-
             // تحديث السجل
             $admin_setting->update($dataToUpdate);
 
             session()->flash('success', 'تم تعديل البيانات بنجاح');
+
             return redirect()->route('dashboard.generalSettings.index');
         } catch (\Exception $e) {
             DB::rollback();
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

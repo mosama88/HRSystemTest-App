@@ -2,36 +2,32 @@
 
 namespace App\Http\Controllers\Dashboard\Settings;
 
-use App\Models\Department;
-use App\Models\Employee;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\DepartmentRequest;
+use App\Models\Department;
+use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
 {
-  
-    
-    
     public function __construct()
     {
         $this->middleware('permission:الأدارات', ['only' => ['index']]);
-        $this->middleware('permission:اضافة الأدارات', ['only' => ['create','store']]);
-        $this->middleware('permission:تعديل الأدارات', ['only' => ['update','edit']]);
+        $this->middleware('permission:اضافة الأدارات', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الأدارات', ['only' => ['update', 'edit']]);
         $this->middleware('permission:حذف الأدارات', ['only' => ['destroy']]);
     }
-
 
     public function index()
     {
         $com_code = auth()->user()->com_code;
-        $data = getColumnsIndex(new Department(), array("*"), array('com_code' => $com_code), 'id', 'DESC')->get();
-        if (!empty($data)) {
+        $data = getColumnsIndex(new Department, ['*'], ['com_code' => $com_code], 'id', 'DESC')->get();
+        if (! empty($data)) {
             foreach ($data as $info) {
-                $info->counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "department_id" => $info->id));
+                $info->counterUsed = get_count_where(new Employee, ['com_code' => $com_code, 'department_id' => $info->id]);
             }
         }
+
         return view('dashboard.settings.departments.index', ['data' => $data]);
     }
 
@@ -47,8 +43,8 @@ class DepartmentController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $CheckExsists = get_Columns_where_row(new Department(), array('id'), array("com_code" => $com_code, 'name' => $request->name));
-            if (!empty($CheckExsists)) {
+            $CheckExsists = get_Columns_where_row(new Department, ['id'], ['com_code' => $com_code, 'name' => $request->name]);
+            if (! empty($CheckExsists)) {
                 return redirect()->back()->with(['error' => 'عفوا اسم الادارة مسجل من قبل !'])->withInput();
             }
             DB::beginTransaction();
@@ -58,12 +54,14 @@ class DepartmentController extends Controller
             $dataToinsert['active'] = $request->active;
             $dataToinsert['created_by'] = auth()->user()->id;
             $dataToinsert['com_code'] = $com_code;
-            insert(new Department(), $dataToinsert);
+            insert(new Department, $dataToinsert);
             DB::commit();
-            return  redirect()->route('dashboard.departments.index')->with(['success' => 'تم ادخال البيانات بنجاح']);
+
+            return redirect()->route('dashboard.departments.index')->with(['success' => 'تم ادخال البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()])->withInput();
         }
     }
 
@@ -78,22 +76,24 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $com_code = auth()->user()->com_code;
-        $data = get_Columns_where_row(new Department(), array("*"), array('com_code' => $com_code, 'id' => $id));
+        $data = get_Columns_where_row(new Department, ['*'], ['com_code' => $com_code, 'id' => $id]);
         if (empty($data)) {
             return redirect()->route('dashboard.departments.index')->with(['error' => 'عفوا غير قادر الي الوصول البي البيانات المطلوبة !']);
         }
+
         return view('dashboard.settings.Departments.edit', ['data' => $data]);
     }
+
     public function update($id, DepartmentRequest $request)
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Department(), array("*"), array('com_code' => $com_code, 'id' => $id));
+            $data = get_Columns_where_row(new Department, ['*'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($data)) {
                 return redirect()->route('dashboard.departments.index')->with(['error' => 'عفوا غير قادر الي الوصول البي البيانات المطلوبة !']);
             }
-            $CheckExsists = Department::select("id")->where('com_code', '=', $com_code)->where('name', '=', $request->name)->where('id', '!=', $id)->first();
-            if (!empty($CheckExsists)) {
+            $CheckExsists = Department::select('id')->where('com_code', '=', $com_code)->where('name', '=', $request->name)->where('id', '!=', $id)->first();
+            if (! empty($CheckExsists)) {
                 return redirect()->back()->with(['error' => 'عفوا اسم الادارة مسجل من قبل !'])->withInput();
             }
             DB::beginTransaction();
@@ -102,12 +102,14 @@ class DepartmentController extends Controller
             $dataToUpdate['notes'] = $request->notes;
             $dataToUpdate['active'] = $request->active;
             $dataToUpdate['updated_by'] = auth()->user()->id;
-            update(new Department(), $dataToUpdate, array('com_code' => $com_code, 'id' => $id));
+            update(new Department, $dataToUpdate, ['com_code' => $com_code, 'id' => $id]);
             DB::commit();
+
             return redirect()->route('dashboard.departments.index')->with(['success' => 'تم تحديث البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()])->withInput();
         }
     }
 
@@ -115,21 +117,23 @@ class DepartmentController extends Controller
     {
         try {
             $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Department(), array("*"), array('com_code' => $com_code, 'id' => $id));
+            $data = get_Columns_where_row(new Department, ['*'], ['com_code' => $com_code, 'id' => $id]);
             if (empty($data)) {
                 return redirect()->route('dashboard.departments.index')->with(['error' => 'عفوا غير قادر الي الوصول البي البيانات المطلوبة !']);
             }
-            $counterUsed = get_count_where(new Employee(), array("com_code" => $com_code, "department_id" => $id));
+            $counterUsed = get_count_where(new Employee, ['com_code' => $com_code, 'department_id' => $id]);
             if ($counterUsed > 0) {
                 return redirect()->route('dashboard.departments.index')->with(['error' => 'عفوآ غير قادر على الحذف لانه قد تم أستخدامه من قبل']);
             }
             DB::beginTransaction();
-            destroy(new Department(), array('com_code' => $com_code, 'id' => $id));
+            destroy(new Department, ['com_code' => $com_code, 'id' => $id]);
             DB::commit();
+
             return redirect()->route('dashboard.departments.index')->with(['success' => 'تم حذف البيانات بنجاح']);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما ' . $ex->getMessage()])->withInput();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما '.$ex->getMessage()])->withInput();
         }
     }
 }

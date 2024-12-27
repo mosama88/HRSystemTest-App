@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -20,12 +20,14 @@ class UserController extends Controller
     public function index()
     {
         $users = Admin::get();
+
         return view('role-permission.user.index', ['users' => $users]);
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+
         return view('role-permission.user.create', ['roles' => $roles]);
     }
 
@@ -47,7 +49,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'status' => 'active',
             'com_code' => 1,
-            'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id,
         ]);
 
         $user->syncRoles($request->roles);
@@ -59,10 +61,11 @@ class UserController extends Controller
     {
         $roles = Role::pluck('name', 'name')->all();
         $userRoles = $user->roles->pluck('name', 'name')->all();
+
         return view('role-permission.user.edit', [
             'user' => $user,
             'roles' => $roles,
-            'userRoles' => $userRoles
+            'userRoles' => $userRoles,
         ]);
     }
 
@@ -80,10 +83,10 @@ class UserController extends Controller
             'username' => $request->username,
             'status' => $request->status,
             'com_code' => 1,
-            'updated_by' => auth()->user()->id
+            'updated_by' => auth()->user()->id,
         ];
 
-        if (!empty($request->password)) {
+        if (! empty($request->password)) {
             $data += [
                 'password' => Hash::make($request->password),
             ];

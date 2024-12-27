@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-
 class AdminPanelSetting extends Model
 {
     use HasFactory;
 
-
-
-    protected $table = "admin_panel_settings";
+    protected $table = 'admin_panel_settings';
 
     protected $guarded = [];
-
 
     public function createdByAdmin()
     {
@@ -27,7 +23,6 @@ class AdminPanelSetting extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
 
     public function image(): MorphOne
     {

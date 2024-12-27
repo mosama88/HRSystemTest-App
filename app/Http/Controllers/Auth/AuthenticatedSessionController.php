@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         $data = AdminPanelSetting::select('*')->first();
+
         return view('dashboard.auth.login', ['data' => $data]);
     }
 

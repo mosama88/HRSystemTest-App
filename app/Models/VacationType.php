@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VacationType extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'created_by',
@@ -15,7 +16,6 @@ class VacationType extends Model
         'active',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {

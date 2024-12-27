@@ -9,7 +9,7 @@ class Allowance extends Model
 {
     use HasFactory;
 
-    protected $table = "allowances";
+    protected $table = 'allowances';
 
     protected $fillable = [
         'name',
@@ -18,7 +18,6 @@ class Allowance extends Model
         'updated_by',
         'com_code',
     ];
-
 
     public function createdByAdmin()
     {
@@ -30,5 +29,3 @@ class Allowance extends Model
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 }
-
-

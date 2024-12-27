@@ -23,9 +23,10 @@ class BloodTypeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'active' => 'nullable'
+            'active' => 'nullable',
         ];
     }
+
     public function messages()
     {
         return [

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class EmployeeSalaryDiscount extends Model
 {
     use HasFactory;
-    protected $table = "employee_salary_discounts";
+
+    protected $table = 'employee_salary_discounts';
 
     protected $guarded = [];
 
@@ -26,7 +27,6 @@ class EmployeeSalaryDiscount extends Model
     {
         return $this->belongsTo(MainSalaryEmployee::class, 'main_salary_employees_id');
     }
-
 
     public function financeClnPeriods()
     {

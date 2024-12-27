@@ -30,6 +30,7 @@ class BranchRequest extends FormRequest
 
         ];
     }
+
     public function messages()
     {
         return [

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_departures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("finance_cln_periods_id")->comment('كود الشهر المالى');
+            $table->foreignId('finance_cln_periods_id')->comment('كود الشهر المالى');
             $table->bigInteger('employee_code')->comment('كود الموظف');
             $table->decimal('shift_hour_contract', 10, 2)->nullable()->comment('عدد ساعات العمل اليومى المتعاقد عليها فى تلك الوقت');
             $table->tinyInteger('status_move')->nullable()->comment('(1-Check in حضور)(2-Check out انصراف)');
@@ -42,8 +42,8 @@ return new class extends Migration
             $table->integer('occasions_id')->nullable()->comment('اجازات رسمية فى حالة نوع الأجازه رسمى');
             $table->tinyInteger('cut')->default(0)->nullable()->comment('nothing == 0 | quarter Day = 25| half day = 5| one day = 1');
             $table->string('year_month', 30)->comment('الشهر المالى للبصمة')->nullable();
-            $table->enum('employee_status', ["Employee", "Unemployed"])->nullable()->default('Employee')->comment('حالة الموظف لحظة البصمة'); //Functional Status
-            $table->foreignId("branch_id")->comment("كود الفرع لحظة البصمة ")->references("id")->on("branches")->onUpdate("cascade");
+            $table->enum('employee_status', ['Employee', 'Unemployed'])->nullable()->default('Employee')->comment('حالة الموظف لحظة البصمة'); //Functional Status
+            $table->foreignId('branch_id')->comment('كود الفرع لحظة البصمة ')->references('id')->on('branches')->onUpdate('cascade');
             $table->foreignId('main_salary_employees_id')->nullable()->comment('كود الراتب بالشهر المالى ان وجد')->nullable();
             $table->integer('com_code');
             $table->foreignId('created_by')->references('id')->on('admins')->onUpdate('cascade');

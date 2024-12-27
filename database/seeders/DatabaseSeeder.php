@@ -3,10 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Employee;
 use Illuminate\Database\Seeder;
-use Database\Seeders\MonthSeeder;
-use Database\Seeders\FinanceSeeder;
 
 class DatabaseSeeder extends Seeder
 {

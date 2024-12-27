@@ -9,8 +9,7 @@ class JobGrade extends Model
 {
     use HasFactory;
 
-
-    protected $table = "job_grades";
+    protected $table = 'job_grades';
 
     protected $guarded = [];
 
@@ -23,6 +22,4 @@ class JobGrade extends Model
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
-
-    
 }

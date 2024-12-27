@@ -11,8 +11,8 @@ class PageController extends Controller
      */
     public function index($id)
     {
-        if (view()->exists('pages.' . $id)) {
-            return view('pages.' . $id);
+        if (view()->exists('pages.'.$id)) {
+            return view('pages.'.$id);
         } else {
             return view('pages.404');
         }

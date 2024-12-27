@@ -1,6 +1,7 @@
 <?php
-use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Dashboard\HomeController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,3 @@ Route::middleware(['auth', 'check.license'])->group(function () {
     Route::get('/dashboard/user', [HomeController::class, 'user']);
 
 });
-
