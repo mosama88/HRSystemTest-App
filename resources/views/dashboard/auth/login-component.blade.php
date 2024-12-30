@@ -13,7 +13,7 @@
     <!-- Password Input -->
     <div class="mb-3">
         <label class="form-label" for="userpassword">كلمة المرور</label>
-        <input type="password" wire:model="password" class="form-control" id="userpassword" placeholder="xxxxxxxxx">
+        <input type="password" wire:model="password" class="form-control" id="userpassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
         @error('password')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
