@@ -47,6 +47,8 @@
             </div>
         @endforeach
     @endif
+
+    
     <!-- row -->
     <div class="row">
         <!--div-->

@@ -44,30 +44,7 @@ class BranchController extends Controller
      */
     public function store(BranchRequest $request)
     {
-        try {
-            $com_code = auth()->user()->com_code;
-            $checkExists = get_Columns_where_row(new Branch, ['id'], ['com_code' => $com_code, 'name' => $request->name]);
-            if (! empty($checkExists)) {
-                return redirect()->back()->withErrors(['error' => 'كود الشركة مسجل بالفعل ']);
-            }
-            DB::beginTransaction();
-            $branch['name'] = $request->name;
-            $branch['address'] = $request->address;
-            $branch['phones'] = $request->phones;
-            $branch['email'] = $request->email;
-            $branch['com_code'] = $com_code;
-            $branch['created_by'] = auth()->user()->id;
-            $branch['active'] = $request->active;
-            insert(new Branch, $branch);
-            DB::commit();
-            session()->flash('success', 'تم أضافة البيانات بنجاح');
-
-            return redirect()->route('dashboard.branches.index');
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
-        }
+        //
     }
 
     /**
@@ -98,31 +75,7 @@ class BranchController extends Controller
      */
     public function update(BranchRequest $request, $id)
     {
-        try {
-            $com_code = auth()->user()->com_code;
-            $data = get_Columns_where_row(new Branch, ['*'], ['id' => $id, 'com_code' => $com_code]);
-            if (empty($data)) {
-                return redirect()->route('dashboard.branches.index')->withErrors(['error' => 'عفوآ غير قادر على الوصول للبيانات المطلوبه']);
-            }
-
-            $updateBranch['name'] = $request->name;
-            $updateBranch['address'] = $request->address;
-            $updateBranch['phones'] = $request->phones;
-            $updateBranch['email'] = $request->email;
-            $updateBranch['com_code'] = $com_code;
-            $updateBranch['updated_by'] = auth()->user()->id;
-            $updateBranch['active'] = $request->active;
-            update(new Branch, $updateBranch, ['id' => $id, 'com_code' => $com_code]);
-
-            DB::commit();
-            session()->flash('success', 'تم تحديث البيانات بنجاح');
-
-            return redirect()->route('dashboard.branches.index');
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
-        }
+        //
     }
 
     /**
@@ -150,7 +103,7 @@ class BranchController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
-            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: '.$e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => 'حدث خطأ أثناء إضافة البيانات: ' . $e->getMessage()]);
         }
     }
 }
