@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Api\AdminPanelSettingsController;
 use App\Http\Controllers\Dashboard\Api\BranchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('branches', BranchController::class);
+Route::get('adminPanelSettings', AdminPanelSettingsController::class);
