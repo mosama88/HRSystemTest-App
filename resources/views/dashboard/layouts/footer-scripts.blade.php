@@ -49,6 +49,7 @@
 @livewireScripts
 
 
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         Livewire.hook('morph.updated', (el, component) => {

@@ -13,7 +13,17 @@ class BranchTable extends Component
 
     public $name;
 
-    protected $listeners = ['refreshTableBranch' => 'refresh'];
+    protected $listeners = ['refreshTableBranch' => 'refreshComponent', 'notify' => 'showNotification'];
+
+    public function refreshComponent()
+    {
+        $this->render(); // إعادة تحميل الجدول
+    }
+
+    public function showNotification($type, $message)
+    {
+        session()->flash($type, $message);
+    }
 
     public function updatingSearch()
     {
@@ -27,8 +37,8 @@ class BranchTable extends Component
         $query = (new Branch)->query();
 
         if ($this->name) {
-            $query->where('name', 'like', '%'.$this->name.'%')->orWhere('email', 'like', '%'.$this->name.'%')
-                ->orWhere('phones', 'like', '%'.$this->name.'%');
+            $query->where('name', 'like', '%' . $this->name . '%')->orWhere('email', 'like', '%' . $this->name . '%')
+                ->orWhere('phones', 'like', '%' . $this->name . '%');
         }
 
         $data = $query->orderBy('id', 'DESC')->where('com_code', $com_code)->paginate(10);

@@ -42,11 +42,11 @@ class BranchCreate extends Component
         $branchCreate['created_by'] = auth()->user()->id;
         $branchCreate['com_code'] = $com_code;
         Branch::create($branchCreate);
+        $this->dispatch('notify', 'success', 'تم أضافة الفرع بنجاح!')->to(BranchTable::class);
+
         $this->reset(['name', 'address', 'phones', 'email']);
         $this->dispatch('createModalToggle');
         $this->dispatch('refreshTableBranch')->to(BranchTable::class);
-        session()->flash('message', 'تم إضافة البيانات بنجاح');
-
     }
 
     public function render()

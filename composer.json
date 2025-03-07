@@ -19,11 +19,11 @@
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.29",
         "laravel/pint": "^1.18",
         "laravel/sail": "^1.18",
+        "laravel/telescope": "^5.5",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.0",
