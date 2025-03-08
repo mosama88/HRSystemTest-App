@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Api\AdminPanelSettingsController;
-use App\Http\Controllers\Dashboard\Api\BranchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\Api\BranchController;
+use App\Http\Controllers\Dashboard\Api\DepartmentController;
+use App\Http\Controllers\Dashboard\Api\ShiftsTypesController;
+use App\Http\Controllers\Dashboard\Api\AdminPanelSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('branches', BranchController::class);
 Route::get('adminPanelSettings', AdminPanelSettingsController::class);
+Route::get('shiftsTypes', ShiftsTypesController::class);
+Route::get('departments', DepartmentController::class);
