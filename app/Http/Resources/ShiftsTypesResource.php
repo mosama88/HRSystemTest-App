@@ -20,7 +20,7 @@ class ShiftsTypesResource extends JsonResource
             "Shift From Time" => $this->from_time,
             "Shift to Time" => $this->to_time,
             "Total Hours Works" => $this->total_hours,
-            "Status" => $this->active,
+            "Status" => $this->active == 1 ? "Active" : "InActive",
         ];
     }
 }

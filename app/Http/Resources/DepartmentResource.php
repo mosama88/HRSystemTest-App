@@ -19,7 +19,8 @@ class DepartmentResource extends JsonResource
             "Department Name" => $this->name,
             "Telephone" => $this->phones,
             "Notes" => $this->notes,
-            "Status" => $this->active,
+            "Status" => $this->active == 1 ? "Active" : "InActive",
+            "created_by" => $this->createdBy->name,
 
         ];
     }
