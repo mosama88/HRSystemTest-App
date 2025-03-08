@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Api\BranchController;
+use App\Http\Controllers\Dashboard\Api\CountryController;
 use App\Http\Controllers\Dashboard\Api\DepartmentController;
 use App\Http\Controllers\Dashboard\Api\GovernorateController;
 use App\Http\Controllers\Dashboard\Api\ShiftsTypesController;
@@ -36,5 +37,8 @@ Route::get('shiftsTypes', ShiftsTypesController::class);
 //.................................................departments
 Route::get('departments', DepartmentController::class);
 
+//.................................................countries
+Route::get('countries', CountryController::class);
+
 //.................................................governorates
-Route::get('governorates/{country_id}', GovernorateController::class);
+Route::get('governorates', GovernorateController::class);

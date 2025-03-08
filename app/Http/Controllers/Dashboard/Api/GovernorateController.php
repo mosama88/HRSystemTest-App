@@ -13,9 +13,9 @@ class GovernorateController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, $country_id)
+    public function __invoke(Request $request)
     {
-        $governorates = Governorate::where('country_id', $country_id)->get();
+        $governorates = Governorate::where('country_id', $request->input('country'))->get();
         if (count($governorates) > 0) {
             return ApiResponse::sendResponse(200, "Data Retrived Successefully", GovernorateResource::collection($governorates));
         } else {
