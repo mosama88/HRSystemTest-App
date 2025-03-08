@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Api\CountryController;
 use App\Http\Controllers\Dashboard\Api\DepartmentController;
 use App\Http\Controllers\Dashboard\Api\GovernorateController;
 use App\Http\Controllers\Dashboard\Api\ShiftsTypesController;
+use App\Http\Controllers\Dashboard\Api\BranchControllerSendData;
 use App\Http\Controllers\Dashboard\Api\AdminPanelSettingsController;
 
 /*
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //.................................................branches
 Route::get('branches', BranchController::class);
+Route::post('branches', BranchControllerSendData::class);
+
 
 //.................................................adminPanelSettings
 Route::get('adminPanelSettings', AdminPanelSettingsController::class);
