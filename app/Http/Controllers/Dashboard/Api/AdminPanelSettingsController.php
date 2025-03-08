@@ -24,6 +24,11 @@ class AdminPanelSettingsController extends Controller
         // return  AdminPanelSettingsResourse::collection($adminPanelSetting);
 
         $adminPanelSetting = AdminPanelSetting::findOrFail(1);
-        if ($adminPanelSetting) return ApiResponse::sendResponse(201, 'Admin PanelSettings Retrived Successfully', new AdminPanelSettingsResourse($adminPanelSetting));
+        // if ($adminPanelSetting) return ApiResponse::sendResponse(201, 'Admin PanelSettings Retrived Successfully', new AdminPanelSettingsResourse($adminPanelSetting));
+        if ($adminPanelSetting) {
+            return ApiResponse::sendResponse(200, 'Admin PanelSettings Retrived Successfully', new AdminPanelSettingsResourse($adminPanelSetting));
+        } else {
+            return ApiResponse::sendResponse(200, 'Data Not Found', []);
+        }
     }
 }
